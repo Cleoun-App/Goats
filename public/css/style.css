@@ -1,0 +1,204 @@
+.dark .choices__inner {
+    border-radius: 8px;
+    background-color: rgba(35,42,59,var(--tw-bg-opacity)) !important;
+}
+
+.dark .choices__inner .choices__input {
+    color: #ede3e380 !important;
+    background-color: rgba(35,42,59,var(--tw-bg-opacity)) !important;
+}
+
+.dark .choices__inner .choices__item--selectable{
+    background-color: #2f5ad8 !important;
+    border: none;
+}
+
+.dark .choices__list{
+    background-color: rgba(35,42,59,var(--tw-bg-opacity)) !important;
+}
+
+.dark .choices__list--dropdown .choices__item--selectable{
+    background-color: rgba(35,42,59,var(--tw-bg-opacity)) !important;
+}
+
+/*  */
+
+/* the text color of the drop label*/
+.dark .filepond--drop-label {
+    color: #ede3e380 !important;
+}
+
+/* underline color for "Browse" button */
+.dark .filepond--label-action {
+    text-decoration-color: #ede3e380 !important;
+}
+
+.dark .filepond--panel-root {
+    background-color: rgba(35,42,59,var(--tw-bg-opacity)) !important;
+}
+
+.badge {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2d6efc;
+    padding: 2.5px 8px;
+    margin: 2px 0;
+    border-radius: 2.5px;
+}
+
+.text {
+    font-size: 13px;
+    margin-right: 10px;
+    color: #f5f5f5;
+}
+
+.close-btn {
+    border: none !important;
+    outline: none !important;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-right: 3px;
+    font-size: 16px;
+    transition: color .4s;
+}
+
+.close-btn:hover {
+    color: #ff1c1c;
+}
+
+.label-count {
+    color: rgb(107 245 60 / 85%) !important
+}
+
+/* Selectable field style */
+
+.slx-field{
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.slx-field .slx-input {
+    outline: none;
+    width: 100%;
+    border: 2px solid #eeeeee;
+    background-color: #ffffff; 
+    color: rgb(51, 51, 51);
+    border-radius: 6px;
+    padding: 8px 9px; 
+}
+
+.slx-field .slx-input::placeholder {
+    color: #5c5c5cd8;
+}
+
+.dark .slx-field .slx-input::placeholder {
+    color: #cccccce1;
+}
+
+.dark .slx-field .slx-input {
+    border: 2px solid #1e2636;
+    background-color: #1d2433; 
+    color: #e7e7e7;
+}
+
+.dark .slx-field .selectable-box {
+    background-color: #293044; 
+    box-shadow: #1a243b 0px 0px 12px 2px;
+    border-color: #22293a;
+    color: #f7f7f7;
+}   
+
+.dark .slx-field .selectable-box .item {
+    background-color: #1a203091; 
+    border-color: #1c2230;
+    color: #f7f7f7;
+}
+
+.slx-field .selectable-box{
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    top: 120%;
+    visibility: hidden;
+    opacity: 0;
+    background-color: #ffffff;
+    box-shadow: #a1a1a19a 0px 0px 12px 2px;
+    border: 5px solid #ffffff;
+    outline: none;
+    border-radius: 5px;
+    padding: 2px 0;
+    padding-right: 5px;
+    max-height: 165px;
+    overflow-y: auto;
+    transition: all .3s;
+    z-index: 100;
+}
+
+.slx-field .selectable-box.show{
+    visibility: visible;
+    opacity: 1;
+}
+
+.slx-field .selectable-box .item {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    text-transform: capitalize;
+    border: 1px solid rgb(228, 228, 228);
+    padding: 6px 10px;
+    margin-top: 3px;
+    border-radius: 2px;
+    transition: all .2s;
+    font-size: 13px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.slx-field .selectable-box .item:hover {
+    border-color: #bdbdbd8f;
+}
+
+.slx-field .selectable-box .item:first-of-type {
+    margin: 0;
+}
+
+.dark .slx-field .selectable-box .item.selected {
+    background-color: #abeb6f;
+    border-color: #c3ee9a;
+    color: #292929 !important;
+    font-weight: 600;
+}
+
+.slx-field .selectable-box .item.selected {
+    background-color: #5557d3;
+    color: #f5f5f5;
+    font-weight: 600;
+}
+
+.slx-field .selectable-box .slx-info {
+    font-size: 13px;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    color: #a8a8a8;
+    padding: 5px 0px
+}
+
+.dark .selectable-box .slx-visible {
+    color: #5ac530b7;
+}
+
+.slx-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+.slx-visible {
+    color: #9db4ffc0;
+    opacity: 1;
+    visibility: visible;
+    transition: all .3s;
+}
