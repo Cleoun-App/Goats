@@ -1,4 +1,4 @@
-# Qioee(Toogi) - progresive web application(hoax)
+# Goats - Aplikasi management perkambingan
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
@@ -12,7 +12,7 @@ Qioee was built on top of technologies:
 
 ### APIs entry point
 
-List of APIs entry point
+List of basic APIs entry point
 
 ```sh
 
