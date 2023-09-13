@@ -1,0 +1,22 @@
+_id: env_20d7f52d0a3f45dfaf727c99d6b66e57
+type: Environment
+parentId: env_4191164486da1361a55e7a95289de9c0bb01e95e
+modified: 1694618190447
+created: 1694616236655
+name: Dev Env
+data:
+  bearer_token: 1|jOLY142ARHGwQ4lT8bd2UtzCzmAHDbffWdJDdhZ3
+  base_url: http://localhost:8000
+  username: clouna
+  email: clouna@mail.io
+  password: password
+dataPropertyOrder:
+  "&":
+    - bearer_token
+    - base_url
+    - username
+    - email
+    - password
+color: null
+isPrivate: false
+metaSortKey: 1694616236655

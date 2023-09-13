@@ -1,0 +1,51 @@
+_id: req_fda80b42d6984c1999f359b3e89b231d
+type: Request
+parentId: fld_f07022551faf4f2398110a594f958d1b
+modified: 1694618885346
+created: 1694618275305
+url: "{{ _.base_url }}/api/auth/change-password"
+name: API CHANGE PASSWORD
+description: ""
+method: POST
+body:
+  mimeType: application/x-www-form-urlencoded
+  params:
+    - id: pair_0d12cc38ae67473b851c2a4a49315354
+      name: username
+      value: "{{ _.username }}"
+      description: ""
+    - id: pair_5eeacc1fbf7c41c9a93f02f05fabe3bb
+      name: new_password
+      value: password
+      description: ""
+    - id: pair_2f5262af33854c6db879046081c9e0f9
+      name: password_confirm
+      value: password
+      description: ""
+    - id: pair_87529f993e4c46588d9c97ee52135c7a
+      name: old_password
+      value: password
+      description: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/x-www-form-urlencoded
+    id: pair_f0c413853d834ab3a57fb1e8d5d0b546
+  - name: User-Agent
+    value: insomnia/2023.5.8
+    id: pair_d4b7cd3727904f3885ad91d451f838b9
+  - id: pair_6bed2048443448a8bf77f2faf79524d9
+    name: Accept
+    value: Application/JSON
+    description: ""
+authentication:
+  type: bearer
+  token: "{{ _.bearer_token }}"
+metaSortKey: -1694616220041
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

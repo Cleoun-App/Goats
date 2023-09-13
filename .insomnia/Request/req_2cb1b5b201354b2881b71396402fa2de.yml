@@ -1,0 +1,48 @@
+_id: req_2cb1b5b201354b2881b71396402fa2de
+type: Request
+parentId: fld_f07022551faf4f2398110a594f958d1b
+modified: 1694618068327
+created: 1694616220141
+url: "{{ _.base_url }}/api/auth/registration"
+name: API REGITSRATION
+description: ""
+method: POST
+body:
+  mimeType: application/x-www-form-urlencoded
+  params:
+    - id: pair_657ab9757d004269b5b673734829f1e8
+      name: name
+      value: "{% faker 'person', '', '', '', '', '', '', '', '', '', '', '', '', '',
+        '', '', '', '', 'fullName', '', '', '', '', '', '', 'en' %}"
+      description: ""
+    - id: pair_874f00c42ffd471e9a72f17577b33440
+      name: email
+      value: "{{ _.email }}"
+      description: ""
+    - id: pair_0d12cc38ae67473b851c2a4a49315354
+      name: username
+      value: "{{ _.username }}"
+      description: ""
+    - id: pair_5eeacc1fbf7c41c9a93f02f05fabe3bb
+      name: password
+      value: password
+      description: ""
+    - id: pair_f950b3bb1d8e4b33949146a9b5f26925
+      name: confirm_password
+      value: password
+      description: ""
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/x-www-form-urlencoded
+  - name: User-Agent
+    value: insomnia/2023.5.8
+authentication: {}
+metaSortKey: -1694616220141
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
