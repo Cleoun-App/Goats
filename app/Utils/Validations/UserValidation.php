@@ -14,13 +14,12 @@ class UserValidation
     public static function validateUserRegistration(Request $request)
     {
         $message = array_merge(self::_name(true), self::_username(null, true),
-        self::_email(null, true), self::_phonenumber(null, true));
+        self::_email(null, true));
 
         $request->validate([
             'name' => self::_name(),
             'username' => self::_username(),
             'email' => self::_email(),
-            'phone_number' => self::_phonenumber(),
             'password' => [Password::min(5), Password::required(), 'max:60'],
             'confirm_password' => ['required', 'same:password'],
         ]);
@@ -32,7 +31,6 @@ class UserValidation
             'name' => self::_name(),
             'username' => self::_username($user),
             'email' => self::_email($user),
-            'phone_number' => self::_phonenumber($user),
             'gender' => ['required'],
             'location' => ['required', 'array', 'size:2'],
             'location.*' => ['required'],

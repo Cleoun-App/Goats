@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\GoatController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\Api\UserController;
@@ -20,6 +21,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
 
     /**
+     *  Goat API
+     */
+
+    Route::get('/user/{username}/goats/get', [GoatController::class, 'getGoats']);
+
+    /**
      *  User API
      */
 
@@ -37,10 +44,10 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/auth/login', [AuthController::class, 'login']);
 
-Route::post('/registration', [RegistrationController::class, 'register']);
+Route::post('/auth/registration', [AuthController::class, 'register']);
 
-Route::post('/forgot-password', [AuthController::class, 'forgot_password']);
+Route::post('/auth/forgot-password', [AuthController::class, 'forgot_password']);
 
-Route::post('/change-password', [AuthController::class, 'change_password'])->middleware('auth:sanctum');
+Route::post('/auth/change-password', [AuthController::class, 'change_password'])->middleware('auth:sanctum');

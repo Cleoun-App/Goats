@@ -22,7 +22,6 @@ return new class extends Migration
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->string('phone_number');
             $table->enum('gender', ['male', 'female']);
             $table->string('address')->nullable();
             $table->char('creation_mark', 255)->unique();

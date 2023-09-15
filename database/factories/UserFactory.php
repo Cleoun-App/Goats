@@ -26,7 +26,6 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'creation_mark' => uniqid(),
             'address'   =>  fake('id')->address(),
-            'phone_number' => "08" . [1,2,5, 9][rand(0,3)] . rand(10000000, 99999999),
             'gender' => 'male',
         ];
     }

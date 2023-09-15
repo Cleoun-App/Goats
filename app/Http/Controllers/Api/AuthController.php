@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Utils\ResponseFormatter;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
-use User;
+use App\Models\User;
+use App\Utils\Validations\UserValidation;
 
 class AuthController extends Controller
 {
@@ -18,15 +18,18 @@ class AuthController extends Controller
         try {
             
             $request->validate([
-                'phone_number' => 'required',
+                'username' => 'required',
                 'password' => 'required',
             ]);
             
-            $credentials = $request->only('phone_number', 'password');
+            $credentials = $request->only('username', 'password');
 
             if (Auth::attempt($credentials)) {
-                $user = auth()->user();
+
+                $user = auth_user();
+
                 $token = $user->createToken('authToken')->plainTextToken;
+
                 return ResponseFormatter::success([
                     'access_token' => $token,
                     'token_type' => 'Bearer',
@@ -54,7 +57,7 @@ class AuthController extends Controller
         }
     }
 
-    public function change_password($request) {
+    public function change_password(Request $request) {
         try {
             
             $request->validate([
@@ -64,7 +67,7 @@ class AuthController extends Controller
                 'old_password' => ['required'],
             ]);
 
-            $user = User::where('username', $request->username)->firstOrFail();
+            $user = get_user($request->username);
 
             if(Hash::make($request->old_password) != $user->password) {
                 throw new \Exception("Password lama anda tidak sesuai!!");
@@ -83,4 +86,37 @@ class AuthController extends Controller
             ], $th->getMessage(), 200);
         }
     } 
+
+    
+    public function register(Request $request)
+    {
+        try {
+            
+            UserValidation::validateUserRegistration($request);
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'username' => $request->username,
+                'password' => Hash::make($request->password),
+                'creation_mark' => md5($request->username . now()),
+             ]);
+
+             if($user instanceof User) {
+                $user->assignRole('user');
+             }
+
+            return ResponseFormatter::success($user, "Registrasi berhasil");
+
+            // ...
+        } catch(ValidationException $e) {
+
+            return ResponseFormatter::validasiError($e);
+
+        } catch (\Throwable $th) {
+
+            return ResponseFormatter::error([], $th->getMessage());
+
+        }
+    }
 }
