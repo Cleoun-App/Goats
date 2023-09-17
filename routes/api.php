@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GoatController;
+use App\Http\Controllers\Api\MilkNoteController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\Api\UserController;
@@ -37,6 +38,21 @@ Route::middleware('auth:sanctum')->group(function () {
     /**
      *  End Goat APIs
      */
+
+
+    /**
+     *  Milknote APIs
+     */
+
+    Route::get('user/{username}/notes/get', [MilkNoteController::class, 'getNotes']);
+
+    Route::get('user/{username}/note/{id}/get', [MilkNoteController::class, 'getNote']);
+    
+    Route::post('user/{username}/note/add', [MilkNoteController::class, 'addNote']);
+    
+    Route::post('user/{username}/note/{id}/update', [MilkNoteController::class, 'updateNote']);
+    
+    Route::delete('user/{username}/note/{id}/delete', [MilkNoteController::class, 'deleteNote']);
     
 
     /**
