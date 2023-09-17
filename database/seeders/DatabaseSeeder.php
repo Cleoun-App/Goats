@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             PreferencesSeeder::class,
             RNPseeder::class,
             UserSeeder::class,
+            BreedSeeder::class,
+            EventType::class,
         ]);
     }
 }

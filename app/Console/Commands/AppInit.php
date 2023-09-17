@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Goat;
 use Illuminate\Console\Command;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
@@ -65,7 +66,13 @@ class AppInit extends Command
 
         for ($i = 0; $i < $user_count; $i++) {
 
-            $user =  User::factory()->create();
+            if($i == 0) {
+                $user =  User::factory()->create([
+                    'username' => 'clouna16'
+                ]);
+            } else {
+                $user =  User::factory()->create();
+            }
 
             if ($user instanceof User) {
 
@@ -74,6 +81,10 @@ class AppInit extends Command
                 $user_role = array_rand($role_model);
 
                 $user->assignRole($role_model[$user_role]);
+
+                $goat_gen = rand(10, 20);
+
+                Goat::factory($goat_gen)->create(['user_id' => $user->id]);
 
                 // ....
             }

@@ -72,19 +72,12 @@ class UserController extends Controller
                 }
     
                 Image::make($request->image)->save("$user_folder$filename", 80, 'jpg');
-
                 
                 $user->update([
                     'profile_photo' => $filename, 
                     'name' => $request->name,
                     'username' => $request->username,
                     'email' => $request->email,
-                    'location' => $request->location,
-                    'province' => $request->province,
-                    'regency' => $request->regency,
-                    'district' => $request->district,
-                    'village' => $request->village,
-                    'postal_code' => $request->postal_code,
                     'gender' => $request->gender,
                     'address' => $request->address,
                 ]);

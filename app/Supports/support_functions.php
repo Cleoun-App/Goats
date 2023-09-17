@@ -36,7 +36,7 @@ if (function_exists("get_user") == false) {
 
 if (function_exists("get_group") == false) {
 
-    function get_group($slug): Group
+    function get_group($slug): Group|null
     {
         $group = Group::where('slug', $slug)->first();
 
@@ -44,13 +44,13 @@ if (function_exists("get_group") == false) {
             return $group;
         }
 
-        throw new AppHandler("[Error]:[group] group tidak ditemukan!");
+        return null;
     }
 }
 
 if (function_exists("get_goat") == false) {
 
-    function get_goat($tag, bool $throw_if_not_found = true): Goat
+    function get_goat($tag, bool $throw_if_not_found = true): Goat|null
     {
         $goat = Goat::where('tag', $tag)->first();
 

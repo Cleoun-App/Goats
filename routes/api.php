@@ -21,10 +21,23 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
 
     /**
-     *  Goat API
+     *  Goat APIs
      */
 
+    Route::get('/user/{username}/goat/{tag}/get', [GoatController::class, 'getGoat']);
+    
     Route::get('/user/{username}/goats/get', [GoatController::class, 'getGoats']);
+    
+    Route::post('/user/{username}/goat/add', [GoatController::class, 'addGoat']);
+    
+    Route::post('/user/{username}/goat/{goat_tag}/update', [GoatController::class, 'updateGoat']);
+    
+    Route::delete('/user/{username}/goat/{tag}/delete', [GoatController::class, 'deleteGoat']);
+
+    /**
+     *  End Goat APIs
+     */
+    
 
     /**
      *  User API

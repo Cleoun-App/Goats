@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('goats', function (Blueprint $table) {
             $table->id();
             $table->string('name', 150);
-            $table->string('tag', 100)->unique();
-            $table->string('picture');
+            $table->string('tag', 100);
+            $table->string('global_tag', 250)->unique();
+            $table->string('picture')->nullable();
             $table->enum('gender', ['female', 'male']);
             $table->integer('weight')->comment('Weight in gram');
             $table->string('origin');
@@ -27,9 +28,8 @@ return new class extends Migration
             $table->foreignId('father_id')->nullable();
             $table->string('breed');
             $table->enum('status', ['alive', 'death', 'sold']);
-            $table->string('obtained_by');
             $table->timestamp('birth_date');
-            $table->string('note', 450);
+            $table->string('note', 450)->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->on('users')->references('id')->restrictOnDelete();
