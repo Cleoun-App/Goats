@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\GoatController;
 use App\Http\Controllers\Api\MilkNoteController;
 use App\Http\Controllers\Api\NotificationController;
@@ -21,6 +22,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    
+    /**
+     *  Event APIs
+     */
+
+     Route::get('/user/{username}/event/{event_id}/get', [EventController::class, 'getEvent']);
+
+     Route::get('/user/{username}/events/get', [EventController::class, 'getEvents']);
+
+     Route::post('/user/{username}/event/create', [EventController::class, 'addEvent']);
+
+     Route::post('/user/{username}/event/{event_id}/update', [EventController::class, 'updateEvent']);
+
+     Route::delete('user/{username}/event/{event_id}/delete', [EventController::class, 'deleteEvent']);
+     
+    /**
+     *  End Event APIs
+     */
+
     /**
      *  Goat APIs
      */
@@ -34,6 +54,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/user/{username}/goat/{goat_tag}/update', [GoatController::class, 'updateGoat']);
     
     Route::delete('/user/{username}/goat/{tag}/delete', [GoatController::class, 'deleteGoat']);
+
+    Route::get('/goat/breeds', [GoatController::class, 'getBreeds']);
 
     /**
      *  End Goat APIs

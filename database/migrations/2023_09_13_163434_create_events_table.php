@@ -20,10 +20,12 @@ return new class extends Migration
             $table->string('note', 255);
             $table->timestamp('event_date');
             $table->foreignId('user_id');
+            $table->foreignId('goat_id')->nullable();
             $table->json('data')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('goat_id')->references('id')->on('goats')->cascadeOnDelete();
         });
     }
 

@@ -7,13 +7,13 @@ use App\Models\MilkNote;
 use App\Utils\ResponseFormatter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\ValidationException;
 
 class MilkNoteController extends Controller
 {
     public function addNote(Request $request)
     {
         try {
-
             $request->validate([
                 'date' => ['required', 'date'],
                 'type' => ['required', 'in:individual,bulk'],
@@ -28,9 +28,9 @@ class MilkNoteController extends Controller
 
             $note = new MilkNote();
 
-            $carbon = Carbon::createFromTimeString($request->date);
+            $carbon = Carbon::createFromFormat("d-m-Y",$request->date);
 
-            $note->date = $carbon->date_format();
+            $note->date = $carbon;
             $note->type = $request->type;
             $note->produced = $request->produced;
             $note->consumption = $request->consumption;
@@ -44,9 +44,14 @@ class MilkNoteController extends Controller
             return ResponseFormatter::success($note, 'Catatan berhasil ditambahkan');
 
             // ...
+        } catch (ValidationException $e){
+
+            return ResponseFormatter::validasiError($e);
+
         } catch (\Throwable $th) {
 
             return ResponseFormatter::error([], $th->getMessage());
+
             // ...
         }
     }
@@ -54,7 +59,6 @@ class MilkNoteController extends Controller
     public function updateNote(Request $request)
     {
         try {
-
             $request->validate([
                 'date' => ['required', 'date'],
                 'type' => ['required', 'in:individual,bulk'],
@@ -98,7 +102,7 @@ class MilkNoteController extends Controller
 
             $user = get_user($request->username);
 
-            $milknote = $user->milknote()->find($request->note_id);
+            $milknote = $user->milknote()->find($request->note_id) ?? [];
 
             if(count($milknote) === 0) 
                 throw new \Exception('Catatan susu tidak ditemukan!');

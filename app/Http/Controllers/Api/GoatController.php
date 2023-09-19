@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Breed;
 use App\Models\Goat;
 use App\Models\User;
 use App\Utils\ResponseFormatter;
@@ -14,6 +15,23 @@ use Intervention\Image\Facades\Image;
 
 class GoatController extends Controller
 {
+
+    public function getBreeds() {
+        try {
+            
+            $breed = Breed::get();
+
+            return ResponseFormatter::success($breed, "Data berhasil didapatkan");
+
+            // ...
+        } catch (\Throwable $th) {
+
+            return ResponseFormatter::error([], $th->getMessage());
+
+            // ...
+        }
+    } 
+
     public function getGoat(Request $request)
     {
         try {
