@@ -29,6 +29,15 @@
                             </div>
                         </div>
                         <div class="col-span-12 xxl:col-span-6">
+                            <div class="mt-2">
+                                <label for="update-profile-form-1" class="form-label">Alamat</label>
+                                <input id="update-profile-form-1" type="text" class="form-control @error('address') border-theme-21 @enderror" placeholder="Masukan Alamat Pengguna" wire:model.defer="address">
+                                @error('address')
+                                <div class="text-theme-21 mt-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-span-12 xxl:col-span-6">
                             <div class="mt-3">
                                 <label for="update-profile-form-1" class="form-label">Email</label>
                                 <input id="update-profile-form-1" disabled type="email" class="form-control disabled @error('email') border-theme-21 @enderror" placeholder="Masukan Email" value="{{ $email }}" style="color: grey">
@@ -38,13 +47,15 @@
                             </div>
                         </div>
                         <div class="col-span-12 xxl:col-span-6">
-                            <div class="mt-3">
-                                <label for="update-profile-form-4" class="form-label">Nomor Ponsel</label>
-                                <div class="input-group mt-2">
-                                    <div class="input-group-text">+62</div>
-                                    <input type="text" class="form-control" placeholder="--" wire:model.defer="phone_number">
-                                </div>
-                                @error('phone_number')
+                            <div class="mt-2">
+                                <label for="update-profile-form-1" class="form-label">Gender</label>
+                                <select class="form-select sm:mt-2 sm:mr-2 @error('gender') border-theme-21 @enderror" aria-label=".form-select-lg example" wire:model.defer="gender">
+                                    <option>Pilih Gender</option>
+                                    @foreach (['male', 'female'] as $g)
+                                        <option value="{{ $g }}" @if($g === $gender) selected @endif style="text-transform: capitalize">{{ $g }}</option>
+                                    @endforeach
+                                </select>
+                                @error('gender')
                                 <div class="text-theme-21 mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -130,96 +141,5 @@
             </div>
         </div>
     </div>
-
-    <div class="intro-y box lg:mt-5">
-            <div class="flex items-center p-5 border-b border-gray-200 dark:border-dark-5">
-                <h2 class="font-medium text-base mr-auto">
-                   Daftar Kontak Pengguna
-                </h2>
-            </div>
-            <div class="p-5">
-                <div class="flex flex-col-reverse xl:flex-row flex-col">
-                    <div class="flex-1 mt-6 xl:mt-0">
-                        <div class="grid grid-cols-12 gap-x-5">
-                            <div class="col-span-12 xxl:col-span-6">
-                                <div class="mt-0">
-                                    <label for="update-profile-form-4" class="form-label">Facebook</label>
-                                    <div class="input-group mt-0">
-                                        <div class="input-group-text">
-                                            <i data-feather="facebook"
-                                                class="w-4 h-4 m-0 p-0"></i> 
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="--" wire:model.defer="ct_fb">
-                                    </div>
-                                    @error('ct_fb')
-                                    <div class="text-theme-21 mt-2">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-span-12 xxl:col-span-6">
-                                <div class="mt-3">
-                                    <label for="update-profile-form-4" class="form-label">Instagram</label>
-                                    <div class="input-group mt-0">
-                                        <div class="input-group-text">
-                                            <i data-feather="instagram"
-                                                class="w-4 h-4 m-0 p-0"></i> 
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="--" wire:model.defer="ct_insta">
-                                    </div>
-                                    @error('ct_insta')
-                                    <div class="text-theme-21 mt-2">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-span-12 xxl:col-span-6">
-                                <div class="mt-3">
-                                    <label for="update-profile-form-4" class="form-label">Twitter</label>
-                                    <div class="input-group mt-0">
-                                        <div class="input-group-text">
-                                            <i data-feather="twitter"
-                                                class="w-4 h-4 m-0 p-0"></i> 
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="--" wire:model.defer="ct_tweet">
-                                    </div>
-                                    @error('ct_tweet')
-                                    <div class="text-theme-21 mt-2">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-        
-                        <!-- BEGIN: Notification Content -->
-                        <div id="tgl-notif" class="toastify-content hidden flex">
-                            <div class="font-medium">Yay! Updates Published!</div> <a class="font-medium text-theme-25 dark:text-gray-500 mt-1 sm:mt-0 sm:ml-40" href="">Review Changes</a>
-                        </div> 
-                        <!-- END: Notification Content -->
-                        <!-- BEGIN: Notification Toggle -->
-                        <button id="tgl-notif" type="button" wire:click="updateContacts" class="btn btn-primary w-40 mt-4" wire:loading.attr="disabled" wire:loading.class="btn-secondary">
-        
-                            <span wire:loading.remove wire:target="updateContacts">Simpan Perubahan</span>
-                                
-                            <div wire:loading.flex wire:target="updateContacts" style="justify-content: center; align-items: center; margin: 0px; padding: 5px 0px">
-                                <svg width="25" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="rgb(226, 232, 240)" class="w-8 h-7">
-                                    <circle cx="15" cy="15" r="15">
-                                        <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
-                                        <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
-                                    </circle>
-                                    <circle cx="60" cy="15" r="9" fill-opacity="0.3">
-                                        <animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite"></animate>
-                                        <animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite"></animate>
-                                    </circle>
-                                    <circle cx="105" cy="15" r="15">
-                                        <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
-                                        <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
-                                    </circle>
-                                </svg>
-                            </div>
-                        
-                        </button>
-        
-                    </div>
-                </div>
-            </div>
-        </div>
 
 </div>

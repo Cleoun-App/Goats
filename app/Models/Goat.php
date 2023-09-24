@@ -29,6 +29,10 @@ class Goat extends Model
         static::retrieved(function (Goat $goat) {
             $goat->picture_url = $goat->pict_url();
         });
+        
+        static::updating(function (Goat $goat) {
+            $goat->offsetUnset('picture_url');
+        });
     }
 
     public function pict_url() {

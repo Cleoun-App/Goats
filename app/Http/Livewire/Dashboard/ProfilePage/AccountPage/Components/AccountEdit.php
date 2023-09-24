@@ -16,7 +16,7 @@ class AccountEdit  extends _Dashboard
 {
     use WithFileUploads;
 
-    public $username, $name, $photo, $email, $phone_number;
+    public $username, $name, $photo, $email, $address, $gender;
     public $pp;
 
     public $ct_fb, $ct_insta, $ct_tweet;
@@ -26,6 +26,12 @@ class AccountEdit  extends _Dashboard
         $ignore = Rule::unique('users')->ignore($user->id);
 
         return [
+            'gender' => [
+                'required', 'in:male,female',
+            ],
+            'address' => [
+                'string', 'min:3', 'max:120',
+            ],
             'username' => [
                 'required', 'min:1', 'max:50',
                 $ignore,
@@ -35,9 +41,6 @@ class AccountEdit  extends _Dashboard
             ],
             'email' => [
                 'required', 'email', $ignore
-            ],
-            'phone_number' => [
-                'digits_between:8,14', $ignore,
             ],
             'photo' => [
                 'nullable',
@@ -59,7 +62,8 @@ class AccountEdit  extends _Dashboard
         $this->name = $user->name;
         $this->pp = $user->image();
         $this->email = $user->email;
-        $this->phone_number = $user->phone_number;
+        $this->address = $user->address;
+        $this->gender = $user->gender;
 
         $this->ct_fb = $user ?->contacts['facebook'] ?? '';
         $this->ct_insta = $user ?->contacts['instagram'] ?? '';
@@ -101,8 +105,9 @@ class AccountEdit  extends _Dashboard
             $user->update([
                 'name'  =>  $this->name,
                 'username'  =>  $this->username,
-                'phone_number' => $this->phone_number,
                 'profile_photo_path' => $filename,
+                'gender' => $this->gender,
+                'address' => $this->address,
             ]);
 
             $this->dispatch(DispatchType::Success, [

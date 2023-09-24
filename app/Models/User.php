@@ -75,6 +75,10 @@ class User extends Authenticatable implements MustVerifyEmail
         static::retrieved(function (User $user) {
             $user->photo_url = $user->image();
         });
+        
+        static::updating(function ($user){
+            $user->offsetUnset('photo_url');
+        });
     }
     
     /**

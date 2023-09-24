@@ -8,9 +8,9 @@ class MyPosts extends Component
 {
     public $posts;
 
-    public function mount($posts)
+    public function mount()
     {
-        $this->posts = $posts;
+        $this->posts = [];
     }
 
     public function render()

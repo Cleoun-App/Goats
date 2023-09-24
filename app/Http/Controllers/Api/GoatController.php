@@ -234,8 +234,6 @@ class GoatController extends Controller
             $goat->mother()->associate($mother);
             $goat->group()->associate($group);
 
-            unset($goat->picture_url);
-
             $goat->save();
 
             return ResponseFormatter::success($goat, "Kambing '{$request->tag}' berhasil diupdate!");

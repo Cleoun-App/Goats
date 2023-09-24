@@ -16,12 +16,6 @@ class AccountPage extends _Dashboard
 
     private $pages = [
         [
-            'name'  =>  'Post',
-            'key'   =>  'AC6X03',
-            'icon'  =>  'file-text',
-            'path'  =>  'dashboard.profile-page.account-page.components.my-posts',
-        ],
-        [
             'name'  =>  'Edit Profile',
             'key'   =>  'PF87N0',
             'icon'  =>  'edit',
@@ -58,8 +52,12 @@ class AccountPage extends _Dashboard
             $page['pageTitle'] = $this->pageTitle;
 
             $data['user']   =   $user;
-            $data['posts']  =   [];
             $data['pages']  =   $this->pages;
+            $data['infos']  =   [
+                'Username : ' => "@".$user->username,
+                'Identifier : ' => $user->creation_mark,
+                'Alamat : ' => $user->address,
+            ];
 
             return view('livewire.dashboard.profile-page.account-page.account-page', $data)
                 ->layout('layouts.app', $page);

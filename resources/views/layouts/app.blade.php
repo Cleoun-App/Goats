@@ -51,7 +51,6 @@
     <script src="/assets/libs/choices/ch.min.js"></script>
 
     <link rel="stylesheet" href="/assets/core/css/app.css" fetchpriority="high" />
-    <link rel="stylesheet" href="/css/app.css">
 
     <link rel="stylesheet" href="/assets/core/css/iziToast.min.css" fetchpriority="high" />
     <link rel="stylesheet" href="/css/style.css">
