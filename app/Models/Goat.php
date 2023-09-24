@@ -22,6 +22,19 @@ class Goat extends Model
         'date_in' => 'datetime',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::retrieved(function (Goat $goat) {
+            $goat->picture_url = $goat->pict_url();
+        });
+    }
+
+    public function pict_url() {
+        return asset($this->user->path( "goats_pict/" . $this->picture));
+    }
+
     public function user() {
         return $this->belongsTo(User::class);
     }

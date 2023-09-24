@@ -52,38 +52,42 @@ class UserController extends Controller
     public function editUser($username)
     {
         try {
-            
+
             $request = request();
-            
+
             $user = User::where('username', $username)->first();
+
+            unset($user->photo_url);
 
             if($user instanceof User) {
 
                 UserValidation::validateUpdateProfile($request, $user);
-                
+
                 $storage = $user->get_storage();
 
                 $filename = md5($request->name . "-" . uniqid() . '-' . time()) . ".jpg";
 
                 $user_folder = $storage . DIRECTORY_SEPARATOR ;
-    
+
                 if(!FacadesFile::exists($user_folder)) {
                     FacadesFile::makeDirectory($user_folder);
                 }
-    
-                Image::make($request->image)->save("$user_folder$filename", 80, 'jpg');
-                
-                $user->update([
-                    'profile_photo' => $filename, 
-                    'name' => $request->name,
-                    'username' => $request->username,
-                    'email' => $request->email,
-                    'gender' => $request->gender,
-                    'address' => $request->address,
-                ]);
+
+                if($request->image !== null) {
+                    Image::make($request->image)->save("$user_folder$filename", 80, 'jpg');
+                }
+
+                $user->profile_photo = $filename;
+                $user->name = $request->name;
+                $user->username = $request->username;
+                $user->email = $request->email;
+                $user->gender = $request->gender;
+                $user->address = $request->address;
+
+                $user->save();
 
                 return ResponseFormatter::success($user, "Data pengguna berhasil diubah!");
-    
+
                 // ...
             } else {
                 throw new \Exception('Pengguna dengan username ' . $username . ' tidak ditemukan!');

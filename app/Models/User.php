@@ -72,8 +72,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         parent::boot();
 
-        static::retrieved(function ($user) {
-            $user->profile_photo = $user->image();
+        static::retrieved(function (User $user) {
+            $user->photo_url = $user->image();
         });
     }
     

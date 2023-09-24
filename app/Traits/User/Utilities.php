@@ -18,14 +18,14 @@ trait Utilities
             return asset('assets/images/default.png');
         }
 
-        return asset($this->profile_photo);
+        return asset($this->creation_mark .  $this->profile_photo);
 
     }
 
     /**
      *  Metode untuk mendapatkan folder user
      *
-     *  @deprecated
+     *  @deprecated - suggested path method as replacement
      */
     public function get_user_public_folder(string $string = ""): string
     {
