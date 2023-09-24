@@ -45,6 +45,7 @@ class GoatFactory extends Factory
             'breed' => $goat_breeds[rand(0, count($goat_breeds) - 1)],
             'status' => ['alive', 'death', 'sold'][rand(0, 2)],
             'birth_date' => now()->addMonths(rand(-10, -99)),
+            'date_in' => now()->addDay(rand(-10, 10)),
             'note' => $fake->sentence,
             'weight' => rand(100, 999),
         ];

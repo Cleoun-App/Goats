@@ -20,6 +20,7 @@ class MilkNoteController extends Controller
                 'produced' => ['required', 'integer', 'between:1,999999'],
                 'consumption' => ['required', 'integer', 'between:1,999999'] ,
                 'goats_milked' => ['required', 'integer', 'between:1,99999'],
+                'goat_tag' => ['string'],
             ]);
 
             $user = get_user($request->username);
@@ -28,7 +29,7 @@ class MilkNoteController extends Controller
 
             $note = new MilkNote();
 
-            $carbon = Carbon::createFromFormat("d-m-Y",$request->date);
+            $carbon = Carbon::createFromFormat("Y-m-d",$request->date);
 
             $note->date = $carbon;
             $note->type = $request->type;
@@ -65,6 +66,7 @@ class MilkNoteController extends Controller
                 'produced' => ['required', 'integer', 'between:1,999999'],
                 'consumption' => ['required', 'integer', 'between:1,999999'] ,
                 'goats_milked' => ['required', 'integer', 'between:1,99999'],
+                'goat_tag' => ['string'],
             ]);
 
             $user = get_user($request->username);
@@ -73,9 +75,9 @@ class MilkNoteController extends Controller
 
             $note = new MilkNote();
 
-            $carbon = Carbon::createFromTimeString($request->date);
+            $carbon = Carbon::createFromFormat("Y-m-d",$request->date);
 
-            $note->date = $carbon->date_format();
+            $note->date = $carbon;
             $note->type = $request->type;
             $note->produced = $request->produced;
             $note->consumption = $request->consumption;
@@ -145,9 +147,9 @@ class MilkNoteController extends Controller
 
             $user = get_user($request->username);
 
-            $milknote = $user->milknote;
+            $milknote = $user->milknote()->find($request->id);
 
-            if(count($milknote) === 0) 
+            if($milknote instanceof MilkNote === false) 
                 throw new \Exception('Catatan susu tidak ditemukan!');
 
             $milknote->delete();

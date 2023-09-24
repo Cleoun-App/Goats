@@ -11,6 +11,17 @@ class Goat extends Model
 
     protected $guarded = [];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'weight' => 'integer',
+        'birth_date' => 'datetime',
+        'date_in' => 'datetime',
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }

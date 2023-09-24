@@ -26,6 +26,8 @@ Route::middleware('auth:sanctum')->group(function () {
     /**
      *  Event APIs
      */
+    
+     Route::get('/event/type', [EventController::class, 'getEventType']);
 
      Route::get('/user/{username}/event/{event_id}/get', [EventController::class, 'getEvent']);
 

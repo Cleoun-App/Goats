@@ -62,7 +62,21 @@ class GoatController extends Controller
 
             $user = get_user($request->username);
 
-            $goats = $user->goats()->paginate(10);
+            $quee = $user->goats();
+
+            $val = $request->value;
+
+            $goats = (match($request->column) {
+                "" => $quee,
+                null => $quee,
+                "name" => $quee->where("name", "LIKE", "%$val%"),
+                "gender" => $quee->where("gender", "=", $val),
+                "breed" => $quee->where("breed", "=", $val),
+                "status" => $quee->where("status", "=", $val),
+                "origin" => $quee->where("origin", "=", $val),
+                "weight_less_than" => $quee->where("weight", "<", $val), 
+                "weight_greater_than" => $quee->where("weight", ">=", $val),
+            })->paginate(10);
 
             return ResponseFormatter::success($goats, 'Data berhasil didapatkan!');
 
@@ -89,7 +103,8 @@ class GoatController extends Controller
                 'origin' => ['required', 'min:3', 'max:120'],
                 'breed' => ['min:3', 'max:120'],
                 'status' => ['required', 'in:alive,death,sold'],
-                'birth_date' => ['string'],
+                'birth_date' => ['string', 'date'],
+                'date_in' => ['required', 'string', 'date'],
                 'note' => ['required', 'min:3', 'max:450'],
                 'weight' => ['required', 'integer', 'max:999999'],
             ]);
@@ -112,7 +127,10 @@ class GoatController extends Controller
                 throw new \Exception("Tag telah di gunakan!");
             }
 
-            $filename = $this->saveImage($user, $global_tag, $request);
+            $filename = null;
+
+            if($request->picture !== null)
+                $filename = $this->saveImage($user, $global_tag, $request);
 
             $goat->name = $request->name;
             $goat->tag = $request->tag;
@@ -123,6 +141,7 @@ class GoatController extends Controller
             $goat->breed = $request->breed;
             $goat->status = $request->status;
             $goat->birth_date = $request->birth_date;
+            $goat->date_in = $request->date_in;
             $goat->note = $request->note;
 
             $goat->user()->associate($user);
@@ -158,7 +177,8 @@ class GoatController extends Controller
                 'origin' => ['required', 'min:3', 'max:120'],
                 'breed' => ['min:3', 'max:120'],
                 'status' => ['required', 'in:alive,death,sold'],
-                'birth_date' => ['string'],
+                'birth_date' => ['string','date'],
+                'date_in' => ['string', 'date', 'required'],
                 'note' => ['required', 'min:3', 'max:450'],
                 'weight' => ['required', 'integer', 'max:999999'],
             ]);
@@ -190,8 +210,11 @@ class GoatController extends Controller
                 $prev_image = $user->get_storage("goats_pict" . DIRECTORY_SEPARATOR . $goat->picture);
 
                 File::delete($prev_image);
+                
+                $filename = null;
 
-                $filename = $this->saveImage($user, $global_tag, $request);
+                if($request->picture !== null)
+                    $filename = $this->saveImage($user, $global_tag, $request);
 
                 $goat->picture = $filename;
             }

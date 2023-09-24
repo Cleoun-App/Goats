@@ -6,7 +6,7 @@ use App\Models\EventType as ModelsEventType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class EventType extends Seeder
+class EventTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.

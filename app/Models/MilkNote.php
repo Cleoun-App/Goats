@@ -11,6 +11,16 @@ class MilkNote extends Model
     
     protected $guarded = [];
 
+    protected $casts = [
+        'produced' => 'double',
+        'consumption' => 'double',
+        'goats_milked' => 'integer'
+    ];
+
+    protected $with = [
+        'goat'
+    ];
+
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name', 20);
             $table->string('type');
             $table->string('note', 255);
-            $table->timestamp('event_date');
+            $table->timestamp('date');
             $table->foreignId('user_id');
             $table->foreignId('goat_id')->nullable();
             $table->json('data')->nullable();
