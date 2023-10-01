@@ -17,6 +17,7 @@ class MilkNoteController extends Controller
             $request->validate([
                 'date' => ['required', 'date'],
                 'type' => ['required', 'in:individual,bulk'],
+                'note' => ['min:3', 'max:250'],
                 'produced' => ['required', 'integer', 'between:1,999999'],
                 'consumption' => ['required', 'integer', 'between:1,999999'] ,
                 'goats_milked' => ['required', 'integer', 'between:1,99999'],
@@ -36,6 +37,7 @@ class MilkNoteController extends Controller
             $note->produced = $request->produced;
             $note->consumption = $request->consumption;
             $note->goats_milked = $request->goats_milked;
+            $note->note = $request->note;
 
             $note->user()->associate($user);
             $note->goat()->associate($goat);
@@ -63,8 +65,9 @@ class MilkNoteController extends Controller
             $request->validate([
                 'date' => ['required', 'date'],
                 'type' => ['required', 'in:individual,bulk'],
+                'note' => ['min:3', 'max:250'],
                 'produced' => ['required', 'integer', 'between:1,999999'],
-                'consumption' => ['required', 'integer', 'between:1,999999'] ,
+                'consumption' => ['required', 'integer', 'between:1,999999'],
                 'goats_milked' => ['required', 'integer', 'between:1,99999'],
                 'goat_tag' => ['string'],
             ]);
@@ -82,6 +85,7 @@ class MilkNoteController extends Controller
             $note->produced = $request->produced;
             $note->consumption = $request->consumption;
             $note->goats_milked = $request->goats_milked;
+            $note->note = $request->note;
 
             $note->user()->associate($user);
             $note->goat()->associate($goat);

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamp('date');
             $table->enum('type', ['individual', 'bulk']);
+            $table->text('note')->nullable();
             $table->double('produced');
             $table->double('consumption');
             $table->smallInteger('goats_milked');

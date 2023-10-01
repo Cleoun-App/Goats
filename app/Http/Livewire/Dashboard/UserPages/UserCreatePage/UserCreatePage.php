@@ -20,9 +20,8 @@ class UserCreatePage extends _Dashboard
     // user data
     public $email;
     public $name;
-    public $role = 'Customer';
+    public $role = 'User';
     public $username;
-    public $nomor_telp;
     public $address;
     public $password;
     public $c_password;
@@ -49,8 +48,6 @@ class UserCreatePage extends _Dashboard
 
         $this->email = $faker->email();
         $this->name = $faker->name();
-        $this->username = $faker->userName();
-        $this->nomor_telp = "085" . rand(100000000, 999999999);
         $this->address = $faker->address();
         $this->password = 'password';
         $this->c_password = 'password';
@@ -144,11 +141,6 @@ class UserCreatePage extends _Dashboard
                 'password' => Hash::make($this->password),
                 'email' =>  $this->email,
                 'creation_mark' => md5(time() . $this->username),
-                'phone_number' => $this->nomor_telp,
-                'contacts' => [
-                    'facebook' => '',
-                    'instagram' => '',
-                ],
             ];
 
             $result =  User::create($user_data);
