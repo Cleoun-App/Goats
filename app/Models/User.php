@@ -80,7 +80,7 @@ class User extends Authenticatable implements MustVerifyEmail
             $user->offsetUnset('photo_url');
         });
     }
-    
+
     /**
      *  Default key for user
      */

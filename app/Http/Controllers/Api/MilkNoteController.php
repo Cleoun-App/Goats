@@ -26,11 +26,15 @@ class MilkNoteController extends Controller
 
             $user = get_user($request->username);
 
-            $goat = get_goat($request->goat_tag, false);
+            if($request->type === "bulk") {
+                $goat = get_goat($request->goat_tag, false);
+            } else {
+                $goat = get_goat($request->goat_tag, true);
+            }
 
             $note = new MilkNote();
 
-            $carbon = Carbon::createFromFormat("Y-m-d",$request->date);
+            $carbon = Carbon::createFromFormat("Y-m-d", $request->date);
 
             $note->date = $carbon;
             $note->type = $request->type;
@@ -47,7 +51,7 @@ class MilkNoteController extends Controller
             return ResponseFormatter::success($note, 'Catatan berhasil ditambahkan');
 
             // ...
-        } catch (ValidationException $e){
+        } catch (ValidationException $e) {
 
             return ResponseFormatter::validasiError($e);
 
@@ -78,7 +82,7 @@ class MilkNoteController extends Controller
 
             $note = new MilkNote();
 
-            $carbon = Carbon::createFromFormat("Y-m-d",$request->date);
+            $carbon = Carbon::createFromFormat("Y-m-d", $request->date);
 
             $note->date = $carbon;
             $note->type = $request->type;
@@ -110,20 +114,21 @@ class MilkNoteController extends Controller
 
             $milknote = $user->milknote()->find($request->note_id) ?? [];
 
-            if(count($milknote) === 0) 
+            if(count($milknote) === 0) {
                 throw new \Exception('Catatan susu tidak ditemukan!');
+            }
 
             return ResponseFormatter::success($milknote, 'Catatan susu berhasil didapatkan');
 
             // ...
         } catch (\Throwable $th) {
-            
+
             return ResponseFormatter::error([], $th->getMessage());
 
             // ...
         }
     }
-    
+
     public function getNotes(Request $request)
     {
         try {
@@ -132,29 +137,32 @@ class MilkNoteController extends Controller
 
             $milknote = $user->milknote;
 
-            if(count($milknote) === 0) 
+            if(count($milknote) === 0) {
                 throw new \Exception('Catatan susu tidak ditemukan!');
+            }
 
             return ResponseFormatter::success($milknote, 'Catatan susu berhasil didapatkan');
 
             // ...
         } catch (\Throwable $th) {
-            
+
             return ResponseFormatter::error([], $th->getMessage());
 
             // ...
         }
     }
 
-    public function deleteNote(Request $request) {
+    public function deleteNote(Request $request)
+    {
         try {
 
             $user = get_user($request->username);
 
             $milknote = $user->milknote()->find($request->id);
 
-            if($milknote instanceof MilkNote === false) 
+            if($milknote instanceof MilkNote === false) {
                 throw new \Exception('Catatan susu tidak ditemukan!');
+            }
 
             $milknote->delete();
 
@@ -162,7 +170,7 @@ class MilkNoteController extends Controller
 
             // ...
         } catch (\Throwable $th) {
-            
+
             return ResponseFormatter::error([], $th->getMessage());
 
             // ...

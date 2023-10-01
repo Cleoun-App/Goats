@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\MilkNoteController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\GroupController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +43,19 @@ Route::middleware('auth:sanctum')->group(function () {
     /**
      *  End Event APIs
      */
+
+    /**
+    *   Group API  
+    */
+
+    Route::get('/user/groups', [GroupController::class, 'getGroups']);
+
+    Route::post('/user/group/add', [GroupController::class, 'addGroup']);
+    
+    Route::post('/user/group/{group_id}/edit', [GroupController::class, 'editGroup']);
+    
+    Route::delete('/user/group/{group_id}/delete', [GroupController::class, 'deleteGroup']);
+
 
     /**
      *  Goat APIs
