@@ -40,7 +40,7 @@ class AccountPage extends _Dashboard
         $this->pushBread(1, $this->pageTitle);
 
         if (request('key') === null)
-            $this->act_page = 'AC6X03';
+            $this->act_page = 'PF87N0';
     }
 
     public function render()

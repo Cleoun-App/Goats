@@ -22,34 +22,6 @@
                     </div>
                 </div>
             </div>
-            <div
-                class="mt-6 lg:mt-0 flex-1 dark:text-gray-300 px-5 border-l border-r border-gray-200 dark:border-dark-5 border-t lg:border-t-0 pt-5 lg:pt-0">
-                <div class="font-medium text-center lg:text-left lg:mt-3">Contact Details</div>
-                <div class="flex flex-col justify-center items-center lg:items-start mt-4">
-                    @foreach ($user->getContacts() as $key => $contact)
-                        @if ($contact !== "")
-                            <div class="truncate sm:whitespace-normal flex items-center"> 
-                                <i data-feather="{{$key}}"
-                                class="w-4 h-4 mr-2"></i> 
-                                <span style="text-align: justify">{{$key}} 
-                                    <strong>{{ $contact }}</strong>
-                                </span> 
-                            </div>
-                        @endif
-                    @endforeach
-                </div>
-            </div>
-            <div
-                class="mt-6 lg:mt-0 flex-1 flex items-center justify-center px-5 border-t lg:border-0 border-gray-200 dark:border-dark-5 pt-5 lg:pt-0">
-                <div class="text-center rounded-md w-20 py-3">
-                    <div class="font-medium text-theme-25 dark:text-theme-22 text-xl">{{ count($posts) }}</div>
-                    <div class="text-gray-600">Postingan</div>
-                </div>
-                {{-- <div class="text-center rounded-md w-20 py-3">
-                    <div class="font-medium text-theme-25 dark:text-theme-22 text-xl">{{ count($invitations) }}</div>
-                    <div class="text-gray-600">Undangan</div>
-                </div> --}}
-            </div>
         </div>
         <div class="nav nav-tabs flex-col sm:flex-row justify-center lg:justify-start" role="tablist">
             @foreach ($pages as $menu_page)
@@ -64,7 +36,7 @@
     <div class="tab-content mt-5">
         @foreach ($pages as $page)
             @if ($page['key'] === $act_page)
-                @livewire($page['path'], ['posts' => $posts, 'username' => $username], key($act_page))
+                @livewire($page['path'], ['username' => $username], key($act_page))
             @endif
         @endforeach
     </div>

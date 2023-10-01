@@ -87,6 +87,22 @@
     </style>
 
 
+    <style>
+        nav > div.hidden > div:nth-child(1) {
+            display: none !important;
+        }
+
+        nav > div.hidden > div:nth-child(2) button {
+            background-color: #293145;
+            color: whitesmoke;
+        }
+        
+        nav > div.hidden > div:nth-child(2) span[aria-current="page"] > span {
+            color: #21283a;
+            background-color: #ebebeb;
+        }
+    </style>
+
 </head>
 
 <body class="main font-sans antialiased">

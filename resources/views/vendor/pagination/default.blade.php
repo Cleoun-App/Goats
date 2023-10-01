@@ -3,17 +3,6 @@
         <div class="tabulator-footer mt-3">
             <span class="tabulator-paginator">
 
-                @if ($psize != 0 || $psize != null)
-                    <label style="text-transform: capitalize">Jumlah Item</label>
-                    <select class="tabulator-page-size" aria-label="Page Size" title="Page Size"
-                        wire:model.lazy="page_size">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="40">40</option>
-                    </select>
-                @endif
-
                 {{-- Previous Page Link --}}
                 @if ($paginator->onFirstPage())
                     <a class="tabulator-page disabled" href="javascript: void(0)" role="button"

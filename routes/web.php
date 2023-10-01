@@ -40,7 +40,7 @@ Route::middleware('guest')->group(function () {
 });
 
 
-Route::middleware(['auth', 'role:user|creator|employee|admin|supreme'])->group(function () {
+Route::middleware(['auth', 'role:user|admin|supreme'])->group(function () {
 
     Route::get('/', HomePage::class)->name('ds.home_page');
 

@@ -17,17 +17,29 @@ class UserAccountPage extends _Dashboard
 
     private $pages = [
         [
-            'name'  =>  'Post',
-            'key'   =>  'AC6X03',
-            'icon'  =>  'file-text',
-            'path'  =>  'dashboard.profile-page.account-page.components.my-posts',
-        ],
-        [
-            'name'  =>  'Edit Profile Pengguna',
+            'name'  =>  'Profile Pengguna',
             'key'   =>  'PF87N0',
             'icon'  =>  'edit',
             'path'  =>  'dashboard.profile-page.account-page.components.account-edit',
-        ]
+        ],
+        [
+            'name'  =>  'Daftar Kambing',
+            'key'   =>  'XAMLSJ',
+            'icon'  =>  'list',
+            'path'  =>  'dashboard.profile-page.account-page.components.goats-table',
+        ],
+        [
+            'name'  =>  'Penyusuan Kambing',
+            'key'   =>  'GAUX4O',
+            'icon'  =>  'layout',
+            'path'  =>  '',
+        ],
+        [
+            'name'  =>  'Event Peternakan',
+            'key'   =>  'M18SJK',
+            'icon'  =>  'globe',
+            'path'  =>  '',
+        ],
     ];
 
     public function mount($username)
@@ -37,19 +49,18 @@ class UserAccountPage extends _Dashboard
         $this->pushBread(2, $this->pageTitle);
 
         if (request('key') === null)
-            $this->act_page = 'AC6X03';
+            $this->act_page = 'PF87N0';
     }
 
     public function render()
     {
         try {
 
-            $user = User::where('username', $this->username)->firstOrFail();
+            $user = get_user($this->username);
 
             $page['pageTitle'] = $this->pageTitle;
 
             $data['user']   =   $user;
-            $data['posts']  =   [];
             $data['pages']  =   $this->pages;
 
             return view('livewire.dashboard.user-pages.user-account-page.user-account-page', $data)

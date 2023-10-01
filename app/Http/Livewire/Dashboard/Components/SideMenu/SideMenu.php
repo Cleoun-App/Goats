@@ -23,21 +23,26 @@ class SideMenu extends Component
                 'icon'  =>  'home',
             ],
             [
+                'route' =>  route('ds.account_page'),
+                'name'  =>  'Akun Pengguna',
                 'icon'  =>  'trello',
-                'name'  =>  'Profil',
-                'menu'  => [
-                    [
-                        'route' =>  route('ds.account_page'),
-                        'name'  =>  'Akun Saya',
-                        'icon'  =>  'trello',
-                    ],
-                    [
-                        'route' =>  route('ds.user.activities', $user->username),
-                        'name'  =>  'Aktifitas',
-                        'icon'  =>  'activity',
-                    ],
-                ]
             ],
+            // [
+            //     'icon'  =>  'trello',
+            //     'name'  =>  'Profil',
+            //     'menu'  => [
+            //         [
+            //             'route' =>  route('ds.account_page'),
+            //             'name'  =>  'Akun Saya',
+            //             'icon'  =>  'trello',
+            //         ],
+            //         [
+            //             'route' =>  route('ds.user.activities', $user->username),
+            //             'name'  =>  'Aktifitas',
+            //             'icon'  =>  'activity',
+            //         ],
+            //     ]
+            // ],
             [
                 'icon'  =>  'users',
                 'name'  =>  'Pengguna',
@@ -55,41 +60,56 @@ class SideMenu extends Component
                 ]
             ],
             [
-                'icon'  =>  'lock',
-                'name'  =>  'Role & Permission',
-                'menu'  => [
-                    [
-                        'route' =>  route('ds.user.mgt.roles'),
-                        'name'  =>  'Table Roles',
-                        'icon'  =>  'user-check',
-                    ],
-                    [
-                        'route' =>  route('ds.user.mgt.permissions'),
-                        'name'  =>  'Table Permissions',
-                        'icon'  =>  'shield',
-                    ],
-                ]
+                'route' =>  '',
+                'name'  =>  'Tabel Kambing',
+                'icon'  =>  'file-text',
             ],
             [
-                'route' =>  route('ds.app.notification'),
-                'name'  =>  'Notifikasi',
-                'icon'  =>  'bell',
+                'route' =>  '',
+                'name'  =>  'Tabel Event',
+                'icon'  =>  'globe',
             ],
             [
-                'name'  =>  'break',
-                'icon'  =>  null,
-                'route' =>  null,
+                'route' =>  route('ds.user.mgt.roles'),
+                'name'  =>  'Role Pengguna',
+                'icon'  =>  'user-check',
             ],
-            [
-                'route' =>  route('ds.app.config'),
-                'name'  =>  'Pengaturan',
-                'icon'  =>  'settings',
-            ],
-            [
-                'route' =>  route('ds.app.logger'),
-                'name'  =>  'Log Aplikasi',
-                'icon'  =>  'book',
-            ],
+            // [
+            //     'icon'  =>  'lock',
+            //     'name'  =>  'Role & Permission',
+            //     'menu'  => [
+            //         [
+            //             'route' =>  route('ds.user.mgt.roles'),
+            //             'name'  =>  'Table Roles',
+            //             'icon'  =>  'user-check',
+            //         ],
+            //         [
+            //             'route' =>  route('ds.user.mgt.permissions'),
+            //             'name'  =>  'Table Permissions',
+            //             'icon'  =>  'shield',
+            //         ],
+            //     ]
+            // ],
+            // [
+            //     'route' =>  route('ds.app.notification'),
+            //     'name'  =>  'Notifikasi',
+            //     'icon'  =>  'bell',
+            // ],
+            // [
+            //     'name'  =>  'break',
+            //     'icon'  =>  null,
+            //     'route' =>  null,
+            // ],
+            // [
+            //     'route' =>  route('ds.app.config'),
+            //     'name'  =>  'Pengaturan',
+            //     'icon'  =>  'settings',
+            // ],
+            // [
+            //     'route' =>  route('ds.app.logger'),
+            //     'name'  =>  'Log Aplikasi',
+            //     'icon'  =>  'book',
+            // ],
         ];
     }
 }

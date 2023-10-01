@@ -40,7 +40,6 @@ class UserTablePage extends _Dashboard
 
     public function render()
     {
-        $templates = null;
 
         $page_size = $this->page_size;
 
