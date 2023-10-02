@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Dashboard\UserPages\UserAccountPage;
 
 use App\Http\Livewire\Dashboard\_Dashboard;
-use App\Models\User;
 
 class UserAccountPage extends _Dashboard
 {
@@ -32,13 +31,13 @@ class UserAccountPage extends _Dashboard
             'name'  =>  'Penyusuan Kambing',
             'key'   =>  'GAUX4O',
             'icon'  =>  'layout',
-            'path'  =>  '',
+            'path'  =>  'dashboard.profile-page.account-page.components.milks-table',
         ],
         [
             'name'  =>  'Event Peternakan',
             'key'   =>  'M18SJK',
             'icon'  =>  'globe',
-            'path'  =>  '',
+            'path'  =>  'dashboard.profile-page.account-page.components.events-table',
         ],
     ];
 

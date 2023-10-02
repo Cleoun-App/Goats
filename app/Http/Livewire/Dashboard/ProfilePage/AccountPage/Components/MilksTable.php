@@ -5,10 +5,10 @@ namespace App\Http\Livewire\Dashboard\ProfilePage\AccountPage\Components;
 use App\Http\Livewire\Dashboard\_Dashboard;
 use Livewire\WithPagination;
 
-class GoatsTable extends _Dashboard
+class MilksTable extends _Dashboard
 {
     use WithPagination;
-
+    
     public $username;
 
     public $page_title = "Daftar Kambing Pengguna";
@@ -21,14 +21,13 @@ class GoatsTable extends _Dashboard
     public $queryString = ['search_field', 'search_operator', 'search_value', 'key'];
 
     public $searchable_fields = [
-        ['name', 'Nama'], ['group', 'Group'], ['status', 'Status'],
-        ['breed', 'Breed'], ['gender', 'Kelamin'], ['tag', 'Tag']
+        ['type', 'Tipe'], ['produced', 'Produksi'], ['consumption', 'Konsumsi']
     ];
 
     public function mount(string $username)
     {
         $this->pushBread(1, $this->page_title);
-        $this->search_field = "name";
+        $this->search_field = "type";
         $this->search_operator = "like";
 
         $this->username = $username;
@@ -37,6 +36,7 @@ class GoatsTable extends _Dashboard
     public function render()
     {
         try {
+
             $user = get_user($this->username);
 
             $page_size = 5;
@@ -49,18 +49,21 @@ class GoatsTable extends _Dashboard
 
                 $opr = $this->searchOperator();
 
-                $goats = $user->goats()->where($this->search_field, $opr, $opr == 'like' ? "%{$this->search_value}%" : $this->search_value)
+                $goats = $user->milknote()
+                    ->where($this->search_field, $opr, $opr == 'like' ? "%{$this->search_value}%" : $this->search_value)
                     ->orderBy('created_at', 'DESC')->paginate($page_size);
 
             } else {
-                $goats = $user->goats()->orderBy('created_at', 'DESC')->paginate($page_size);
+
+                $goats = $user->milknote()->orderBy('created_at', 'DESC')->paginate($page_size);
+
             }
 
-            $data['goats'] = $goats;
+            $data['milks'] = $goats;
 
             $data['user'] = $user;
 
-            return view('livewire.dashboard.profile-page.account-page.components.goats-table', $data);
+            return view('livewire.dashboard.profile-page.account-page.components.milks-table', $data);
 
         } catch (\Throwable $th) {
 

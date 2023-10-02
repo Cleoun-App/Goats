@@ -111,7 +111,6 @@
     @livewire('dashboard.components.mobile-menu.mobile-menu', [], key(rand(99, 9999)))
     <!-- END: Mobile Menu -->
 
-
     <div class="flex overflow-hidden">
 
         <!-- BEGIN: Side Menu -->

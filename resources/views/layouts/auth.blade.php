@@ -14,57 +14,54 @@
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-    <link rel="stylesheet" href="/assets/core/css/app.css" />
+    <link rel="stylesheet" href="/assets/core/css/app.css" fetchpriority="high" />
+
+    <link rel="stylesheet" href="/css/style.css">
 
     {{-- laravel core --}}
     <script src="/js/app.js" defer></script>
 
     {{-- web core --}}
     <script src="/assets/core/js/app.js" defer></script>
-
     
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            Livewire.hook('element.initialized', (el, component) => {
-                feather.replace();
-            })
-        });
-        window.addEventListener('app.flash.notif', function(event) {
-            if (event.detail.type === 'success')
-                iziToast.success({
-                    title: event.detail.title,
-                    message: event.detail.message,
-                    timeout: event.detail.timeout,
-                });
+    <script src="/assets/core/js/iziToast.min.js"></script>
+    
+    <link rel="stylesheet" href="/assets/core/css/iziToast.min.css" fetchpriority="high" />
 
-            if (event.detail.type === 'info')
-                iziToast.info({
-                    title: event.detail.title,
-                    message: event.detail.message,
-                    timeout: event.detail.timeout,
-                });
 
-            if (event.detail.type === 'error')
-                iziToast.error({
-                    title: event.detail.title,
-                    message: event.detail.message,
-                    timeout: event.detail.timeout,
-                });
-
-            if (event.detail.type === 'warning')
-                iziToast.warning({
-                    title: event.detail.title,
-                    message: event.detail.message,
-                    timeout: event.detail.timeout,
-                });
-        });
-    </script>
 
 </head>
 
 <body class="login">
 
     {{ $slot }}
+
+       
+    <script src="/assets/core/js/app.js"></script>
+    
+    <script src="/assets/libs/tabulator/js/tabulator.min.js"></script>
+    
+    <script>
+        slx_init();
+    </script>
+
+    
+    <script>
+                                    
+        function bxupload(element) {
+            let formField = element.parentElement.parentElement;
+            let inputFile = formField.lastElementChild;
+
+            inputFile.click();
+        }
+
+        let bxfilechange = (element, event) => {
+            let file = element.files[0];
+            let placeholder = element.parentElement.getElementsByClassName('bx-field')[0].firstElementChild;
+            placeholder.value = file.name;
+        }
+
+    </script>
 
 </body>
 

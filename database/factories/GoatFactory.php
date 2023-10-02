@@ -18,17 +18,6 @@ class GoatFactory extends Factory
     {
         $fake = fake();
 
-        $goat_names = [
-            'alwi', 'alwi jaya', 'alwi jein',
-            'jein alwi', 'wijein', 'ajein', 'awi',
-            'awij', 'jewi'
-        ];
-
-        $goat_tags = [
-            'kambing mati', 'kambing kopid19', 'zombieland',
-            'kambing abal-abal', 'kambing kacau', 'kambing sekarat'
-        ];
-
         $goat_breeds = [
             'keia', 'alwi', 'weij', 'jeins', 'aj'
          ];
@@ -36,7 +25,7 @@ class GoatFactory extends Factory
         $cos_point = cos(round(time()/pi()));
 
         return [
-            'name' => $goat_names[rand(0 ,count($goat_names) - 1)],
+            'name' => $fake->name,
             'tag' => md5(rand(100, 999) * .14 + time() / $cos_point),
             'global_tag' => md5(uniqid() . time()),
             'picture' => $fake->url(),

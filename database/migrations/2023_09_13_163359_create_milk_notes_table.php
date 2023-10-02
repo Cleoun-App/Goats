@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('note')->nullable();
             $table->double('produced');
             $table->double('consumption');
-            $table->smallInteger('goats_milked');
+            $table->smallInteger('goats_milked')->nullable();
             $table->foreignId('goat_id')->nullable();
             $table->foreignId('user_id');
             $table->timestamps();

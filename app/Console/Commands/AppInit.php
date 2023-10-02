@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Goat;
+use App\Models\MilkNote;
 use Illuminate\Console\Command;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
@@ -85,6 +86,8 @@ class AppInit extends Command
                 $goat_gen = rand(10, 20);
 
                 Goat::factory($goat_gen)->create(['user_id' => $user->id]);
+
+                MilkNote::factory($goat_gen)->create(['user_id' => $user->id]);
 
                 // ....
             }

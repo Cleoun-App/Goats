@@ -16,8 +16,21 @@ class MilkNoteFactory extends Factory
      */
     public function definition()
     {
+        $fake = fake();
+
+        $types = ['individual', 'bulk'];
+
+        $type = $types[rand(0, 1)];
+
         return [
-            //
+            'date' => now()->addDays(rand(1, 9)),
+            'type' => $type,
+            'note' => $fake->sentence,
+            'produced' => rand(0, 100),
+            'consumption' => rand(0, 100),
+            'goats_milked' => $type == 'bulk' ? rand(1, 10) : null,
+            'goat_id' => $type == 'individual' ? rand(1, 10) : null,
+            
         ];
     }
 }
