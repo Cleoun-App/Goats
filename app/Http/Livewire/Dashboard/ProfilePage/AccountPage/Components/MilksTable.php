@@ -11,7 +11,7 @@ class MilksTable extends _Dashboard
     
     public $username;
 
-    public $page_title = "Daftar Kambing Pengguna";
+    public $page_title = "Tabel Catatan Susu";
 
     public $search_field = 'name';
     public $search_operator = 'like';
@@ -26,7 +26,7 @@ class MilksTable extends _Dashboard
 
     public function mount(string $username)
     {
-        $this->pushBread(1, $this->page_title);
+        $this->pushBread(3, $this->page_title);
         $this->search_field = "type";
         $this->search_operator = "like";
 

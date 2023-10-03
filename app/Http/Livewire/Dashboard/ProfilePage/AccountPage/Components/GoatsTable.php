@@ -13,11 +13,6 @@ class GoatsTable extends _Dashboard
 
     public $page_title = "Daftar Kambing Pengguna";
 
-    public $search_field = 'name';
-    public $search_operator = 'like';
-    public $search_value;
-    public $key;
-
     public $queryString = ['search_field', 'search_operator', 'search_value', 'key'];
 
     public $searchable_fields = [
@@ -27,9 +22,8 @@ class GoatsTable extends _Dashboard
 
     public function mount(string $username)
     {
-        $this->pushBread(1, $this->page_title);
-        $this->search_field = "name";
-        $this->search_operator = "like";
+        $this->pushBread(3, $this->page_title);
+        $this->defaultSearchAttr("name", "like");
 
         $this->username = $username;
     }
@@ -40,10 +34,6 @@ class GoatsTable extends _Dashboard
             $user = get_user($this->username);
 
             $page_size = 5;
-
-            if($page_size >= 40) {
-                $page_size = 40;
-            }
 
             if($this->search_value != null) {
 

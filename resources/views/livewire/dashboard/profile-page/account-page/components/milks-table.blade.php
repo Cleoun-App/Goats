@@ -3,7 +3,7 @@
     <div class="intro-y box lg:mt-5">
         <div class="flex items-center p-5 border-b border-gray-200 dark:border-dark-5">
             <h2 class="font-medium text-base mr-auto">
-                Daftar Kambing Pengguna
+                {{ $page_title }}
             </h2>
         </div>
         <div class="flex flex-col sm:flex-row sm:items-end xl:items-start p-5">
@@ -49,20 +49,34 @@
                     <button id="tabulator-html-filter-go" type="button" class="btn btn-primary w-full sm:w-16"
                         wire:click="$refresh" wire:loading.attr="disabled">
                         <span wire:target="$refresh" wire:loading.remove>Cari</span>
-                                    
-                        <div wire:target="$refresh" wire:loading.flex style="justify-content: center; align-items: center; margin: 0px; padding: 5px 0px">
-                            <svg width="25" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="rgb(226, 232, 240)" class="w-8 h-7">
+
+                        <div wire:target="$refresh" wire:loading.flex
+                            style="justify-content: center; align-items: center; margin: 0px; padding: 5px 0px">
+                            <svg width="25" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg"
+                                fill="rgb(226, 232, 240)" class="w-8 h-7">
                                 <circle cx="15" cy="15" r="15">
-                                    <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
-                                    <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
+                                    <animate attributeName="r" from="15" to="15" begin="0s"
+                                        dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
+                                    <animate attributeName="fill-opacity" from="1" to="1" begin="0s"
+                                        dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
                                 </circle>
                                 <circle cx="60" cy="15" r="9" fill-opacity="0.3">
-                                    <animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite"></animate>
-                                    <animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite"></animate>
+                                    <animate attributeName="r" from="9" to="9" begin="0s"
+                                        dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
+                                    <animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s"
+                                        dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
                                 </circle>
                                 <circle cx="105" cy="15" r="15">
-                                    <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
-                                    <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
+                                    <animate attributeName="r" from="15" to="15" begin="0s"
+                                        dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
+                                    <animate attributeName="fill-opacity" from="1" to="1" begin="0s"
+                                        dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
                                 </circle>
                             </svg>
                         </div>
@@ -75,8 +89,8 @@
                 <button id="tabulator-print" class="btn btn-outline-secondary w-1/2 sm:w-auto mr-2"> <i
                         data-feather="printer" class="w-4 h-4 mr-2"></i> Print </button>
                 <div class="dropdown w-1/2 sm:w-auto">
-                    <button class="dropdown-toggle btn btn-outline-secondary w-full sm:w-auto" aria-expanded="false"> <i
-                            data-feather="file-text" class="w-4 h-4 mr-2"></i> Export <i data-feather="chevron-down"
+                    <button class="dropdown-toggle btn btn-outline-secondary w-full sm:w-auto" aria-expanded="false">
+                        <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export <i data-feather="chevron-down"
                             class="w-4 h-4 ml-auto sm:ml-2"></i> </button>
                     <div class="dropdown-menu w-40">
                         <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
@@ -119,12 +133,12 @@
                                 <td class="border-b dark:border-dark-5">{{ $milk->produced ?? '-' }}</td>
                                 <td class="border-b dark:border-dark-5">{{ $milk->consumption ?? '-' }}</td>
                                 <td class="border-b dark:border-dark-5">
-                                    <a href="#" class="btn btn-sm btn-primary mr-1">Show</a >
-                                    <a class="btn btn-sm btn-danger" href="javacript:void(0)" data-toggle="modal"
-                                        data-target="#delete-modal-{{ $milk->id }}">Hapus
+                                    <a class="btn btn-sm btn-primary" href="javacript:void(0)" data-toggle="modal"
+                                        data-target="#delete-modal-{{ $milk->id }}">Show
                                     </a>
                                 </td>
                             </tr>
+
 
                             <!-- BEGIN: Modal Content -->
 
@@ -132,25 +146,57 @@
                                 aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <div class="modal-body p-0">
-                                            <div class="p-5 text-center">
-                                                <i data-feather="x-circle"
-                                                    class="w-16 h-16 text-theme-21 mx-auto mt-3"></i>
-                                                <div class="text-3xl mt-5">Konfirmasi Penghapusan!!</div>
-                                                <div class="text-gray-600 mt-2">Apakah anda ingin menghapus
-                                                    catatan susu dengan  id<br> '{{ $milk->id }}'
-                                                    <br><strong style="color: rgba(242, 255, 61, 0.836)"> PERINGATAN <br> Data Yang Di Hapus Tidak Akan Bisa Dikembalikan!!</strong>
-                                                </div>
+                                        <!-- BEGIN: Modal Header -->
+                                        <div class="modal-header">
+                                            <h2 class="font-medium text-base mr-auto">Catat Peyusuan Kambing</h2>
+                                        </div> <!-- END: Modal Header -->
+                                        <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                                            <div class="col-span-12 sm:col-span-6">
+                                                <label for="modal-form-1" class="form-label">Tanggal</label>
+                                                <input id="modal-form-1" type="text" class="form-control"
+                                                    value="{{ $milk->date }}" disabled>
                                             </div>
-                                            <div class="px-5 pb-8 text-center">
-                                                <button type="button" data-dismiss="modal"
-                                                    class="btn btn-outline-secondary w-24 dark:border-dark-5 dark:text-gray-300 mr-1">Batalkan
-                                                </button>
-                                                <button type="button" data-dismiss="modal" class="btn btn-danger w-24"
-                                                    wire:click="deleteUser({{ $milk->id }})">Hapus
-                                                </button>
+                                            <div class="col-span-12 sm:col-span-6">
+                                                <label class="form-label">Tipe Penyusuan</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{ $milk->type }}" disabled>
+                                            </div>
+                                            @if ($milk->type == 'bulk')
+                                                <div class="col-span-12">
+                                                    <label class="form-label">Jumlah Pemerahan</label>
+                                                    <input type="text" class="form-control"
+                                                        value="{{ $milk->goats_milked }}" disabled>
+                                                </div>
+                                            @else
+                                                <div class="col-span-12">
+                                                    <label class="form-label">Kambing Yang Di Perah</label>
+                                                    <input type="text" class="form-control"
+                                                        value="{{ $milk->goat?->name }}" disabled>
+                                                </div>
+                                            @endif
+                                            <div class="col-span-12 sm:col-span-6">
+                                                <label class="form-label">Produksi</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{ $milk->produced ?? '-' }} ml" disabled>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-6">
+                                                <label class="form-label">Konsumsi</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{ $milk->consumption ?? '-' }} ml" disabled>
+                                            </div>
+                                            <div class="col-span-12">
+                                                <label class="form-label">Catatan Farmer</label>
+                                                <textarea class="form-control" width="100%" rows="5">{{ $milk->note }}</textarea>
                                             </div>
                                         </div>
+                                        <!-- END: Modal Body -->
+                                        <!-- BEGIN: Modal Footer -->
+                                        <div class="modal-footer text-right">
+                                            <button type="button" data-dismiss="modal"
+                                                class="btn btn-outline-secondary w-20 mr-1">Tutup</button>
+                                        </div>
+                                        <!-- END: Modal Footer -->
+
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +204,8 @@
                             <!-- END: Modal Content -->
                         @empty
                             <div class="alert alert-warning-soft show flex items-center mb-2" role="alert"> <i
-                                    data-feather="alert-circle" class="w-6 h-6 mr-2"></i> Catatan Susu tidak ditemukan!
+                                    data-feather="alert-circle" class="w-6 h-6 mr-2"></i> Catatan Susu tidak
+                                ditemukan!
                             </div>
                         @endforelse
                     </tbody>

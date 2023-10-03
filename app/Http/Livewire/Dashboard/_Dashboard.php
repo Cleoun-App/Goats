@@ -3,10 +3,8 @@
 namespace App\Http\Livewire\Dashboard;
 
 use App\Exceptions\AppHandler;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
 enum DispatchType
 {
@@ -18,6 +16,16 @@ enum DispatchType
 
 class _Dashboard extends Component
 {
+    /**
+     *  Table Dashboard
+     */
+
+    public $search_value;
+    public $key;
+
+    public $search_field;
+    public $search_operator = 'like';
+
     public $search_operators = [
         ['like', 'Sama Dengan'],  ['dx10', 'Kurang Dari'], ['kl72', 'Lebih Dari'],
         ['nb19', 'Lebih Kecil Sama Dengan'], ['vr05', 'Lebih Besar Sama Dengan'], ['nx00', 'Tidak Sama Dengan']
@@ -26,6 +34,43 @@ class _Dashboard extends Component
     protected $main_roles = [
         'supreme', 'admin', 'customer', 'partner'
     ];
+
+    protected function defaultSearchAttr($field, $opr)
+    {
+        $this->search_field = $field;
+        $this->search_operator = $opr;
+    }
+
+    protected function searchOperator()
+    {
+        $opr = null;
+
+        switch($this->search_operator) {
+            case "dx10":
+                $opr = "<";
+                break;
+            case "kl72":
+                $opr = ">";
+                break;
+            case "nb19":
+                $opr = "<=";
+                break;
+            case "vr05":
+                $opr = ">=";
+                break;
+            case "nx00":
+                $opr = "!=";
+                break;
+            default:
+                $opr = 'like';
+        }
+
+        return $opr;
+    }
+
+    /**
+     *  Table Dashboard
+     */
 
     protected $main_permissions = [
 
@@ -134,32 +179,5 @@ class _Dashboard extends Component
         }
 
         return 'Maaf, terjadi kesalahan di dalam sistem kami!';
-    }
-
-    protected function searchOperator()
-    {
-        $opr = null;
-        
-        switch($this->search_operator) {
-            case "dx10":
-                $opr = "<";
-                break;
-            case "kl72":
-                $opr = ">";
-                break;
-            case "nb19":
-                $opr = "<=";
-                break;
-            case "vr05":
-                $opr = ">=";
-                break;
-            case "nx00":
-                $opr = "!=";
-                break;
-            default:
-                $opr = 'like';
-        }
-
-        return $opr;
     }
 }
