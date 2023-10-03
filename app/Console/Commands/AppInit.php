@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Event;
 use App\Models\Goat;
 use App\Models\MilkNote;
 use Illuminate\Console\Command;
@@ -85,17 +86,44 @@ class AppInit extends Command
 
                 $goat_gen = rand(10, 20);
 
-                Goat::factory($goat_gen)->create(['user_id' => $user->id]);
+                $milk_types = ['bulk', 'indi'];
 
-                MilkNote::factory($goat_gen)->create(['user_id' => $user->id]);
+                for($g = 0; $g < $goat_gen; $g++) {
+
+                    $goat = Goat::factory()->create(['user_id' => $user->id]);
+
+                    $milk_param = [
+                        'user_id' => $user->id
+                    ];
+
+                    if($milk_types[rand(0,1) === 'indi']) {
+                        $milk_param['goat_id'] = $goat->id;
+                        $milk_param['type'] = 'individual';
+                    }
+
+                    MilkNote::factory(rand(1, 3))->create($milk_param);
+
+                    Event::factory(3)->create([
+                        'user_id' => $user->id,
+                        'scope' => 'individual',
+                        'goat_id' => $goat->id,
+                    ]);
+                }
+
 
                 // ....
             }
+
+            
+            MilkNote::factory(rand(1, 5))->create(['user_id' => $user->id]);
+
+            Event::factory(rand(1, 5))->create(['user_id' => $user->id]);
 
             $bar->advance();
 
             // ...
         }
+
 
         $bar->finish();
 

@@ -11,17 +11,17 @@ use Illuminate\Validation\ValidationException;
 
 class EventController extends Controller
 {
-
-    public function getEventType(Request $request) {
+    public function getEventType(Request $request)
+    {
         try {
-            
+
             $eventType = EventType::get();
 
             return ResponseFormatter::success($eventType, "Tipe event berhasil di-dapatkan");
-            
+
             // ...
         } catch (\Throwable $th) {
-            
+
             return ResponseFormatter::success([], $th->getMessage());
         }
     }
@@ -30,7 +30,7 @@ class EventController extends Controller
     {
         try {
 
-            $user = get_user($request->username);
+            $user = auth_user();
 
             $events = $user->events;
 
@@ -53,7 +53,7 @@ class EventController extends Controller
     {
         try {
 
-            $user = get_user($request->username);
+            $user = auth_user();
 
             $event = $user->events()->find($request->event_id);
 
@@ -76,7 +76,7 @@ class EventController extends Controller
     {
         try {
 
-            $user = get_user($request->username);
+            $user = auth_user();
 
             $event = $user->events()->find($request->event_id);
 
@@ -103,25 +103,29 @@ class EventController extends Controller
                 'name' => ['required', 'string', 'min:3', 'max:90'],
                 'type' => ['required', 'string', 'min:3', 'max:50'],
                 'note' => ['required', 'string', 'min:3', 'max:255'],
+                'scope' => ['required', 'in:individual,mass'],
                 'data' => ['required', 'string'],
                 'date' => ['required', 'date']
             ]);
 
-            $user = get_user($request->username);
+            $user = auth_user();
 
-            $goat = get_goat($request->goat_tag, false);
 
             $event = new Event();
 
             $event->user()->associate($user);
 
-            $event->goat()->associate($goat);
+            if($request->scope == "individual") {
+                $goat = get_goat($request->goat_tag);
+                $event->goat()->associate($goat);
+            }
 
             $event->name = $request->name;
             $event->type = $request->type;
             $event->note = $request->note;
             $event->data = $request->data;
             $event->date = $request->date;
+            $event->scope = $request->scope;
 
             $event->save();
 
@@ -150,12 +154,11 @@ class EventController extends Controller
                 'type' => ['required', 'string', 'min:3', 'max:50'],
                 'note' => ['required', 'string', 'min:3', 'max:255'],
                 'data' => ['required', 'string'],
+                'scope' => ['required', 'in:individual,mass'],
                 'date' => ['required', 'date']
             ]);
 
-            $user = get_user($request->username);
-
-            $goat = get_goat($request->goat_tag, false);
+            $user = auth_user();
 
             $event = $user->events()->find($request->event_id);
 
@@ -165,13 +168,18 @@ class EventController extends Controller
 
             $event->user()->associate($user);
 
-            $event->goat()->associate($goat);
+            
+            if($request->scope == "individual") {
+                $goat = get_goat($request->goat_tag);
+                $event->goat()->associate($goat);
+            }
 
             $event->name = $request->name;
             $event->type = $request->type;
             $event->note = $request->note;
             $event->data = $request->data;
             $event->date = $request->date;
+            $event->scope = $request->scope;
 
             $event->save();
 

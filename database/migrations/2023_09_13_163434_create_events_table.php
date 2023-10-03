@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 20);
+            $table->string('name', 120);
             $table->string('type');
             $table->string('note', 255);
+            $table->enum('scope', ['mass', 'individual']);
             $table->timestamp('date');
             $table->foreignId('user_id');
             $table->foreignId('goat_id')->nullable();

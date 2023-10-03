@@ -99,7 +99,7 @@ class UserRolePage extends _Dashboard
 
             $isFind = array_search($role->name, $this->main_roles);
 
-            if($isFind == false) {
+            if($isFind === false) {
                 $role->delete();
 
                return $this->dispatch(DispatchType::Success, [

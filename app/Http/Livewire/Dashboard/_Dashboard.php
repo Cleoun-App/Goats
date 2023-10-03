@@ -32,7 +32,7 @@ class _Dashboard extends Component
     ];
 
     protected $main_roles = [
-        'supreme', 'admin', 'customer', 'partner'
+        'supreme', 'admin', 'user'
     ];
 
     protected function defaultSearchAttr($field, $opr)
