@@ -13,34 +13,21 @@ class UserTablePage extends _Dashboard
 
     public $page_title = "Tabel Pengguna";
 
-    public $search_field = 'name';
-    public $search_operator = 'like';
-    public $search_value;
-
     public $queryString = ['search_field', 'search_operator', 'search_value', 'page_size'];
 
-    public $page_size = 10;
-
     public $searchable_fields = [
-        ['name', 'Nama'], ['price', 'Harga'], ['status', 'Status'],
-        ['rating', 'Rating'], ['description', 'Deskripsi'], ['tags', 'Tags']
-    ];
-
-    public $search_operators = [
-        ['like', 'Sama Dengan'],  ['dx10', 'Kurang Dari'], ['kl72', 'Lebih Dari'],
-        ['nb19', 'Lebih Kecil Sama Dengan'], ['vr05', 'Lebih Besar Sama Dengan'], ['nx00', 'Tidak Sama Dengan']
+        ['name', 'Nama'], ['status', 'Status'],
+        ['username', 'Username'], ['email', 'Email']
     ];
 
     public function mount()
     {
         $this->pushBread(1, $this->page_title);
-        $this->search_field = request()->get('search_field', 'name');
-        $this->search_operator = request()->get('search_operator', 'like');
+        $this->defaultSearchAttr("name", "like");
     }
 
     public function render()
     {
-
         $page_size = $this->page_size;
 
         if($page_size >= 40) {
@@ -50,27 +37,7 @@ class UserTablePage extends _Dashboard
 
         if($this->search_value != null) {
 
-            $opr = null;
-
-            switch($this->search_operator) {
-                case "dx10":
-                    $opr = "<";
-                    break;
-                case "kl72":
-                    $opr = ">";
-                    break;
-                case "nb19":
-                    $opr = "<=";
-                    break;
-                case "vr05":
-                    $opr = ">=";
-                    break;
-                case "nx00":
-                    $opr = "!=";
-                    break;
-                default:
-                    $opr = 'like';
-            }
+            $opr = $this->searchOperator();
 
             $users = User::where($this->search_field, $opr, $opr == 'like' ? "%{$this->search_value}%" : $this->search_value)
                 ->orderBy('created_at', 'DESC')->paginate($this->page_size);
@@ -92,8 +59,6 @@ class UserTablePage extends _Dashboard
         try {
 
             $user = User::findOrFail($id);
-
-            $roles = $user->roles()->where('name','admin')->count();
 
             $user->delete();
 

@@ -9,6 +9,7 @@ use App\Http\Livewire\Dashboard\ProfilePage\AccountPage\AccountPage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Dashboard\AuthPage\ForgotPassPage\ForgotPassPage;
 use App\Http\Livewire\Dashboard\AuthPage\RegistrationPage\RegistrationPage;
+use App\Http\Livewire\Dashboard\GoatPages\GoatsTablePage\GoatsTablePage;
 use App\Http\Livewire\Dashboard\UserPages\UserAccountPage\UserAccountPage;
 use App\Http\Livewire\Dashboard\UserPages\UserActivityPage\UserActivityPage;
 use App\Http\Livewire\Dashboard\UserPages\UserCreatePage\UserCreatePage;
@@ -49,6 +50,8 @@ Route::middleware(['auth', 'role:user|admin|supreme'])->group(function () {
     Route::get('/user/create', UserCreatePage::class)->name('ds.user.create');
 
     Route::get('/tabel/pengguna', UserTablePage::class)->name('ds.users.table');
+    
+    Route::get('/tabel/goat', GoatsTablePage::class)->name('ds.goats.table');
 
     Route::get('/user/{username}/show', UserAccountPage::class)->name('ds.user.show');
 

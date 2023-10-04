@@ -208,4 +208,8 @@
     </div>
     <!-- END: HTML Table Data -->
 
+    
+    @component('components.modal-loading-indicator')
+    @endcomponent
+
 </div>

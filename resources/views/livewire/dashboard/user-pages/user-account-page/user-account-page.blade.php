@@ -42,4 +42,8 @@
     </div>
     <!-- End: Content Page -->
 
+    
+    @component('components.modal-loading-indicator')
+    @endcomponent
+
 </div>

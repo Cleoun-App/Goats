@@ -181,11 +181,35 @@
                 </table>
             </div>
 
-            {{ $users->links('vendor.pagination.default', ['psize' => $page_size]) }}
+            
+            <span style="display: flex; justify-content: space-between; align-items: center">
+                    
+                <nav class="tabulator">
+                    <div class="tabulator-footer mt-3">
+                        <span class="tabulator-paginator">
+                            <select class="tabulator-page-size" aria-label="Page Size" title="Page Size"
+                                wire:model.lazy="page_size" style="margin-bottom: 5px">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                            </select>
+                        </span>
+                    </div>
+                </nav>
+
+                {{ $users->links() }}
+
+            </span>
 
         </div>
 
     </div>
     <!-- END: HTML Table Data -->
+
+    
+    @component('components.modal-loading-indicator')
+    @endcomponent
 
 </div>

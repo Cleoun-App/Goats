@@ -49,20 +49,34 @@
                     <button id="tabulator-html-filter-go" type="button" class="btn btn-primary w-full sm:w-16"
                         wire:click="$refresh" wire:loading.attr="disabled">
                         <span wire:target="$refresh" wire:loading.remove>Cari</span>
-                                    
-                        <div wire:target="$refresh" wire:loading.flex style="justify-content: center; align-items: center; margin: 0px; padding: 5px 0px">
-                            <svg width="25" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="rgb(226, 232, 240)" class="w-8 h-7">
+
+                        <div wire:target="$refresh" wire:loading.flex
+                            style="justify-content: center; align-items: center; margin: 0px; padding: 5px 0px">
+                            <svg width="25" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg"
+                                fill="rgb(226, 232, 240)" class="w-8 h-7">
                                 <circle cx="15" cy="15" r="15">
-                                    <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
-                                    <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
+                                    <animate attributeName="r" from="15" to="15" begin="0s"
+                                        dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
+                                    <animate attributeName="fill-opacity" from="1" to="1" begin="0s"
+                                        dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
                                 </circle>
                                 <circle cx="60" cy="15" r="9" fill-opacity="0.3">
-                                    <animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite"></animate>
-                                    <animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite"></animate>
+                                    <animate attributeName="r" from="9" to="9" begin="0s"
+                                        dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
+                                    <animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s"
+                                        dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
                                 </circle>
                                 <circle cx="105" cy="15" r="15">
-                                    <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
-                                    <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
+                                    <animate attributeName="r" from="15" to="15" begin="0s"
+                                        dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
+                                    <animate attributeName="fill-opacity" from="1" to="1" begin="0s"
+                                        dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
                                 </circle>
                             </svg>
                         </div>
@@ -75,8 +89,8 @@
                 <button id="tabulator-print" class="btn btn-outline-secondary w-1/2 sm:w-auto mr-2"> <i
                         data-feather="printer" class="w-4 h-4 mr-2"></i> Print </button>
                 <div class="dropdown w-1/2 sm:w-auto">
-                    <button class="dropdown-toggle btn btn-outline-secondary w-full sm:w-auto" aria-expanded="false"> <i
-                            data-feather="file-text" class="w-4 h-4 mr-2"></i> Export <i data-feather="chevron-down"
+                    <button class="dropdown-toggle btn btn-outline-secondary w-full sm:w-auto" aria-expanded="false">
+                        <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export <i data-feather="chevron-down"
                             class="w-4 h-4 ml-auto sm:ml-2"></i> </button>
                     <div class="dropdown-menu w-40">
                         <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
@@ -104,23 +118,28 @@
                         <tr class="bg-gray-700 dark:bg-dark-1 text-white">
                             <th class="whitespace-nowrap">#</th>
                             <th class="whitespace-nowrap">Nama</th>
-                            <th class="whitespace-nowrap">Tanggal Event</th>
-                            <th class="whitespace-nowrap">Catatan</th>
-                            <th class="whitespace-nowrap">Tipe</th>
+                            <th class="whitespace-nowrap">Tag</th>
+                            <th class="whitespace-nowrap">Breed</th>
+                            <th class="whitespace-nowrap">Sex</th>
+                            <th class="whitespace-nowrap">Pemilik</th>
                             <th class="whitespace-nowrap">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($events as $event)
+                        @forelse ($goats as $goat)
                             <tr>
                                 <td class="border-b dark:border-dark-5">{{ $loop->index + 1 }}</td>
-                                <td class="border-b dark:border-dark-5">{{ \Str::limit($event->name, 15, '...') }}</td>
-                                <td class="border-b dark:border-dark-5">{{ $event->date->format('d-m-Y') }}</td>
-                                <td class="border-b dark:border-dark-5">{{ \Str::limit($event->note, 25, '...') ?? '-' }}</td>
-                                <td class="border-b dark:border-dark-5">{{ $event->type }}</td>
+                                <td class="border-b dark:border-dark-5">{{ $goat->name }}</td>
+                                <td class="border-b dark:border-dark-5">{{ $goat->tag }}</td>
+                                <td class="border-b dark:border-dark-5">{{ $goat->breed ?? '-' }}</td>
+                                <td class="border-b dark:border-dark-5">{{ $goat->gender }}</td>
+                                <td class="border-b dark:border-dark-5">
+                                    <a style="color: #6262e4; text-decoration: underline;"
+                                        href="{{ route('ds.user.show', [$goat->user->username]) }}">{{ '@' . $goat->user->username }}</a>
+                                </td>
                                 <td class="border-b dark:border-dark-5">
                                     <a class="btn btn-sm btn-primary" href="javacript:void(0)" data-toggle="modal"
-                                        data-target="#show-modal-{{ $event->id }}">Show
+                                        data-target="#delete-modal-{{ $goat->id }}">Show
                                     </a>
                                 </td>
                             </tr>
@@ -128,38 +147,78 @@
 
                             <!-- BEGIN: Modal Content -->
 
-                            <div id="show-modal-{{ $event->id }}" class="modal" tabindex="-1"
+                            <div id="delete-modal-{{ $goat->id }}" class="modal" tabindex="-1"
                                 aria-hidden="true">
-                                <div class="modal-dialog">
+                                <div class="modal-dialog modal-xl">
                                     <div class="modal-content">
                                         <!-- BEGIN: Modal Header -->
                                         <div class="modal-header">
-                                            <h2 class="font-medium text-base mr-auto">Data event peternakan</h2>
+                                            <h2 class="font-medium text-base mr-auto">Data Detail Kambing</h2>
                                         </div> <!-- END: Modal Header -->
                                         <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
                                             <div class="col-span-12 sm:col-span-6">
-                                                <label for="modal-form-1" class="form-label">Tanggal</label>
+                                                <label for="modal-form-1" class="form-label">Goat TAG </label>
                                                 <input id="modal-form-1" type="text" class="form-control"
-                                                    value="{{ $event->date }}" disabled>
+                                                    value="{{ $goat->tag }}" disabled>
                                             </div>
                                             <div class="col-span-12 sm:col-span-6">
-                                                <label class="form-label">Jenis Event</label>
+                                                <label class="form-label">Nama</label>
                                                 <input type="text" class="form-control"
-                                                    value="{{ $event->type }}" disabled>
+                                                    value="{{ $goat->name }}" disabled>
                                             </div>
                                             <div class="col-span-12 sm:col-span-6">
-                                                <label class="form-label">Cakupan</label>
+                                                <label class="form-label">Jenis</label>
                                                 <input type="text" class="form-control"
-                                                    value="{{ $event->scope ?? '-' }}" disabled>
+                                                    value="{{ $goat->breed }}" disabled>
                                             </div>
                                             <div class="col-span-12 sm:col-span-6">
-                                                <label class="form-label">~Kambing</label>
+                                                <label class="form-label">Kelamin</label>
                                                 <input type="text" class="form-control"
-                                                    value="{{ $event->goat?->name ?? '-' }}" disabled>
+                                                    value="{{ $goat->gender }}" disabled>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-4">
+                                                <label class="form-label">Berat</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{ $goat->weight }} gram" disabled>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-4">
+                                                <label class="form-label">Asal</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{ $goat->origin ?? '-' }}" disabled>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-4">
+                                                <label class="form-label">Status</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{ $goat->status ?? '-' }}" disabled>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-6">
+                                                <label class="form-label">Induk Jantan</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{ $goat->father?->name ?? '-' }}" disabled>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-6">
+                                                <label class="form-label">Induk Betina</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{ $goat->mother?->name ?? '-' }}" disabled>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-4">
+                                                <label class="form-label">Group</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{ $goat->group?->name ?? '-' }}" disabled>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-4">
+                                                <label class="form-label">Tangga Masuk Kandang</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{ $goat->date_in ?? '-' }}" disabled>
+                                            </div>
+                                            <div class="col-span-12 sm:col-span-4">
+                                                <label class="form-label">Tangga Lahir</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{ $goat->birth_date ?? '-' }}" disabled>
                                             </div>
                                             <div class="col-span-12">
                                                 <label class="form-label">Catatan Farmer</label>
-                                                <textarea class="form-control" width="100%" rows="5">{{ $event->note }}</textarea>
+                                                <textarea class="form-control" width="100%" rows="5">{{ $goat->note }}</textarea>
                                             </div>
                                         </div>
                                         <!-- END: Modal Body -->
@@ -177,16 +236,38 @@
                             <!-- END: Modal Content -->
                         @empty
                             <div class="alert alert-warning-soft show flex items-center mb-2" role="alert"> <i
-                                    data-feather="alert-circle" class="w-6 h-6 mr-2"></i> Event peternakan tidak ditemukan!
+                                    data-feather="alert-circle" class="w-6 h-6 mr-2"></i> Kambing tidak ditemukan!
                             </div>
                         @endforelse
                     </tbody>
                 </table>
             </div>
 
-            {{ $events->links() }}
+            <span style="display: flex; justify-content: space-between; align-items: center">
+
+                <nav class="tabulator">
+                    <div class="tabulator-footer mt-3">
+                        <span class="tabulator-paginator">
+                            <select class="tabulator-page-size" aria-label="Page Size" title="Page Size"
+                                wire:model.lazy="page_size" style="margin-bottom: 5px">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                            </select>
+                        </span>
+                    </div>
+                </nav>
+
+                {{ $goats->links() }}
+
+            </span>
 
         </div>
     </div>
+
+    @component('components.modal-loading-indicator')
+    @endcomponent
 
 </div>

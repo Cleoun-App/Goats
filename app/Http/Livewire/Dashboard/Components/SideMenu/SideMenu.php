@@ -33,7 +33,7 @@ class SideMenu extends Component
                 'icon'  =>  'users',
             ],
             [
-                'route' =>  '',
+                'route' =>  route('ds.goats.table'),
                 'name'  =>  'Tabel Kambing',
                 'icon'  =>  'file-text',
             ],
@@ -54,7 +54,7 @@ class SideMenu extends Component
             ],
             [
                 'route' =>  '',
-                'name'  =>  'Laporang Pengguna',
+                'name'  =>  'Laporan Pengguna',
                 'icon'  =>  'book',
             ],
         ];

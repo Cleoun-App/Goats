@@ -25,9 +25,11 @@ class _Dashboard extends Component
 
     public $search_field;
     public $search_operator = 'like';
+    
+    public $page_size = 5;
 
     public $search_operators = [
-        ['like', 'Sama Dengan'],  ['dx10', 'Kurang Dari'], ['kl72', 'Lebih Dari'],
+        ['like', 'Sama Dengan'], ['ol29', 'Sama Dengan (Strict)'],  ['dx10', 'Kurang Dari'], ['kl72', 'Lebih Dari'],
         ['nb19', 'Lebih Kecil Sama Dengan'], ['vr05', 'Lebih Besar Sama Dengan'], ['nx00', 'Tidak Sama Dengan']
     ];
 
@@ -60,6 +62,9 @@ class _Dashboard extends Component
                 break;
             case "nx00":
                 $opr = "!=";
+                break;
+            case "ol29":
+                $opr = "=";
                 break;
             default:
                 $opr = 'like';
