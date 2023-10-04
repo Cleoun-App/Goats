@@ -201,7 +201,8 @@
                 </table>
             </div>
 
-            {{ $roles->links('vendor.pagination.default', ['psize' => $page_size]) }}
+            @component('components.pagination-table-navigator', ['nav' => $roles])
+            @endcomponent
 
         </div>
 

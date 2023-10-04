@@ -13,34 +13,20 @@ class UserRolePage extends _Dashboard
 
     public $page_title = "Manajemen Role Pengguna";
 
-    public $search_field = 'name';
-    public $search_operator = 'like';
-    public $search_value;
-
     public $listeners = [
         'refresh-page' => '$refresh',
     ];
 
     public $queryString = ['search_field', 'search_operator', 'search_value', 'page_size'];
 
-    public $page_size = 10;
-
     public $searchable_fields = [
         ['name', 'Nama'], ['created_at', 'Tgl Dibuat'], ['guard_name', 'Nama Guard']
     ];
 
-    public $search_operators = [
-        ['like', 'Sama Dengan'],  ['dx10', 'Kurang Dari'], ['kl72', 'Lebih Dari'],
-        ['nb19', 'Lebih Kecil Sama Dengan'], ['vr05', 'Lebih Besar Sama Dengan'], ['nx00', 'Tidak Sama Dengan']
-    ];
-
-
     public function mount()
     {
-        $this->search_field = request()->get('search_field', 'name');
-        $this->search_operator = request()->get('search_operator', 'like');
-
         $this->pushBread(1, $this->page_title);
+        $this->defaultSearchAttr("name", "like");
     }
 
     public function render()
@@ -54,27 +40,7 @@ class UserRolePage extends _Dashboard
 
         if($this->search_value != null) {
 
-            $opr = null;
-
-            switch($this->search_operator) {
-                case "dx10":
-                    $opr = "<";
-                    break;
-                case "kl72":
-                    $opr = ">";
-                    break;
-                case "nb19":
-                    $opr = "<=";
-                    break;
-                case "vr05":
-                    $opr = ">=";
-                    break;
-                case "nx00":
-                    $opr = "!=";
-                    break;
-                default:
-                    $opr = 'like';
-            }
+            $opr = $this->searchOperator();
 
             $roles = Role::where($this->search_field, $opr, $opr == 'like' ? "%{$this->search_value}%" : $this->search_value)
                 ->orderBy('created_at', 'DESC')->paginate($this->page_size);

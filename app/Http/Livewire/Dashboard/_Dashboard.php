@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Dashboard;
 
 use App\Exceptions\AppHandler;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
@@ -16,6 +17,7 @@ enum DispatchType
 
 class _Dashboard extends Component
 {
+    
     /**
      *  Table Dashboard
      */
@@ -184,5 +186,12 @@ class _Dashboard extends Component
         }
 
         return 'Maaf, terjadi kesalahan di dalam sistem kami!';
+    }
+
+    protected function exportPDF($data) {
+
+        $pdf = Pdf::loadView("components.reports.goats-layout", []);
+
+        return $pdf->download("a.pdf");
     }
 }

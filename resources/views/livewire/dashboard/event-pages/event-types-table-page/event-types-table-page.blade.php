@@ -1,12 +1,27 @@
 <div>
 
-    <div class="intro-y box lg:mt-5">
-        <div class="flex items-center p-5 border-b border-gray-200 dark:border-dark-5">
-            <h2 class="font-medium text-base mr-auto">
-                {{ $page_title }}
-            </h2>
+
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+        <h2 class="text-lg font-medium mr-auto">
+            {{ $page_title }}
+        </h2>
+        <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+            <!-- BEGIN: Modal Toggle -->
+            <div class="text-center"> 
+                <a href="javascript:;" data-toggle="modal" data-target="#form-add-event"
+                    class="btn btn-primary">Tambahkan Jenis Event
+                </a>
+                @livewire('dashboard.event-pages.event.components.event-form-dialog', [
+                    'id_modal' => 'form-add-event', 
+                    'title' => 'Tambahkan Event',
+                ], key('1029192u9a0s'))
+            </div> <!-- END: Modal Toggle -->
+            
         </div>
-        <div class="flex flex-col sm:flex-row sm:items-end xl:items-start p-5">
+    </div>
+    <!-- BEGIN: HTML Table Data -->
+    <div class="intro-y box p-5 mt-5">
+        <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
             <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
                 <div class="sm:flex items-center sm:mr-4">
                     <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Field</label>
@@ -49,20 +64,34 @@
                     <button id="tabulator-html-filter-go" type="button" class="btn btn-primary w-full sm:w-16"
                         wire:click="$refresh" wire:loading.attr="disabled">
                         <span wire:target="$refresh" wire:loading.remove>Cari</span>
-                                    
-                        <div wire:target="$refresh" wire:loading.flex style="justify-content: center; align-items: center; margin: 0px; padding: 5px 0px">
-                            <svg width="25" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="rgb(226, 232, 240)" class="w-8 h-7">
+
+                        <div wire:target="$refresh" wire:loading.flex
+                            style="justify-content: center; align-items: center; margin: 0px; padding: 5px 0px">
+                            <svg width="25" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg"
+                                fill="rgb(226, 232, 240)" class="w-8 h-7">
                                 <circle cx="15" cy="15" r="15">
-                                    <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
-                                    <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
+                                    <animate attributeName="r" from="15" to="15" begin="0s"
+                                        dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
+                                    <animate attributeName="fill-opacity" from="1" to="1"
+                                        begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear"
+                                        repeatCount="indefinite"></animate>
                                 </circle>
                                 <circle cx="60" cy="15" r="9" fill-opacity="0.3">
-                                    <animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite"></animate>
-                                    <animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite"></animate>
+                                    <animate attributeName="r" from="9" to="9" begin="0s"
+                                        dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
+                                    <animate attributeName="fill-opacity" from="0.5" to="0.5"
+                                        begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear"
+                                        repeatCount="indefinite"></animate>
                                 </circle>
                                 <circle cx="105" cy="15" r="15">
-                                    <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
-                                    <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
+                                    <animate attributeName="r" from="15" to="15" begin="0s"
+                                        dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite">
+                                    </animate>
+                                    <animate attributeName="fill-opacity" from="1" to="1"
+                                        begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear"
+                                        repeatCount="indefinite"></animate>
                                 </circle>
                             </svg>
                         </div>
@@ -71,12 +100,10 @@
                         class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1">Ulang</button>
                 </div>
             </form>
-            <div class="flex mt-5 sm:mt-0 d-none">
-                <button id="tabulator-print" class="btn btn-outline-secondary w-1/2 sm:w-auto mr-2"> <i
-                        data-feather="printer" class="w-4 h-4 mr-2"></i> Print </button>
+            <div class="flex mt-5 sm:mt-0">
                 <div class="dropdown w-1/2 sm:w-auto">
-                    <button class="dropdown-toggle btn btn-outline-secondary w-full sm:w-auto" aria-expanded="false"> <i
-                            data-feather="file-text" class="w-4 h-4 mr-2"></i> Export <i data-feather="chevron-down"
+                    <button class="dropdown-toggle btn btn-outline-secondary w-full sm:w-auto" aria-expanded="false">
+                        <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export <i data-feather="chevron-down"
                             class="w-4 h-4 ml-auto sm:ml-2"></i> </button>
                     <div class="dropdown-menu w-40">
                         <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
@@ -97,16 +124,15 @@
                 </div>
             </div>
         </div>
-        <div class="overflow-x-auto scrollbar-hidden p-5">
+        <div class="overflow-x-auto scrollbar-hidden">
             <div class="overflow-x-auto">
-                <table class="table">
+                <table class="table mt-5">
                     <thead>
                         <tr class="bg-gray-700 dark:bg-dark-1 text-white">
                             <th class="whitespace-nowrap">#</th>
                             <th class="whitespace-nowrap">Nama</th>
-                            <th class="whitespace-nowrap">Tanggal Event</th>
-                            <th class="whitespace-nowrap">Catatan</th>
-                            <th class="whitespace-nowrap">Tipe</th>
+                            <th class="whitespace-nowrap">Slug</th>
+                            <th class="whitespace-nowrap">Created</th>
                             <th class="whitespace-nowrap">Aksi</th>
                         </tr>
                     </thead>
@@ -114,80 +140,72 @@
                         @forelse ($events as $event)
                             <tr>
                                 <td class="border-b dark:border-dark-5">{{ $loop->index + 1 }}</td>
-                                <td class="border-b dark:border-dark-5">{{ \Str::limit($event->name, 15, '...') }}</td>
-                                <td class="border-b dark:border-dark-5">{{ $event->date->format('d-m-Y') }}</td>
-                                <td class="border-b dark:border-dark-5">{{ \Str::limit($event->note, 25, '...') ?? '-' }}</td>
-                                <td class="border-b dark:border-dark-5">{{ $event->type }}</td>
+                                <td class="border-b dark:border-dark-5">{{ $event->name }}</td>
+                                <td class="border-b dark:border-dark-5">{{ $event->slug }}</td>
+                                <td class="border-b dark:border-dark-5">{{ $event->created_at->format('D d, M Y') }}
+                                </td>
                                 <td class="border-b dark:border-dark-5">
-                                    <a class="btn btn-sm btn-primary" href="javacript:void(0)" data-toggle="modal"
-                                        data-target="#show-modal-{{ $event->id }}">Show
+                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#edit-event-{{ $loop->index }}"
+                                        class="btn btn-sm btn-primary mr-1">Ubah
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" href="javacript:void(0)" data-toggle="modal"
+                                        data-target="#delete-modal-{{ $event->id }}">Hapus
                                     </a>
                                 </td>
-                            </tr>
-
 
                             <!-- BEGIN: Modal Content -->
 
-                            <div id="show-modal-{{ $event->id }}" class="modal" tabindex="-1"
+                            <div id="delete-modal-{{ $event->id }}" class="modal" tabindex="-1"
                                 aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <!-- BEGIN: Modal Header -->
-                                        <div class="modal-header">
-                                            <h2 class="font-medium text-base mr-auto">Data event peternakan</h2>
-                                        </div> <!-- END: Modal Header -->
-                                        <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                                            <div class="col-span-12 sm:col-span-6">
-                                                <label for="modal-form-1" class="form-label">Tanggal</label>
-                                                <input id="modal-form-1" type="text" class="form-control"
-                                                    value="{{ $event->date }}" disabled>
+                                        <div class="modal-body p-0">
+                                            <div class="p-5 text-center">
+                                                <i data-feather="x-circle"
+                                                    class="w-16 h-16 text-theme-21 mx-auto mt-3"></i>
+                                                <div class="text-3xl mt-5">Konfirmasi Penghapusan!!</div>
+                                                <div class="text-gray-600 mt-2">Apakah anda ingin menghapus
+                                                    Role Pengguna <br> '{{ $event->name }}'
+                                                    <br><strong style="color: rgba(242, 255, 61, 0.836)"> PERINGATAN <br> Data Yang Di Hapus Tidak Akan Bisa Dikembalikan!!</strong>
+                                                </div>
                                             </div>
-                                            <div class="col-span-12 sm:col-span-6">
-                                                <label class="form-label">Jenis Event</label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ $event->type }}" disabled>
-                                            </div>
-                                            <div class="col-span-12 sm:col-span-6">
-                                                <label class="form-label">Cakupan</label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ $event->scope ?? '-' }}" disabled>
-                                            </div>
-                                            <div class="col-span-12 sm:col-span-6">
-                                                <label class="form-label">~Kambing</label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ $event->goat?->name ?? '-' }}" disabled>
-                                            </div>
-                                            <div class="col-span-12">
-                                                <label class="form-label">Catatan Farmer</label>
-                                                <textarea class="form-control" width="100%" rows="5">{{ $event->note }}</textarea>
+                                            <div class="px-5 pb-8 text-center">
+                                                <button type="button" data-dismiss="modal"
+                                                    class="btn btn-outline-secondary w-24 dark:border-dark-5 dark:text-gray-300 mr-1">Batalkan
+                                                </button>
+                                                <button type="button" data-dismiss="modal" class="btn btn-danger w-24"
+                                                    wire:click="deleteRole({{ $event->id }})">Hapus
+                                                </button>
                                             </div>
                                         </div>
-                                        <!-- END: Modal Body -->
-                                        <!-- BEGIN: Modal Footer -->
-                                        <div class="modal-footer text-right">
-                                            <button type="button" data-dismiss="modal"
-                                                class="btn btn-outline-secondary w-20 mr-1">Tutup</button>
-                                        </div>
-                                        <!-- END: Modal Footer -->
-
                                     </div>
                                 </div>
                             </div>
 
                             <!-- END: Modal Content -->
+                                
+                                @livewire('dashboard.event-pages.event.components.event-form-dialog', [
+                                    'id_modal' => 'edit-event-' . $loop->index,
+                                    'title' => 'Edit Event',
+                                    'role_id' => $event->id,
+                                ], key($event->id))
+                            </tr>
                         @empty
-                            <div class="alert alert-warning-soft show flex items-center mb-2" role="alert"> <i
-                                    data-feather="alert-circle" class="w-6 h-6 mr-2"></i> Event peternakan tidak ditemukan!
+                            <div class="alert alert-warning-soft show flex items-center mb-2 mt-5" role="alert"> <i
+                                    data-feather="alert-circle" class="w-6 h-6 mr-2"></i> Pengguna Tidak Di-temukan!!
                             </div>
                         @endforelse
                     </tbody>
                 </table>
             </div>
 
-            {{ $events->links() }}
+            @component('components.pagination-table-navigator', ['nav' => $events])
+            @endcomponent
 
         </div>
+
     </div>
+    <!-- END: HTML Table Data -->
 
     
     @component('components.modal-loading-indicator')

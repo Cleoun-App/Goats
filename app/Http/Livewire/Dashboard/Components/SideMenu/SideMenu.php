@@ -15,7 +15,6 @@ class SideMenu extends Component
 
     protected function getMenu() : array
     {
-        $user = auth_user();
         return [
             [
                 'route' =>  route('ds.home_page'),
@@ -33,16 +32,6 @@ class SideMenu extends Component
                 'icon'  =>  'users',
             ],
             [
-                'route' =>  route('ds.goats.table'),
-                'name'  =>  'Tabel Kambing',
-                'icon'  =>  'file-text',
-            ],
-            [
-                'route' =>  '',
-                'name'  =>  'Tabel Event',
-                'icon'  =>  'globe',
-            ],
-            [
                 'route' =>  route('ds.user.mgt.roles'),
                 'name'  =>  'Role Pengguna',
                 'icon'  =>  'user-check',
@@ -53,9 +42,19 @@ class SideMenu extends Component
                 'route' =>  null,
             ],
             [
-                'route' =>  '',
-                'name'  =>  'Laporan Pengguna',
-                'icon'  =>  'book',
+                'route' =>  route('ds.goats.table'),
+                'name'  =>  'Tabel Kambing',
+                'icon'  =>  'file-text',
+            ],
+            [
+                'route' =>  route('ds.event.table'),
+                'name'  =>  'Tabel Event',
+                'icon'  =>  'globe',
+            ],
+            [
+                'route' =>  route('ds.event.types.table'),
+                'name'  =>  'Jenis Event',
+                'icon'  =>  'list',
             ],
         ];
     }

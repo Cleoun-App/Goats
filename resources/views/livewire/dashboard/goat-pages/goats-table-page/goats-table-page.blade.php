@@ -85,9 +85,7 @@
                         class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1">Ulang</button>
                 </div>
             </form>
-            <div class="flex mt-5 sm:mt-0 d-none">
-                <button id="tabulator-print" class="btn btn-outline-secondary w-1/2 sm:w-auto mr-2"> <i
-                        data-feather="printer" class="w-4 h-4 mr-2"></i> Print </button>
+            <div class="flex mt-5 sm:mt-0">
                 <div class="dropdown w-1/2 sm:w-auto">
                     <button class="dropdown-toggle btn btn-outline-secondary w-full sm:w-auto" aria-expanded="false">
                         <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export <i data-feather="chevron-down"
@@ -96,16 +94,20 @@
                         <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
                             <a id="tabulator-export-csv" href="javascript:;"
                                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export CSV </a>
-                            <a id="tabulator-export-json" href="javascript:;"
+                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export CSV
+                            </a>
+                            <a id="tabulator-export-json" href="javascript:;" wire:click="export_pdf"
                                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export JSON </a>
+                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export PDF
+                            </a>
                             <a id="tabulator-export-xlsx" href="javascript:;"
                                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export XLSX </a>
+                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export XLSX
+                            </a>
                             <a id="tabulator-export-html" href="javascript:;"
                                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export HTML </a>
+                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export HTML
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -243,26 +245,8 @@
                 </table>
             </div>
 
-            <span style="display: flex; justify-content: space-between; align-items: center">
-
-                <nav class="tabulator">
-                    <div class="tabulator-footer mt-3">
-                        <span class="tabulator-paginator">
-                            <select class="tabulator-page-size" aria-label="Page Size" title="Page Size"
-                                wire:model.lazy="page_size" style="margin-bottom: 5px">
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="30">30</option>
-                                <option value="40">40</option>
-                            </select>
-                        </span>
-                    </div>
-                </nav>
-
-                {{ $goats->links() }}
-
-            </span>
+            @component('components.pagination-table-navigator', ['nav' => $goats])
+            @endcomponent
 
         </div>
     </div>

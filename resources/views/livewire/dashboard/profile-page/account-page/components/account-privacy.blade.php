@@ -61,4 +61,8 @@
             </div>
         </div>
     </div>
+
+    
+    @component('components.modal-loading-indicator')
+    @endcomponent
 </div>
