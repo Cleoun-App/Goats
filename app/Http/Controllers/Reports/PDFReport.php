@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Reports;
 
 use App\Http\Controllers\Controller;
+use App\Models\Breed;
 use App\Models\Event;
 use App\Models\Goat;
 use App\Models\MilkNote;
@@ -11,6 +12,16 @@ use Illuminate\Http\Request;
 
 class PDFReport extends Controller
 {
+
+    public function preview(Request $request) {
+        $report_model = $request->report_model; 
+
+        return match($report_model) {
+            "goats" => $this->export_goats($request, true),
+            "events" => $this->export_events($request, true),
+            "milk_notes" => $this->export_milk_notes($request, true),
+        };
+    }
 
     public function export(Request $request) {
         $report_model = $request->report_model; 
@@ -22,12 +33,14 @@ class PDFReport extends Controller
         };
     }
 
-    public function export_goats(Request $request)
+    public function export_goats(Request $request, bool $is_preview = false)
     {
+
+        $user = get_user($request->username);
 
         try {
 
-            $goats = get_user($request->username)->goats;
+            $goats = $user->goats;
 
             // ...
         } catch (\Throwable $th) {
@@ -37,14 +50,22 @@ class PDFReport extends Controller
             // ...
         }
 
-        $pdf = Pdf::loadView("components.reports.goats-layout", [ 'goats' => $goats ]);
+        $data['user'] = $user;
+        $data['goats'] = $goats;
+        $data['breeds'] = Breed::with('goats')->get();
+
+        $pdf = Pdf::loadView("components.reports.goats-layout", $data);
 
         $pdf->setPaper('A4', 'landscape');
 
-        return $pdf->stream("goats_report.pdf");
+        if($is_preview) {
+            return $pdf->stream("goats_report.pdf");
+        }
+        
+        return $pdf->download("goats_report.pdf");
     }
     
-    public function export_events(Request $request)
+    public function export_events(Request $request, bool $is_preview = false)
     {
 
         try {
@@ -63,10 +84,14 @@ class PDFReport extends Controller
 
         $pdf->setPaper('A4', 'landscape');
 
-        return $pdf->stream("events_report.pdf");
+        if($is_preview) {
+            return $pdf->stream("events_report.pdf");
+        }
+        
+        return $pdf->download("events_report.pdf");
     }
     
-    public function export_milk_notes(Request $request)
+    public function export_milk_notes(Request $request, bool $is_preview = false)
     {
 
         try {
@@ -85,6 +110,10 @@ class PDFReport extends Controller
 
         $pdf->setPaper('A4', 'landscape');
 
-        return $pdf->stream("milk_notes_report.pdf");
+        if($is_preview) {
+            return $pdf->stream("milk_notes_report.pdf");
+        }
+        
+        return $pdf->download("milk_notes_report.pdf");
     }
 }

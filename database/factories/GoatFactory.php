@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Breed;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +19,7 @@ class GoatFactory extends Factory
     {
         $fake = fake();
 
-        $goat_breeds = [
-            'keia', 'alwi', 'weij', 'jeins', 'aj'
-         ];
+        $goat_breeds = Breed::all();
 
         $cos_point = cos(round(time()/pi()));
 
@@ -31,7 +30,7 @@ class GoatFactory extends Factory
             'picture' => $fake->url(),
             'gender' => ['male', 'female'][rand(0, 1)],
             'origin' => ['Di curi', 'Di ambil di peternakan orang', 'Dibeli tampa bayar', 'Melahirkan di kandang orang'][rand(0, 3)],
-            'breed' => $goat_breeds[rand(0, count($goat_breeds) - 1)],
+            'breed' => $goat_breeds[rand(0, count($goat_breeds) - 1)]->name,
             'status' => ['alive', 'death', 'sold'][rand(0, 2)],
             'birth_date' => now()->addMonths(rand(-10, -99)),
             'date_in' => now()->addDay(rand(-10, 10)),

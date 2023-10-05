@@ -123,7 +123,7 @@ class EventController extends Controller
             $event->name = $request->name;
             $event->type = $request->type;
             $event->note = $request->note;
-            $event->data = $request->data;
+            $event->data = json_decode($request->data);
             $event->date = $request->date;
             $event->scope = $request->scope;
 
@@ -177,7 +177,7 @@ class EventController extends Controller
             $event->name = $request->name;
             $event->type = $request->type;
             $event->note = $request->note;
-            $event->data = $request->data;
+            $event->data = json_decode($request->data);
             $event->date = $request->date;
             $event->scope = $request->scope;
 

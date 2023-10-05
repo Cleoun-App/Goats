@@ -27,6 +27,7 @@ class BreedSeeder extends Seeder
             "Toggenburg",
             "Kiko",
             "Cashmere",
+            "Other"
             // Add more goat breeds as needed
         ];
 

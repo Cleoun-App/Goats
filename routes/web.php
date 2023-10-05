@@ -82,6 +82,8 @@ Route::middleware(['auth', 'role:user|admin|supreme'])->group(function () {
 
 
     Route::get('report/{report_model}/export/pdf', [PDFReport::class, 'export'])->name('ds.report.export.pdf');
+    
+    Route::get('report/{report_model}/preview/pdf', [PDFReport::class, 'preview'])->name('ds.report.preview.pdf');
 
     // ...
 });

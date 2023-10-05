@@ -86,7 +86,7 @@
                 </div>
             </form>
             <div class="flex mt-5 sm:mt-0">
-                @component('components.export-options', ["username" => $username, 'report_model' => 'goat'])
+                @component('components.export-options', ["username" => $username, 'report_model' => 'goats'])
                 @endcomponent
             </div>
         </div>

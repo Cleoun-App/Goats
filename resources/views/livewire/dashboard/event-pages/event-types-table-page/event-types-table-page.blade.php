@@ -100,7 +100,7 @@
                         class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1">Ulang</button>
                 </div>
             </form>
-            <div class="flex mt-5 sm:mt-0">
+            <div class="flex mt-5 sm:mt-0 d-none">
                 <div class="dropdown w-1/2 sm:w-auto">
                     <button class="dropdown-toggle btn btn-outline-secondary w-full sm:w-auto" aria-expanded="false">
                         <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export <i data-feather="chevron-down"

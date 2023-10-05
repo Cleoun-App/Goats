@@ -1,8 +1,8 @@
 <div class="flex">
-    <button class="btn btn-outline-secondary w-1/2 sm:w-auto mr-1"> <i
-        data-feather="printer" class="w-4 h-4 mr-2"></i></button>
+    <a class="btn btn-outline-secondary w-1/2 sm:w-auto mr-1" target="_blank_" href="{{route("ds.report.preview.pdf", ['username' => isset($username) ? $username : "", "report_model" => $report_model])}}"> <i
+        data-feather="printer" class="w-4 h-4 mr-2"></i></a>
     <div class="dropdown w-1/2 sm:w-auto">
-        <button class="dropdown-toggle btn btn-outline-secondary w-full sm:w-auto" aria-expanded="false">
+        <button class="dropdown-toggle btn btn-outline-secondary w-full sm:w-auto"  aria-expanded="false">
             <i data-feather="file-text" class="w-4 h-4 mr-2"></i> <i data-feather="chevron-down"
                 class="w-4 h-4 ml-auto sm:ml-2"></i> </button>
         <div class="dropdown-menu w-40">

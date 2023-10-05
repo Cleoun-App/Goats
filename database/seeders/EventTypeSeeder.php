@@ -16,16 +16,17 @@ class EventTypeSeeder extends Seeder
     public function run()
     {
         $eventTypes = [
-            "Pemeriksaan kesehatan",
-            "Penambahan berat badan",
+            "Dry Off",
+            "Perawatan",
             "Vaksinasi",
-            "Perawatan Kesehatan",
-            "Pemeliharaan Kebersihan Kandang",
-            "Pemerahan Susu",
-            "Pengawinan",
+            "Perkawinan",
+            "Penyuburan",
+            "Pemerahan",
             "Reproduksi",
             "Penjualan",
-            "Penyembelihan"
+            "Penyembelihan",
+            "Indentifikasi(Tagging)",
+            "Other"
         ];
 
         foreach($eventTypes as $type) {
