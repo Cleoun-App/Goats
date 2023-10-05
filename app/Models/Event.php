@@ -12,7 +12,8 @@ class Event extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'date' => 'datetime'
+        'date' => 'datetime',
+        'data' => 'array',
     ];
 
     public function user()

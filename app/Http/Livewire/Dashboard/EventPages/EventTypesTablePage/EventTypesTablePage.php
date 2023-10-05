@@ -33,7 +33,7 @@ class EventTypesTablePage extends _Dashboard
     {
         try {
 
-            $page_size = 5;
+            $page_size = $this->page_size;
 
             if($this->search_value != null) {
 
