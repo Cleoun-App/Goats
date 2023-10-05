@@ -41,8 +41,8 @@ class UserSeeder extends Seeder
         ];
 
         $roles = [
-            ["admin", "user"],
-            ["user"],
+            "admin",
+            "user",
         ];
 
         $index = 0;

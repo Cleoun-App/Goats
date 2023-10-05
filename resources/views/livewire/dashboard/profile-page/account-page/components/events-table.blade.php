@@ -71,30 +71,9 @@
                         class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1">Ulang</button>
                 </div>
             </form>
-            <div class="flex mt-5 sm:mt-0 d-none">
-                <button id="tabulator-print" class="btn btn-outline-secondary w-1/2 sm:w-auto mr-2"> <i
-                        data-feather="printer" class="w-4 h-4 mr-2"></i> Print </button>
-                <div class="dropdown w-1/2 sm:w-auto">
-                    <button class="dropdown-toggle btn btn-outline-secondary w-full sm:w-auto" aria-expanded="false"> <i
-                            data-feather="file-text" class="w-4 h-4 mr-2"></i> Export <i data-feather="chevron-down"
-                            class="w-4 h-4 ml-auto sm:ml-2"></i> </button>
-                    <div class="dropdown-menu w-40">
-                        <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-                            <a id="tabulator-export-csv" href="javascript:;"
-                                class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export CSV </a>
-                            <a id="tabulator-export-json" href="javascript:;"
-                                class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export JSON </a>
-                            <a id="tabulator-export-xlsx" href="javascript:;"
-                                class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export XLSX </a>
-                            <a id="tabulator-export-html" href="javascript:;"
-                                class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export HTML </a>
-                        </div>
-                    </div>
-                </div>
+            <div class="flex mt-5 sm:mt-0">
+                @component('components.export-options', ["username" => $username, 'report_model' => 'events'])
+                @endcomponent
             </div>
         </div>
         <div class="overflow-x-auto scrollbar-hidden p-5">

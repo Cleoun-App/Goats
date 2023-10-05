@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Reports\PDFReport;
 use App\Http\Livewire\Dashboard\AppPages\ConfigPage\ConfigPage;
 use App\Http\Livewire\Dashboard\AppPages\LoggerPage\LoggerPage;
 use App\Http\Livewire\Dashboard\AppPages\NotificationPage\NotificationPage;
@@ -18,6 +19,7 @@ use App\Http\Livewire\Dashboard\UserPages\UserCreatePage\UserCreatePage;
 use App\Http\Livewire\Dashboard\UserPages\UserManagementPages\UserPermissionPage\UserPermissionPage;
 use App\Http\Livewire\Dashboard\UserPages\UserManagementPages\UserRolePage\UserRolePage;
 use App\Http\Livewire\Dashboard\UserPages\UserTablePage\UserTablePage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +79,9 @@ Route::middleware(['auth', 'role:user|admin|supreme'])->group(function () {
         auth()->logout();
         return redirect()->route('login');
     })->name('logout');
+
+
+    Route::get('report/{report_model}/export/pdf', [PDFReport::class, 'export'])->name('ds.report.export.pdf');
 
     // ...
 });

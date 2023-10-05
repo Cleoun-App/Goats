@@ -28,8 +28,8 @@ class MilkNoteFactory extends Factory
             'note' => $fake->sentence,
             'produced' => rand(0, 100),
             'consumption' => rand(0, 100),
-            'goats_milked' => $type == 'bulk' ? rand(1, 10) : null,
-            'goat_id' => $type == 'individual' ? rand(1, 10) : null,
+            'goats_milked' => $type === 'bulk' ? rand(1, 10) : null,
+            'goat_id' => $type === 'individual' ? rand(1, 10) : null,
             
         ];
     }

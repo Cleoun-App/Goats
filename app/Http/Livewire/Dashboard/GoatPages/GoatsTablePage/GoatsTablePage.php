@@ -59,11 +59,4 @@ class GoatsTablePage extends _Dashboard
             $this->onRenderError($th);
         }
     }
-
-    public function export_pdf()
-    {
-        $data = Goat::all();
-
-        return parent::exportPDF($data->toArray());
-    }
 }

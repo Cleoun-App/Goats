@@ -52,4 +52,8 @@ $app->singleton(
 |
 */
 
+ini_set('max_execution_time', 300); // Set maximum execution time to 300 seconds
+ini_set('memory_limit', '564M');    // Set memory limit to 256 megabytes
+
+
 return $app;

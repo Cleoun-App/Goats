@@ -7,34 +7,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $pageTitle ?? config('app.name', 'Laravel') }}</title>
-{{-- 
-    @php
-    //get current url
-    $url = request()->path();
-    //get current breadcrumb from session
-
-    $breadcrumb = session('breadcrumb');
-
-    if(empty($breadcrumb))
-    $breadcrumb[] = [
-    'url' => '/',
-    'name' => 'Dashboard'
-    ];
-
-    // check if current url already exists in breadcrumb
-    foreach ($breadcrumb as $key => $br) {
-    if ($br['url'] == $url) {
-    $breadcrumb = array_slice($breadcrumb, 0, $key + 1);
-    break;
-    } else {
-    $breadcrumb[] = ['url' => $url, 'name' => $pageTitle];
-    }
-    }
-
-    //save breadcrumb to session
-    session(['breadcrumb' => $breadcrumb]);
-
-    @endphp --}}
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -83,6 +55,10 @@
 
         *{
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+        }
+
+        .modal.show {
+            z-index: 10000;
         }
     </style>
 

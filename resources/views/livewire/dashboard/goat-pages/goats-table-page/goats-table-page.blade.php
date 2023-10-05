@@ -86,31 +86,8 @@
                 </div>
             </form>
             <div class="flex mt-5 sm:mt-0">
-                <div class="dropdown w-1/2 sm:w-auto">
-                    <button class="dropdown-toggle btn btn-outline-secondary w-full sm:w-auto" aria-expanded="false">
-                        <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export <i data-feather="chevron-down"
-                            class="w-4 h-4 ml-auto sm:ml-2"></i> </button>
-                    <div class="dropdown-menu w-40">
-                        <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-                            <a id="tabulator-export-csv" href="javascript:;"
-                                class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export CSV
-                            </a>
-                            <a id="tabulator-export-json" href="javascript:;" wire:click="export_pdf"
-                                class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export PDF
-                            </a>
-                            <a id="tabulator-export-xlsx" href="javascript:;"
-                                class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export XLSX
-                            </a>
-                            <a id="tabulator-export-html" href="javascript:;"
-                                class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Export HTML
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                @component('components.export-options', ['report_model' => 'goats'])
+                @endcomponent
             </div>
         </div>
         <div class="overflow-x-auto scrollbar-hidden p-5">
@@ -137,19 +114,20 @@
                                 <td class="border-b dark:border-dark-5">{{ $goat->gender }}</td>
                                 <td class="border-b dark:border-dark-5">
                                     <a style="color: #6262e4; text-decoration: underline;"
-                                        href="{{ route('ds.user.show', [$goat->user->username]) }}">{{ '@' . $goat->user->username }}</a>
+                                        href="{{ route('ds.user.show', [$goat->user->username]) }}">
+                                        {{ '@' . $goat->user->username }}
+                                    </a>
                                 </td>
                                 <td class="border-b dark:border-dark-5">
-                                    <a class="btn btn-sm btn-primary" href="javacript:void(0)" data-toggle="modal"
-                                        data-target="#delete-modal-{{ $goat->id }}">Show
+                                    <a class="btn btn-sm btn-primary" href="#" data-toggle="modal"
+                                        data-target="#goat-model{{ $goat->id }}">Show
                                     </a>
                                 </td>
                             </tr>
 
-
                             <!-- BEGIN: Modal Content -->
 
-                            <div id="delete-modal-{{ $goat->id }}" class="modal" tabindex="-1"
+                            <div id="goat-model{{ $goat->id }}" class="modal" tabindex="-1"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-xl">
                                     <div class="modal-content">
@@ -253,5 +231,6 @@
 
     @component('components.modal-loading-indicator')
     @endcomponent
+
 
 </div>
