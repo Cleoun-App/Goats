@@ -38,9 +38,9 @@ class AuthController extends Controller
                 ], 'Login Berhasil');
             } else {
                 return ResponseFormatter::error([
-                    'phone_number' =>  $request->phone_number,
+                    'username' =>  $request->username,
                     'password' => $request->password,
-                ], 'Pastikan Nomor Telepon dan Password anda benar!!', 200);
+                ], 'Pastikan Username dan Password anda benar!!', 200);
             }
         } catch(ValidationException $e) {
 

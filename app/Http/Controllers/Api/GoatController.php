@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Breed;
 use App\Models\Goat;
+use App\Models\Group;
 use App\Models\User;
 use App\Utils\ResponseFormatter;
 use Illuminate\Http\Request;
@@ -60,13 +61,23 @@ class GoatController extends Controller
     {
         try {
 
+            $column = $request->column;
+
             $user = get_user($request->username);
 
-            $quee = $user->goats();
+            if($request->group_id == null) {
+                $quee = $user->goats();
+            } else {
+                $quee = $user->goats()->where('group_id', "=", $request->group_id);
+            }
 
             $val = $request->value;
 
-            $goats = (match($request->column) {
+            if($val === "" || $val === null) {
+                $column = null;
+            }
+
+            $goats = (match($column) {
                 "" => $quee,
                 null => $quee,
                 "name" => $quee->where("name", "LIKE", "%$val%"),
@@ -115,7 +126,7 @@ class GoatController extends Controller
 
             $mother = get_goat($request->mother_tag, false);
 
-            $group = get_group($request->group);
+            $group = get_group($request->group_id);
 
             $goat = new Goat();
 
@@ -189,7 +200,7 @@ class GoatController extends Controller
 
             $mother = get_goat($request->mother_tag, false);
 
-            $group = get_group($request->group);
+            $group = get_group($request->group_id);
 
             $global_tag = md5($user->id . $request->tag);
 

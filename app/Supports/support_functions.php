@@ -36,9 +36,9 @@ if (function_exists("get_user") == false) {
 
 if (function_exists("get_group") == false) {
 
-    function get_group($slug): Group|null
+    function get_group($id): Group|null
     {
-        $group = Group::where('slug', $slug)->first();
+        $group = Group::find($id);
 
         if ($group instanceof Group) {
             return $group;

@@ -208,7 +208,7 @@
                 <td>{{ $goat?->breed ?? "-" }}</td>
                 <td>{{ $goat?->gender ?? "-" }}</td>
                 <td>{{ $goat?->weight ?? "-" }}</td>
-                <td>{{ $goat?->group ?? "-" }}</td>
+                <td>{{ $goat?->group->name ?? "-" }}</td>
                 <td>{{ $stage ?? "-" }}</td>
                 <td>{{ $goat?->birth_date->format('d-m-Y') ?? "-" }}</td>
                 <td>{{ $goat?->status ?? "-" }}</td>

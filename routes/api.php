@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\Reports\PDFReport;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -72,6 +73,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/user/{username}/goat/{tag}/delete', [GoatController::class, 'deleteGoat']);
 
     Route::get('/goat/breeds', [GoatController::class, 'getBreeds']);
+
+    Route::get('/user/{username}/report/{report_model}/export/pdf', [PDFReport::class, 'export']);
 
     /**
      *  End Goat APIs
