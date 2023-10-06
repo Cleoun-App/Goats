@@ -9,12 +9,13 @@ use App\Models\Goat;
 use App\Models\MilkNote;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PDFReport extends Controller
 {
-
-    public function preview(Request $request) {
-        $report_model = $request->report_model; 
+    public function preview(Request $request)
+    {
+        $report_model = $request->report_model;
 
         return match($report_model) {
             "goats" => $this->export_goats($request, true),
@@ -23,8 +24,9 @@ class PDFReport extends Controller
         };
     }
 
-    public function export(Request $request) {
-        $report_model = $request->report_model; 
+    public function export(Request $request)
+    {
+        $report_model = $request->report_model;
 
         return match($report_model) {
             "goats" => $this->export_goats($request),
@@ -35,7 +37,7 @@ class PDFReport extends Controller
 
     public function export_goats(Request $request, bool $is_preview = false)
     {
-        
+
         try {
 
             $user = get_user($request->username);
@@ -43,7 +45,7 @@ class PDFReport extends Controller
             $goats = $user->goats;
 
             $data['user'] = $user;
-            
+
             // ...
         } catch (\Throwable $th) {
 
@@ -64,10 +66,10 @@ class PDFReport extends Controller
         if($is_preview) {
             return $pdf->stream("goats_report.pdf");
         }
-        
+
         return $pdf->download("goats_report.pdf");
     }
-    
+
     public function export_events(Request $request, bool $is_preview = false)
     {
 
@@ -85,38 +87,60 @@ class PDFReport extends Controller
 
         $pdf = Pdf::loadView("components.reports.events-layout", [ 'events' => $events ]);
 
-        $pdf->setPaper('Legal', 'landscape');
+        $pdf->setPaper('F4', 'landscape');
 
         if($is_preview) {
             return $pdf->stream("events_report.pdf");
         }
-        
+
         return $pdf->download("events_report.pdf");
     }
-    
+
     public function export_milk_notes(Request $request, bool $is_preview = false)
     {
 
         try {
+            $user = get_user($request->username);
 
-            $milknotes = get_user($request->username)->milknote()->orderBy('date', 'DESC')->get();
+            $milknotes = $user->milknote()->orderBy('date', 'DESC');
+
+            $averageProductionByDate = $user->milknote()->selectRaw('DATE(date) as date')
+            ->selectRaw('SUM(produced) as summary_production')
+            ->selectRaw('SUM(consumption) as summary_consumption')
+            ->selectRaw('FLOOR(AVG(produced)) as average_production')
+            ->selectRaw('FLOOR(AVG(consumption)) as average_consumption')
+            ->groupBy(DB::raw('DATE(date)'))
+            ->orderBy(DB::raw('DATE(date)'))
+            ->get();
 
             // ...
         } catch (\Throwable $th) {
 
-            $milknotes = MilkNote::orderBy('date', 'DESC')->get();
+            $milknotes = MilkNote::orderBy('date', 'DESC');
 
+            $averageProductionByDate = MilkNote::selectRaw('DATE(date) as date')
+                ->selectRaw('SUM(produced) as summary_production')
+                ->selectRaw('SUM(consumption) as summary_consumption')
+                ->selectRaw('FLOOR(AVG(produced)) as average_production')
+                ->selectRaw('FLOOR(AVG(consumption)) as average_consumption')
+                ->groupBy(DB::raw('DATE(date)'))
+                ->orderBy(DB::raw('DATE(date)'))
+                ->get();
             // ...
         }
 
-        $pdf = Pdf::loadView("components.reports.milknotes-layout", [ 'milknotes' => $milknotes ]);
 
-        $pdf->setPaper('Legal', 'landscape');
+        $pdf = Pdf::loadView("components.reports.milknotes-layout", [
+            'milknotes' => $milknotes,
+            'averageProductionByDate' => $averageProductionByDate,
+        ]);
+
+        $pdf->setPaper('F4', 'landscape');
 
         if($is_preview) {
             return $pdf->stream("milk_notes_report.pdf");
         }
-        
+
         return $pdf->download("milk_notes_report.pdf");
     }
 }

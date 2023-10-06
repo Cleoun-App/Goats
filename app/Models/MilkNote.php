@@ -12,6 +12,7 @@ class MilkNote extends Model
     protected $guarded = [];
 
     protected $casts = [
+        'date' => 'datetime',
         'produced' => 'double',
         'consumption' => 'double',
         'goats_milked' => 'integer'
