@@ -19,12 +19,60 @@ class EventFactory extends Factory
     {
         $fake = fake();
 
-        $eventTypes = EventType::get();
+        $eventTypes = [
+            "Dry Off",
+            "Perawatan",
+            "Vaksinasi",
+            "Perkawinan",
+            "Pemerahan",
+            "Melahirkan",
+            "Penyembelihan",
+            "Indentifikasi(Tagging)",
+            "Other"
+        ];
+
+        $event_type = $eventTypes[rand(0, count($eventTypes) - 1)] ?? "Other";
+
+        $e_data = match($event_type) {
+            "Dry Off" => [
+                "tag_no" => rand(100, 900),
+            ],
+            "Perawatan" => [
+                "diagnosis" => $fake->word,
+                "treated_by" => $fake->lastName,
+            ],
+            "Melahirkan" => [
+                "kids_no" => rand(1, 6),
+                "father_tag" => rand(1000, 9000),
+                "mother_tag" => rand(1000, 9000),
+            ],
+            "Vaksinasi" => [
+                "vaccine" => $fake->word,
+            ],
+            "Perkawinan" => [
+                "male_tag" => $fake->word,
+                "female_tag" => $fake->word,
+            ],
+            "Pemerahan" => [
+                "result" => rand(100, 900),
+            ],
+            "Penyembelihan" => [
+                "tag_no" => rand(100, 900),
+            ],
+            "Indentifikasi(Tagging)" => [
+                "tag_no" => rand(100, 900),
+            ],
+            "Other" => [
+                "event_name" => $fake->word,
+                "event_desc" => $fake->sentence,
+            ],
+        };
 
         return [
             'name' => $fake->name,
-            'type' => $eventTypes[rand(0, count($eventTypes) - 1)]?->name ?? $fake->sentence,
+            'type' => $event_type,
             'note' => $fake->sentence,
+            'data' => $e_data,
             'scope' => 'mass',
             'date' => now()->addDays(rand(1, 10)),
         ];

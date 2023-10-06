@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Reports;
 use App\Http\Controllers\Controller;
 use App\Models\Breed;
 use App\Models\Event;
+use App\Models\EventType;
 use App\Models\Goat;
 use App\Models\MilkNote;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -74,18 +75,22 @@ class PDFReport extends Controller
     {
 
         try {
+            
+            $user = get_user($request->username);
 
-            $events = get_user($request->username)->events()->orderBy('date', 'DESC')->get();
+            $data['user_id'] = $user->id;
 
             // ...
         } catch (\Throwable $th) {
 
-            $events = Event::orderBy('date', 'DESC')->get();
+            $data['user_id'] = null;
 
             // ...
         }
 
-        $pdf = Pdf::loadView("components.reports.events-layout", [ 'events' => $events ]);
+        $data['events'] = EventType::all();
+
+        $pdf = Pdf::loadView("components.reports.events-layout", $data);
 
         $pdf->setPaper('F4', 'landscape');
 

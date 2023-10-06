@@ -136,6 +136,13 @@
                                                 <input type="text" class="form-control"
                                                     value="{{ $event->goat?->name ?? '-' }}" disabled>
                                             </div>
+                                            @foreach ($event->data as $kv => $e_data) 
+                                                <div class="col-span-12">
+                                                    <label class="form-label">{{ $kv }}</label>
+                                                    <input type="text" class="form-control"
+                                                        value="{{ $e_data ?? '-' }}" disabled>
+                                                </div>
+                                            @endforeach
                                             <div class="col-span-12">
                                                 <label class="form-label">Catatan Farmer</label>
                                                 <textarea class="form-control" width="100%" rows="5">{{ $event->note }}</textarea>

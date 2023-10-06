@@ -71,9 +71,9 @@
                         class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1">Ulang</button>
                 </div>
             </form>
-            <div class="flex mt-5 sm:mt-0">                
-                @component('components.export-options', ['report_model' => 'events'])
-                @endcomponent
+            <div class="flex mt-5 sm:mt-0 d-none">                
+                {{-- @component('components.export-options', ['report_model' => 'events'])
+                @endcomponent --}}
             </div>
         </div>
         <div class="overflow-x-auto scrollbar-hidden p-5">
@@ -92,6 +92,7 @@
                     </thead>
                     <tbody>
                         @forelse ($events as $event)
+                        
                             <tr>
                                 <td class="border-b dark:border-dark-5">{{ $loop->index + 1 }}</td>
                                 <td class="border-b dark:border-dark-5">{{ \Str::limit($event->name, 15, '...') }}</td>

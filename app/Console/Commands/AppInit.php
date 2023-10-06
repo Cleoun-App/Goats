@@ -103,7 +103,7 @@ class AppInit extends Command
 
                     MilkNote::factory(rand(1, 3))->create($milk_param);
 
-                    Event::factory(3)->create([
+                    Event::factory(rand(5,10))->create([
                         'user_id' => $user->id,
                         'scope' => 'individual',
                         'goat_id' => $goat->id,
