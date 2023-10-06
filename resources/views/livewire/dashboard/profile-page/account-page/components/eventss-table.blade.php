@@ -170,7 +170,8 @@
                 </table>
             </div>
 
-            {{ $events->links() }}
+            @component('components.pagination-table-navigator', ['nav' => $events])
+            @endcomponent
 
         </div>
         

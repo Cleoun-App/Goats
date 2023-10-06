@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Dashboard;
 use App\Exceptions\AppHandler;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 enum DispatchType
 {
@@ -16,6 +17,7 @@ enum DispatchType
 
 class _Dashboard extends Component
 {
+    use WithPagination;
     
     /**
      *  Table Dashboard

@@ -64,7 +64,7 @@
 
 
     <style>
-        nav > div.hidden > div:nth-child(1) .leading-5 {
+        nav > div.hidden > div:nth-child(1) > p.leading-5 {
             display: none;
         }
 

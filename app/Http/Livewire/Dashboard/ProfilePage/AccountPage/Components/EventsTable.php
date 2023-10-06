@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Dashboard\ProfilePage\AccountPage\Components;
 
 use App\Http\Livewire\Dashboard\_Dashboard;
+use Livewire\WithPagination;
 
 class EventsTable extends _Dashboard
 {
