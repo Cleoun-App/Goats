@@ -33,10 +33,10 @@ return new class extends Migration
             $table->string('note', 450)->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->on('users')->references('id')->restrictOnDelete();
-            $table->foreign('group_id')->on('groups')->references('id')->restrictOnDelete();
-            $table->foreign('mother_id')->on('goats')->references('id')->restrictOnDelete();
-            $table->foreign('father_id')->on('goats')->references('id')->restrictOnDelete();
+            $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
+            $table->foreign('group_id')->on('groups')->references('id')->cascadeOnDelete();
+            $table->foreign('mother_id')->on('goats')->references('id')->cascadeOnDelete();
+            $table->foreign('father_id')->on('goats')->references('id')->cascadeOnDelete();
         });
     }
 

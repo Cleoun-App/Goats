@@ -35,28 +35,31 @@ class PDFReport extends Controller
 
     public function export_goats(Request $request, bool $is_preview = false)
     {
-
-        $user = get_user($request->username);
-
+        
         try {
+
+            $user = get_user($request->username);
 
             $goats = $user->goats;
 
+            $data['user'] = $user;
+            
             // ...
         } catch (\Throwable $th) {
 
             $goats = Goat::all();
 
+            $data['user'] = null;
+
             // ...
         }
 
-        $data['user'] = $user;
         $data['goats'] = $goats;
         $data['breeds'] = Breed::with('goats')->get();
 
         $pdf = Pdf::loadView("components.reports.goats-layout", $data);
 
-        $pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('Legal', 'landscape');
 
         if($is_preview) {
             return $pdf->stream("goats_report.pdf");
@@ -82,7 +85,7 @@ class PDFReport extends Controller
 
         $pdf = Pdf::loadView("components.reports.events-layout", [ 'events' => $events ]);
 
-        $pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('Legal', 'landscape');
 
         if($is_preview) {
             return $pdf->stream("events_report.pdf");
@@ -108,7 +111,7 @@ class PDFReport extends Controller
 
         $pdf = Pdf::loadView("components.reports.milknotes-layout", [ 'milknotes' => $milknotes ]);
 
-        $pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('Legal', 'landscape');
 
         if($is_preview) {
             return $pdf->stream("milk_notes_report.pdf");
