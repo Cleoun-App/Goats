@@ -13,11 +13,6 @@ class MilksTable extends _Dashboard
 
     public $page_title = "Tabel Catatan Susu";
 
-    public $search_field = 'name';
-    public $search_operator = 'like';
-    public $search_value;
-    public $key;
-
     public $queryString = ['search_field', 'search_operator', 'search_value', 'key'];
 
     public $searchable_fields = [
@@ -27,8 +22,7 @@ class MilksTable extends _Dashboard
     public function mount(string $username)
     {
         $this->pushBread(3, $this->page_title);
-        $this->search_field = "type";
-        $this->search_operator = "like";
+        $this->defaultSearchAttr("type", "like");
 
         $this->username = $username;
     }
@@ -49,17 +43,17 @@ class MilksTable extends _Dashboard
 
                 $opr = $this->searchOperator();
 
-                $goats = $user->milknote()
+                $milks = $user->milknote()
                     ->where($this->search_field, $opr, $opr == 'like' ? "%{$this->search_value}%" : $this->search_value)
                     ->orderBy('created_at', 'DESC')->paginate($page_size);
 
             } else {
 
-                $goats = $user->milknote()->orderBy('created_at', 'DESC')->paginate($page_size);
+                $milks = $user->milknote()->orderBy('created_at', 'DESC')->paginate($page_size);
 
             }
 
-            $data['milks'] = $goats;
+            $data['milks'] = $milks;
 
             $data['user'] = $user;
 

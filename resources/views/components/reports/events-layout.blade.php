@@ -93,12 +93,7 @@
 	@foreach ($events as $etype)
 
 		@php
-			if($user_id !== null) {
-				$event_types = $etype->events()->where("user_id", $user_id)->get();
-			} else {
-				$event_types = $etype->events;
-			}
-
+            $event_types = $etype->events()->where("user_id", "=", $user_id)->get();
 		@endphp
 	
 		<h2 class="title-sect">Tabel Event {{ $etype->name }}</h2>

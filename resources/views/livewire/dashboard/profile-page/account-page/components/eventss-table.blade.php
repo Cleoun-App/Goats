@@ -72,8 +72,8 @@
                 </div>
             </form>
             <div class="flex mt-5 sm:mt-0">
-                @component('components.export-options', ["username" => $username, 'report_model' => 'events'])
-                @endcomponent
+                {{-- @component('components.export-options', ["username" => $username, 'report_model' => 'events'])
+                @endcomponent --}}
             </div>
         </div>
         <div class="overflow-x-auto scrollbar-hidden p-5">
@@ -90,16 +90,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($events as $event)
+                        @forelse ($events as $xevent)
                             <tr>
                                 <td class="border-b dark:border-dark-5">{{ $loop->index + 1 }}</td>
-                                <td class="border-b dark:border-dark-5">{{ \Str::limit($event->name, 15, '...') }}</td>
-                                <td class="border-b dark:border-dark-5">{{ $event->date->format('d-m-Y') }}</td>
-                                <td class="border-b dark:border-dark-5">{{ \Str::limit($event->note, 25, '...') ?? '-' }}</td>
-                                <td class="border-b dark:border-dark-5">{{ $event->type }}</td>
+                                <td class="border-b dark:border-dark-5">{{ \Str::limit($xevent->name, 15, '...') }}</td>
+                                <td class="border-b dark:border-dark-5">{{ $xevent->date->format('d-m-Y') }}</td>
+                                <td class="border-b dark:border-dark-5">{{ \Str::limit($xevent->note, 25, '...') ?? '-' }}</td>
+                                <td class="border-b dark:border-dark-5">{{ $xevent->type }}</td>
                                 <td class="border-b dark:border-dark-5">
                                     <a class="btn btn-sm btn-primary" href="javacript:void(0)" data-toggle="modal"
-                                        data-target="#show-modal-{{ $event->id }}">Show
+                                        data-target="#show-modal-{{ $xevent->id }}">Show
                                     </a>
                                 </td>
                             </tr>
@@ -107,7 +107,7 @@
 
                             <!-- BEGIN: Modal Content -->
 
-                            <div id="show-modal-{{ $event->id }}" class="modal" tabindex="-1"
+                            <div id="show-modal-{{ $xevent->id }}" class="modal" tabindex="-1"
                                 aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -119,24 +119,24 @@
                                             <div class="col-span-12 sm:col-span-6">
                                                 <label for="modal-form-1" class="form-label">Tanggal</label>
                                                 <input id="modal-form-1" type="text" class="form-control"
-                                                    value="{{ $event->date }}" disabled>
+                                                    value="{{ $xevent->date }}" disabled>
                                             </div>
                                             <div class="col-span-12 sm:col-span-6">
                                                 <label class="form-label">Jenis Event</label>
                                                 <input type="text" class="form-control"
-                                                    value="{{ $event->type }}" disabled>
+                                                    value="{{ $xevent->type }}" disabled>
                                             </div>
                                             <div class="col-span-12 sm:col-span-6">
                                                 <label class="form-label">Cakupan</label>
                                                 <input type="text" class="form-control"
-                                                    value="{{ $event->scope ?? '-' }}" disabled>
+                                                    value="{{ $xevent->scope ?? '-' }}" disabled>
                                             </div>
                                             <div class="col-span-12 sm:col-span-6">
                                                 <label class="form-label">~Kambing</label>
                                                 <input type="text" class="form-control"
-                                                    value="{{ $event->goat?->name ?? '-' }}" disabled>
+                                                    value="{{ $xevent->goat?->name ?? '-' }}" disabled>
                                             </div>
-                                            @foreach ($event->data as $kv => $e_data) 
+                                            @foreach ($xevent->data as $kv => $e_data) 
                                                 <div class="col-span-12">
                                                     <label class="form-label">{{ $kv }}</label>
                                                     <input type="text" class="form-control"
@@ -145,7 +145,7 @@
                                             @endforeach
                                             <div class="col-span-12">
                                                 <label class="form-label">Catatan Farmer</label>
-                                                <textarea class="form-control" width="100%" rows="5">{{ $event->note }}</textarea>
+                                                <textarea class="form-control" width="100%" rows="5">{{ $xevent->note }}</textarea>
                                             </div>
                                         </div>
                                         <!-- END: Modal Body -->
@@ -173,6 +173,7 @@
             {{ $events->links() }}
 
         </div>
+        
     </div>
 
     

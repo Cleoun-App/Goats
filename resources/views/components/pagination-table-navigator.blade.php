@@ -2,6 +2,7 @@
 <span style="display: flex; justify-content: space-between; align-items: center">
 
     @if ($nav->hasPages())
+    
         <nav class="tabulator">
             <div class="tabulator-footer mt-3">
                 <span class="tabulator-paginator">

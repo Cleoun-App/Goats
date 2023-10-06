@@ -64,8 +64,8 @@
 
 
     <style>
-        nav > div.hidden > div:nth-child(1) {
-            display: none !important;
+        nav > div.hidden > div:nth-child(1) .leading-5 {
+            display: none;
         }
 
         nav > div.hidden > div:nth-child(2) button {

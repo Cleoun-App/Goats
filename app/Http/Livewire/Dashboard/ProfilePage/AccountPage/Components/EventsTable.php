@@ -30,24 +30,26 @@ class EventsTable extends _Dashboard
         try {
             $user = get_user($this->username);
 
-            $page_size = 5;
+            $page_size = $this->page_size;
+
+            if($page_size >= 40) {
+                $page_size = 40;
+            }
 
             if($this->search_value != null) {
 
                 $opr = $this->searchOperator();
 
-                $events = $user->events()->where($this->search_field, $opr, $opr == 'like' ? "%{$this->search_value}%" : $this->search_value)
+                $xev = $user->events()->where($this->search_field, $opr, $opr == 'like' ? "%{$this->search_value}%" : $this->search_value)
                     ->orderBy('created_at', 'DESC')->paginate($page_size);
 
             } else {
-                $events = $user->events()->orderBy('created_at', 'DESC')->paginate($page_size);
+                $xev = $user->events()->orderBy('created_at', 'DESC')->paginate($page_size);
             }
 
-            $data['events'] = $events;
+            $data['events'] = $xev;
 
-            $data['user'] = $user;
-
-            return view('livewire.dashboard.profile-page.account-page.components.events-table', $data);
+            return view('livewire.dashboard.profile-page.account-page.components.eventss-table', $data);
 
         } catch (\Throwable $th) {
 

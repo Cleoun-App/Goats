@@ -219,7 +219,6 @@
 
             {{ $goats->links() }}
             
-
         </div>
     </div>
     
