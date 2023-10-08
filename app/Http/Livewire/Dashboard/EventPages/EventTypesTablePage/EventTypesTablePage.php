@@ -69,7 +69,7 @@ class EventTypesTablePage extends _Dashboard
 
             return $this->dispatch(DispatchType::Success, [
                  'title' => 'Berhasil',
-                 'message' => 'Role berhasil di hapus'
+                 'message' => 'Event berhasil di hapus'
              ]);
 
         } catch (\Throwable $th) {

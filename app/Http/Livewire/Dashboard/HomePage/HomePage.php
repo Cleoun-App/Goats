@@ -10,6 +10,8 @@ class HomePage extends _Dashboard
     {
         try {
 
+            redirect()->route('ds.account_page');
+
             $data['user'] = auth()->user();
             $data['pageTitle'] = "Dashboard";
 

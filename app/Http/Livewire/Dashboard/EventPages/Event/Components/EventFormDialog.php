@@ -15,6 +15,7 @@ class EventFormDialog extends _Dashboard
 
     public $event_id;
     public $event_name;
+    public $event_field;
 
     public function mount($id_modal, $title, $event_id = null)
     {
@@ -26,6 +27,7 @@ class EventFormDialog extends _Dashboard
         if($event instanceof EventType) {
             $this->event_id = $event->id;
             $this->event_name = $event->name;
+            $this->event_field = json_encode($event->field);
         }
     }
 
@@ -36,10 +38,15 @@ class EventFormDialog extends _Dashboard
 
     public function save() {
         
+        $event_field = [];
+
         try {
+
+            $event_field = json_decode($this->event_field);
 
             $this->validate([
                 'event_name' => ['required','unique:event_types,name,' . $this->event_id . ",id", 'min:3', 'max:30'],
+                'event_field' => ['required'],
             ]);
 
         } catch (\Throwable $th) {
@@ -57,6 +64,7 @@ class EventFormDialog extends _Dashboard
             $event->update([
                 'name' => strtolower($this->event_name),
                 'slug' => Str::slug($this->event_name),
+                'field' => $event_field,
             ]);
 
             $this->dispatch(DispatchType::Success, [
@@ -69,6 +77,7 @@ class EventFormDialog extends _Dashboard
             EventType::create([
                 'name' => strtolower($this->event_name),
                 'slug' => Str::slug($this->event_name),
+                'field' => $event_field,
             ]);
 
             $this->dispatch(DispatchType::Success, [

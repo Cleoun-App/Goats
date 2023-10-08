@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\Reports\PDFReport;
-use App\Http\Livewire\Dashboard\AppPages\ConfigPage\ConfigPage;
-use App\Http\Livewire\Dashboard\AppPages\LoggerPage\LoggerPage;
 use App\Http\Livewire\Dashboard\AppPages\NotificationPage\NotificationPage;
 use App\Http\Livewire\Dashboard\AuthPage\LoginPage\LoginPage;
 use App\Http\Livewire\Dashboard\HomePage\HomePage;
@@ -10,16 +8,15 @@ use App\Http\Livewire\Dashboard\ProfilePage\AccountPage\AccountPage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Dashboard\AuthPage\ForgotPassPage\ForgotPassPage;
 use App\Http\Livewire\Dashboard\AuthPage\RegistrationPage\RegistrationPage;
+use App\Http\Livewire\Dashboard\AuthPage\ResetPasswordPage\ResetPasswordPage;
 use App\Http\Livewire\Dashboard\EventPages\EventsTablePage\EventsTablePage;
 use App\Http\Livewire\Dashboard\EventPages\EventTypesTablePage\EventTypesTablePage;
 use App\Http\Livewire\Dashboard\GoatPages\GoatsTablePage\GoatsTablePage;
+use App\Http\Livewire\Dashboard\MilknotePages\MilknoteTablePage\MilknoteTablePage;
 use App\Http\Livewire\Dashboard\UserPages\UserAccountPage\UserAccountPage;
-use App\Http\Livewire\Dashboard\UserPages\UserActivityPage\UserActivityPage;
 use App\Http\Livewire\Dashboard\UserPages\UserCreatePage\UserCreatePage;
-use App\Http\Livewire\Dashboard\UserPages\UserManagementPages\UserPermissionPage\UserPermissionPage;
 use App\Http\Livewire\Dashboard\UserPages\UserManagementPages\UserRolePage\UserRolePage;
 use App\Http\Livewire\Dashboard\UserPages\UserTablePage\UserTablePage;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +35,8 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', LoginPage::class)->name('login');
 
     Route::get('/forgot-password', ForgotPassPage::class)->name('f-password');
+    
+    Route::get('/reset-password/{token}', ResetPasswordPage::class)->name('password.reset');
 
     Route::get('/registration', RegistrationPage::class)->name('registration');
 
@@ -46,6 +45,8 @@ Route::middleware('guest')->group(function () {
 
 
 Route::middleware(['auth', 'role:user|admin|supreme'])->group(function () {
+
+    Route::get('/home', HomePage::class);
 
     Route::get('/', HomePage::class)->name('ds.home_page');
 
@@ -59,23 +60,17 @@ Route::middleware(['auth', 'role:user|admin|supreme'])->group(function () {
     
     Route::get('/tabel/event', EventsTablePage::class)->name('ds.event.table');
     
+    Route::get('/tabel/milknote', MilknoteTablePage::class)->name('ds.event.table');
+    
     Route::get('/tabel/jenis/event', EventTypesTablePage::class)->name('ds.event.types.table');
 
     Route::get('/user/{username}/show', UserAccountPage::class)->name('ds.user.show');
 
-    Route::get('/user/{username}/activities', UserActivityPage::class)->name('ds.user.activities');
-
     Route::get('/management/roles', UserRolePage::class)->name('ds.user.mgt.roles');
-
-    Route::get('/management/permissions', UserPermissionPage::class)->name('ds.user.mgt.permissions');
-    
-    Route::get('/app/config', ConfigPage::class)->name('ds.app.config');
 
     Route::get('/webx/notification', NotificationPage::class)->name('ds.app.notification');
 
-    Route::get('/webx/logger', LoggerPage::class)->name('ds.app.logger');
-
-    Route::get('/f/logout', function () {
+    Route::get('/user/logout', function () {
         auth()->logout();
         return redirect()->route('login');
     })->name('logout');

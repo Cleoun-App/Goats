@@ -1,22 +1,20 @@
 <?php
 
-namespace App\Http\Livewire\Dashboard\GoatPages\GoatsTablePage;
+namespace App\Http\Livewire\Dashboard\MilknotePages\MilknoteTablePage;
 
-use App\Models\Goat;
-use Livewire\WithPagination;
 use App\Http\Livewire\Dashboard\_Dashboard;
+use App\Models\MilkNote;
 
-class GoatsTablePage extends _Dashboard
+class MilknoteTablePage extends _Dashboard
 {
-    use WithPagination;
 
-    public $page_title = "Tabel Kambing";
+    public $page_title = "Tabel Catatan Susu";
 
     public $queryString = ['search_field', 'search_operator', 'search_value', 'page_size'];
 
     public $searchable_fields = [
-        ['name', 'Nama'], ['group', 'Group'], ['status', 'Status'],
-        ['breed', 'Breed'], ['gender', 'Sex'], ['tag', 'Tag']
+        ['name', 'Nama'], ['note', 'Catatan'], ['date', 'Tanggal Event'],
+        ['produced', 'Produksi'], ['consumption', 'Konsumsi']
     ];
 
     public function mount()
@@ -24,35 +22,30 @@ class GoatsTablePage extends _Dashboard
         $this->pushBread(1, $this->page_title);
         $this->defaultSearchAttr("name", "like");
     }
-
     public function render()
     {
         try {
+            
             $user = auth_user();
 
             $page_size = $this->page_size;
-
-            if($page_size >= 40) {
-                $page_size = 40;
-                $this->page_size = $page_size;
-            }
 
             if($this->search_value != null) {
 
                 $opr = $this->searchOperator();
 
-                $goats = Goat::where($this->search_field, $opr, $opr == 'like' ? "%{$this->search_value}%" : $this->search_value)
+                $milks = MilkNote::where($this->search_field, $opr, $opr == 'like' ? "%{$this->search_value}%" : $this->search_value)
                     ->orderBy('created_at', 'DESC')->paginate($page_size);
 
             } else {
-                $goats = Goat::orderBy('created_at', 'DESC')->paginate($page_size);
+                $milks = MilkNote::orderBy('created_at', 'DESC')->paginate($page_size);
             }
 
-            $data['goats'] = $goats;
+            $data['milks'] = $milks;
             $data['user'] = $user;
             $data['pageTitle'] = $this->page_title;
 
-            return view('livewire.dashboard.goat-pages.goats-table-page.goats-table-page', $data)
+            return view('livewire.dashboard.milknote-pages.milknote-table-page.milknote-table-page', $data)
                 ->layout('layouts.app', $data);
 
         } catch (\Throwable $th) {

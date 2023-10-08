@@ -73,6 +73,7 @@
         }
 
         .title-sect {
+            text-align: center;
             text-transform: uppercase;
 			font-weight: bolder;
             color: #2c243a;
@@ -92,7 +93,7 @@
     
     <h2 class="title-sect">Laporan Produksi & Konsumsi</h2>
 
-    <table class='table table-bordered mko-table' style="width: 45%;">
+    <table class='table table-bordered mko-table' style="width: 45%; margin: auto;">
 		<thead>
 			<tr>
 				<th>Milk Note</th>
@@ -126,7 +127,7 @@
 	
     <h2 class="title-sect">Laporan Per-Tanggal</h2>
 
-    <table class='table table-bordered mko-table' style="width: 65%;">
+    <table class='table table-bordered mko-table' style="width: 65%; margin: auto;">
 		<thead>
 			<tr>
 				<th>Tanggal</th>

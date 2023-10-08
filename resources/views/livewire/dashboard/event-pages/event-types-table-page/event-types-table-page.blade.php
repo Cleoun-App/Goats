@@ -132,6 +132,7 @@
                             <th class="whitespace-nowrap">#</th>
                             <th class="whitespace-nowrap">Nama</th>
                             <th class="whitespace-nowrap">Slug</th>
+                            <th class="whitespace-nowrap">Field</th>
                             <th class="whitespace-nowrap">Created</th>
                             <th class="whitespace-nowrap">Aksi</th>
                         </tr>
@@ -142,6 +143,14 @@
                                 <td class="border-b dark:border-dark-5">{{ $loop->index + 1 }}</td>
                                 <td class="border-b dark:border-dark-5">{{ $event->name }}</td>
                                 <td class="border-b dark:border-dark-5">{{ $event->slug }}</td>
+                                <td class="border-b dark:border-dark-5">
+                                    @foreach ($event->field as $field)
+                                        @if ($loop->index !== 0)
+                                            |
+                                        @endif
+                                        {{ $field }} 
+                                    @endforeach
+                                </td>
                                 <td class="border-b dark:border-dark-5">{{ $event->created_at->format('D d, M Y') }}
                                 </td>
                                 <td class="border-b dark:border-dark-5">
@@ -187,7 +196,7 @@
                                 @livewire('dashboard.event-pages.event.components.event-form-dialog', [
                                     'id_modal' => 'edit-event-' . $loop->index,
                                     'title' => 'Edit Event',
-                                    'role_id' => $event->id,
+                                    'event_id' => $event->id,
                                 ], key($event->id))
                             </tr>
                         @empty

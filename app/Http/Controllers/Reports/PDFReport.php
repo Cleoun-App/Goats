@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\EventType;
 use App\Models\Goat;
 use App\Models\MilkNote;
+use App\Utils\ResponseFormatter;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,7 @@ class PDFReport extends Controller
         $report_model = $request->report_model;
 
         return match($report_model) {
+            "goat" => $this->export_goat($request, true),
             "goats" => $this->export_goats($request, true),
             "events" => $this->export_events($request, true),
             "milk_notes" => $this->export_milk_notes($request, true),
@@ -30,11 +32,38 @@ class PDFReport extends Controller
         $report_model = $request->report_model;
 
         return match($report_model) {
+            "goat" => $this->export_goat($request),
             "goats" => $this->export_goats($request),
             "events" => $this->export_events($request),
             "milk_notes" => $this->export_milk_notes($request),
         };
     }
+
+
+    public function export_goat(Request $request, bool $is_preview = false)
+    {
+
+        $goat = Goat::find($request->goat_id);
+
+        if($goat instanceof Goat === false) {
+            return ResponseFormatter::error([], "Kambing tidak ditemukan!");
+        } 
+
+        $data['goat'] = $goat;
+        $data['events'] = EventType::all();
+        $data['milk_notes'] = $goat->milknote;
+
+        $pdf = Pdf::loadView("components.reports.goat-layout", $data);
+
+        $pdf->setPaper('Legal', 'landscape');
+
+        if($is_preview) {
+            return $pdf->stream("goats_report.pdf");
+        }
+
+        return $pdf->download("goats_report.pdf");
+    }
+
 
     public function export_goats(Request $request, bool $is_preview = false)
     {

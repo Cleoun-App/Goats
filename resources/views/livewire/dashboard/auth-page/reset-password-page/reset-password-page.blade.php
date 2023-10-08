@@ -12,7 +12,7 @@
                 <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">
                     Selamat Datang!
                     <br>
-                    <span class="text-3xl">Silahkan masukan alamat email anda, kami akan mengirim link ke email tsb.</span>
+                    <span class="text-3xl">Silahkan masukan password anda yang baru!</span>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
             <div
                 class="my-auto mx-auto xl:ml-20 bg-white dark:bg-dark-1 xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
                 <h2 class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
-                    Lupa Password
+                    Reset Password
                 </h2>
 
                 <div class="intro-x mt-8">
@@ -33,14 +33,20 @@
                     @endif
 
                     <input type="text" class="intro-x login__input form-control py-3 px-4 border-gray-300 block"
-                        placeholder="Email" wire:model.defer="email">
-                    @error('email')
+                        placeholder="New Password" wire:model.defer="password">
+                    @error('password')
+                        <span class="mt-3 ml-1 p-0" style="color: #ff4747">{{ $message }}</span>
+                    @enderror
+                    
+                    <input type="text" class="intro-x login__input form-control py-3 px-4 border-gray-300 block mt-3"
+                        placeholder="Confirm Password" wire:model.defer="c_password">
+                    @error('c_password')
                         <span class="mt-3 ml-1 p-0" style="color: #ff4747">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
                     <button class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top"
-                        wire:click="sendLink" wire:loading.attr="disabled">
+                        wire:click="resetPassword" wire:loading.attr="disabled">
 
                         <span wire:loading.remove>Kirim</span>
                             

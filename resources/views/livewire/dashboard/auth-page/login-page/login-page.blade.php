@@ -4,7 +4,7 @@
         <div class="hidden xl:flex flex-col min-h-screen">
             <a href="" class="-intro-x flex items-center pt-5">
                 <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/assets/core/images/logo.svg">
-                <span class="text-white text-lg ml-3"> Tink<span class="font-medium">er</span> </span>
+                <span class="text-white text-lg ml-3"> Goat<span class="font-medium">er</span> </span>
             </a>
             <div class="my-auto">
                 <img alt="Tinker Tailwind HTML Admin Template" class="-intro-x w-1/2 -mt-16"
@@ -14,7 +14,6 @@
                     <br>
                     <span class="text-3xl">Silakan masukkan kredensial Anda untuk melanjutkan.</span>
                 </div>
-                <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-gray-500" style="font-size: 15px">Ayo telusuri berbagai macam undangan yang menarik untuk acara spesial kamu!!</div>
             </div>
         </div>
         <!-- END: Login Info -->
@@ -53,7 +52,7 @@
                         <input id="remember-me" type="checkbox" class="form-check-input border mr-2" wire:model.defer="remember_me">
                         <label class="cursor-pointer select-none" for="remember-me">Ingat Saya</label>
                     </div>
-                    <a href="#">Forgot Password?</a>
+                    <a href="{{ route('f-password') }}">Forgot Password?</a>
                 </div>
                 <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
                     <button class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top"
@@ -80,15 +79,15 @@
                     
                     </button>
                     
-                    <a href="{{ route('registration') }}" class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Daftar</a>
+                    {{-- <a href="{{ route('registration') }}" class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Daftar</a> --}}
                         
                 </div>
-                <div class="intro-x mt-10 xl:mt-24 text-gray-700 dark:text-gray-600 text-center xl:text-left">
+                {{-- <div class="intro-x mt-10 xl:mt-24 text-gray-700 dark:text-gray-600 text-center xl:text-left">
                     By signin up, you agree to our
                     <br>
                     <a class="text-theme-25 dark:text-theme-22" href="">Terms and Conditions</a> & <a
                         class="text-theme-25 dark:text-theme-22" href="">Privacy Policy</a>
-                </div>
+                </div> --}}
             </div>
         </div>
         <!-- END: Login Form -->

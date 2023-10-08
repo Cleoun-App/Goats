@@ -26,8 +26,8 @@ class MilkNoteFactory extends Factory
             'date' => now()->addDays(rand(1, 9)),
             'type' => $type,
             'note' => $fake->sentence,
-            'produced' => rand(0, 100),
-            'consumption' => rand(0, 100),
+            'produced' => rand(0, 300),
+            'consumption' => rand(0, 200),
             'goats_milked' => $type === 'bulk' ? rand(1, 10) : null,
             'goat_id' => $type === 'individual' ? rand(1, 10) : null,
             

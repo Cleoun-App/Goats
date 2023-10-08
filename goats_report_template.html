@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Laporan Kambing</title>
+	<title>Tabel Kambing</title>
 	<style type="text/css">
         body,* {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -61,7 +61,6 @@
         .field-sum {
             background-color: #2c243b !important;
             color: whitesmoke !important;
-			font-weight: bolder;
         }
 
         .header h2 {
@@ -74,7 +73,6 @@
         }
 
         .title-sect {
-            text-align: center;
             text-transform: uppercase;
 			font-weight: bolder;
             color: #2c243a;
@@ -88,13 +86,13 @@
 	<center class="header">
         <h2>Goater</h2>
 		<h4>Laporan Data Kambing</h4>
-        <h5> {{ now()->format('D d-m-Y') }} | PDF &middot; Cleoun Render Engine &middot; V1.0.7   </h5>
+        <h5> Senin 28 Oktober 2023 | PDF &middot; Cleoun Render Engine &middot; V1.0.7   </h5>
 	</center>
 
     
     <h2 class="title-sect">Jumlah Kambing Berasarkan Kelamin</h2>
 
-    <table class='table table-bordered mko-table' style="width: 45%; margin: auto;">
+    <table class='table table-bordered mko-table' style="width: 45%;">
 		<thead>
 			<tr>
 				<th>Jenis/Gender Kambing</th>
@@ -105,17 +103,17 @@
             
             <tr>
                 <td>Jantan</td>
-                <td>{{ ($user?->goats() ?? \App\Models\Goat::query())->where('gender', 'male')->count() }}</td>
+                <td>10</td>
             </tr>
                 
             <tr>
                 <td>Betina</td>
-                <td>{{ ($user?->goats() ?? \App\Models\Goat::query())->where('gender', 'female')->count() }}</td>
+                <td>39</td>
             </tr>
             
             <tr>
                 <td class="field-sum">Total</td>
-                <td class="field-sum">{{ count($goats) }}</td>
+                <td class="field-sum">49</td>
             </tr>
 
 		</tbody>
@@ -123,7 +121,7 @@
     
     <h2 class="title-sect">Jumlah Kambing Berasarkan Jenis</h2>
 
-    <table class='table table-bordered mko-table' style="width: 45%; margin: auto;">
+    <table class='table table-bordered mko-table' style="width: 45%;">
 		<thead>
 			<tr>
 				<th>Ras/Jenis Kambing</th>
@@ -131,36 +129,29 @@
 			</tr>
 		</thead>
 		<tbody style="position: relative; width: 100%">
-
-			@php
-				$sum_breed = 0;
-			@endphp
             
-            @foreach ($breeds as $breed)
-				@php
-                    if($user instanceOf \App\Models\User) {
-                        $count = $breed->goats()->where('user_id', $user?->id)->count();
-                    } else {
-                        $count = $breed->goats()->count();
-                    }
-					$sum_breed += $count;
-				@endphp
+            <tr>
+                <td>Noter</td>
+                <td>10</td>
+            </tr>
+                
+            <tr>
+                <td>Mejikkoa</td>
+                <td>39</td>
+            </tr>
 
-				<tr>
-					<td>{{ $breed->name }}</td>
-					<td>{{ $count }}</td>
-				</tr>
-			@endforeach
+            <tr>
+                <td>Donlee</td>
+                <td>4</td>
+            </tr>
             
             <tr>
                 <td class="field-sum">Total</td>
-                <td class="field-sum">{{ $sum_breed }}</td>
+                <td class="field-sum">53</td>
             </tr>
 
 		</tbody>
 	</table>
-
-	<br style="margin-top: 250px !important;">
 
     <h2 class="title-sect">Records</h2>
  
@@ -170,13 +161,12 @@
 				<th>No</th>
 				<th>Nama</th>
 				<th>TAG</th>
-				<th>Id_goat</th>
+				<th>ID</th>
 				<th>Asal</th>
 				<th>Jenis</th>
 				<th>Sex</th>
 				<th>Berat</th>
 				<th>Group</th>
-				<th>Stage</th>
 				<th>Tgl Lahir</th>
 				<th>Status</th>
 				<th>Tgl Masuk</th>
@@ -184,46 +174,38 @@
 			</tr>
 		</thead>
 		<tbody style="position: relative; width: 100%">
-
-			@foreach ($goats as $goat)
-
-			@php
-				// Tanggal lahir kambing (gantilah dengan tanggal lahir sebenarnya yang Anda kirim dari kontroler).
-				$tanggal_lahir = $goat->birth_date;
-				
-				// Hitung usia kambing dalam bulan
-				$usia_kambing_bulan = $tanggal_lahir->diffInMonths(now());
-		
-				// Definisikan tahap berdasarkan usia
-				if ($usia_kambing_bulan < 6) {
-					$stage = "Bayi";
-				} elseif ($usia_kambing_bulan < 12) {
-					$stage = "Anak Kambing";
-				} elseif ($usia_kambing_bulan < 24) {
-					$stage = "Remaja";
-				} else {
-					$stage = "Dewasa";
-				}
-			@endphp
             
             <tr>
-                <td>{{ $loop->index + 1 }}</td>
-                <td>{{ $goat?->name ?? "-" }}</td>
-                <td>{{ $goat?->tag ?? "-" }}</td>
-                <td>{{ $goat?->id ?? "-" }}</td>
-                <td>{{ $goat?->origin ?? "-" }}</td>
-                <td>{{ $goat?->breed ?? "-" }}</td>
-                <td>{{ $goat?->gender ?? "-" }}</td>
-                <td>{{ $goat?->weight ?? "-" }}</td>
-                <td>{{ $goat?->group->name ?? "-" }}</td>
-                <td>{{ $stage ?? "-" }}</td>
-                <td>{{ $goat?->birth_date->format('d-m-Y') ?? "-" }}</td>
-                <td>{{ $goat?->status ?? "-" }}</td>
-                <td>{{ $goat?->date_in->format('d-m-Y') ?? "-" }}</td>
-                <td>{{ $goat?->user->name ?? '-' }}</td>
+                <td>1</td>
+                <td>Noter</td>
+                <td>MAL1980SNNK</td>
+                <td>10</td>
+                <td>Makassar</td>
+                <td>Helloi</td>
+                <td>Male</td>
+                <td>1390 Gram</td>
+                <td>Xmal</td>
+                <td>30 Mei 2023</td>
+                <td>Alive</td>
+                <td>29 Januari 2021</td>
+                <td>Alkadebra</td>
             </tr>
                 
-            @endforeach
+            <tr>
+                <td>2</td>
+                <td>Mejikkoa</td>
+                <td>A90S8NLKJP</td>
+                <td>10</td>
+                <td>Makassar</td>
+                <td>Helloi</td>
+                <td>Male</td>
+                <td>1390 Gram</td>
+                <td>Xmal</td>
+                <td>30 Mei 2023</td>
+                <td>Alive</td>
+                <td>29 Januari 2021</td>
+                <td>Alkadebra</td>
+            </tr>
 
 		</tbody>
 	</table>

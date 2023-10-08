@@ -101,7 +101,7 @@ class AppInit extends Command
                         $milk_param['type'] = 'individual';
                     }
 
-                    MilkNote::factory(rand(1, 3))->create($milk_param);
+                    MilkNote::factory(rand(4, 8))->create($milk_param);
 
                     Event::factory(rand(5,10))->create([
                         'user_id' => $user->id,

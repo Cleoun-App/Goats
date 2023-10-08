@@ -102,6 +102,7 @@
                             <th class="whitespace-nowrap">Sex</th>
                             <th class="whitespace-nowrap">Pemilik</th>
                             <th class="whitespace-nowrap">Aksi</th>
+                            <th class="whitespace-nowrap">Report</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -122,6 +123,14 @@
                                     <a class="btn btn-sm btn-primary" href="#" data-toggle="modal"
                                         data-target="#goat-model{{ $goat->id }}">Show
                                     </a>
+                                </td>
+                                <td>
+                                    @component('components.export-options', [
+                                            'report_model' => 'goat', 
+                                            'goat_id' => $goat->id,
+                                            'preview_only' => true,
+                                        ])
+                                    @endcomponent
                                 </td>
                             </tr>
 

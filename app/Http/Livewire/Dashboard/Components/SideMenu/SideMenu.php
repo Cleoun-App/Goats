@@ -16,11 +16,11 @@ class SideMenu extends Component
     protected function getMenu() : array
     {
         return [
-            [
-                'route' =>  route('ds.home_page'),
-                'name'  =>  'Home',
-                'icon'  =>  'home',
-            ],
+            // [
+            //     'route' =>  route('ds.home_page'),
+            //     'name'  =>  'Home',
+            //     'icon'  =>  'home',
+            // ],
             [
                 'route' =>  route('ds.account_page'),
                 'name'  =>  'Akun Pengguna',
@@ -32,15 +32,20 @@ class SideMenu extends Component
                 'icon'  =>  'users',
             ],
             [
+                'route' =>  route('ds.event.types.table'),
+                'name'  =>  'Jenis Event',
+                'icon'  =>  'list',
+            ],
+            [
                 'route' =>  route('ds.user.mgt.roles'),
                 'name'  =>  'Role Pengguna',
                 'icon'  =>  'user-check',
             ],
-            [
-                'name'  =>  'break',
-                'icon'  =>  null,
-                'route' =>  null,
-            ],
+            // [
+            //     'name'  =>  'break',
+            //     'icon'  =>  null,
+            //     'route' =>  null,
+            // ],
             [
                 'route' =>  route('ds.goats.table'),
                 'name'  =>  'Tabel Kambing',
@@ -52,9 +57,9 @@ class SideMenu extends Component
                 'icon'  =>  'globe',
             ],
             [
-                'route' =>  route('ds.event.types.table'),
-                'name'  =>  'Jenis Event',
-                'icon'  =>  'list',
+                'route' =>  route('ds.event.table'),
+                'name'  =>  'Tabel Milknote',
+                'icon'  =>  'book',
             ],
         ];
     }

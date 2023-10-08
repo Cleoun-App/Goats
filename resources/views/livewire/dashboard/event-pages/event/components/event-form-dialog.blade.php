@@ -15,6 +15,13 @@
                             <div class="text-theme-21 mt-2">{{ $message }}</div>
                         @enderror
                      </div>
+                     <div class="col-span-12"> 
+                         <label for="event-field" class="form-label">Event Field</label> 
+                         <input id="event-field" type="text" class="form-control" placeholder="..." wire:model.defer="event_field">
+                         @error('event_field')
+                             <div class="text-theme-21 mt-2">{{ $message }}</div>
+                         @enderror
+                      </div>
                 </div> <!-- END: Modal Body -->
                 <!-- BEGIN: Modal Footer -->
                 <div class="modal-footer text-right"> 

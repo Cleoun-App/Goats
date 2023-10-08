@@ -73,6 +73,7 @@
         }
 
         .title-sect {
+            text-align: center;
             text-transform: uppercase;
 			font-weight: bolder;
             color: #2c243a;
@@ -123,9 +124,13 @@
 						<td>{{ $event?->scope ?? "-" }}</td>
 						<td>{{ $event?->date ?? "-" }}</td>
 						<td>{{ $event?->goat?->id ?? "-" }}</td>
-						@foreach ($event?->data ?? [] as $data)
-                            <td>{{ $data ?? "-" }}</td>
-						@endforeach
+                        @foreach ($etype->field as $cloumn)
+                            @foreach ($event?->data ?? [] as $k => $data)
+                                @if ($k == $cloumn)
+                                    <td>{{ $data ?? "-" }}</td>
+                                @endif
+                            @endforeach
+                        @endforeach
 						<td>{{ $event?->user->name ?? '-' }}</td>
 					</tr>
 					

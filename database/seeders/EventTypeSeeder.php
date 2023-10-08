@@ -20,7 +20,7 @@ class EventTypeSeeder extends Seeder
             "Dry Off" => ["tag_no"],
             "Perawatan" => ["diagnosis", "treated_by"],
             "Vaksinasi" => ["vaccine"],
-            "Perkawinan" => ["male_tag", "female"],
+            "Perkawinan" => ["male_tag", "female_tag"],
             "Pemerahan" => ["result"],
             "Melahirkan" => ["kids_no", "father_tag", "mother_tag"],
             "Penyembelihan" => ["tag_no"],

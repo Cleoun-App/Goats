@@ -4,11 +4,9 @@ namespace App\Http\Livewire\Dashboard\EventPages\EventsTablePage;
 
 use App\Http\Livewire\Dashboard\_Dashboard;
 use App\Models\Event;
-use Livewire\WithPagination;
 
 class EventsTablePage extends _Dashboard
 {
-    use WithPagination;
 
     public $page_title = "Tabel Event Peternakan";
 
@@ -47,7 +45,8 @@ class EventsTablePage extends _Dashboard
             $data['user'] = $user;
             $data['pageTitle'] = $this->page_title;
 
-            return view('livewire.dashboard.event-pages.events-table-page.events-table-page', $data);
+            return view('livewire.dashboard.event-pages.events-table-page.events-table-page', $data)
+                ->layout('layouts.app', $data);
 
         } catch (\Throwable $th) {
 
