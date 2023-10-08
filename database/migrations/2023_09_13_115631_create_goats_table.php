@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('picture')->nullable();
             $table->enum('gender', ['female', 'male']);
             $table->integer('weight')->comment('Weight in gram');
-            $table->timestamp('date_in');
+            $table->timestamp('date_in')->nullable();
             $table->string('origin');
             $table->foreignId('group_id')->nullable();
             $table->foreignId('user_id');
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->foreignId('father_id')->nullable();
             $table->string('breed');
             $table->enum('status', ['alive', 'death', 'sold']);
-            $table->timestamp('birth_date');
+            $table->timestamp('birth_date')->nullable();
             $table->string('note', 450)->nullable();
             $table->timestamps();
 
