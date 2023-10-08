@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('preferences', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
+            $table->string('key', 191)->unique();
             $table->string('name');
             $table->timestamps();
         });
