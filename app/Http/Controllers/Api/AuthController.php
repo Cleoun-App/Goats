@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use App\Utils\Validations\UserValidation;
+use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
@@ -107,6 +108,41 @@ class AuthController extends Controller
              }
 
             return ResponseFormatter::success($user, "Registrasi berhasil");
+
+            // ...
+        } catch(ValidationException $e) {
+
+            return ResponseFormatter::validasiError($e);
+
+        } catch (\Throwable $th) {
+
+            return ResponseFormatter::error([], $th->getMessage());
+
+        }
+    }
+
+    public function forgotPassword(Request $request) {
+        
+        try {
+            
+            $request->validate([
+                'email' => ['required', 'email']
+            ]);
+
+            $user = User::where('email', $request->email)->first();
+
+            if($user instanceof User === false) {
+                throw new \Exception('Email yang anda masukan tidak ditemukan!');
+            }
+    
+            $status = Password::sendResetLink(['email' => $request->email]);
+    
+            if($status === Password::RESET_LINK_SENT) {
+                return ResponseFormatter::success($user, "Link reset password berhasil terkirim");
+            }
+    
+           
+            throw new \Exception("Gagal mengirim email, silahkan coba beberapa saat lagi!");
 
             // ...
         } catch(ValidationException $e) {
