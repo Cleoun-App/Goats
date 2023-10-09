@@ -1,0 +1,2 @@
+[08-Oct-2023 13:51:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 69632 bytes) in /home/smartbaf/kambing.smartbafes.my.id/vendor/fakerphp/faker/src/Faker/Provider/Base.php on line 230
+[08-Oct-2023 13:51:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 65536 bytes) in /home/smartbaf/kambing.smartbafes.my.id/app/Utils/ResponseFormatter.php on line 7
