@@ -4,7 +4,7 @@
         <div class="hidden xl:flex flex-col min-h-screen">
             <a href="" class="-intro-x flex items-center pt-5">
                 <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/assets/core/images/logo.svg">
-                <span class="text-white text-lg ml-3"> Dy<span class="font-medium">Ve</span> </span>
+                <span class="text-white text-lg ml-3"> {{ config('app.name') }} </span>
             </a>
             <div class="my-auto">
                 <img alt="Tinker Tailwind HTML Admin Template" class="-intro-x w-1/2 -mt-16" src="/assets/core/images/illustration.svg">

@@ -46,8 +46,8 @@ class AccountEdit  extends _Dashboard
                 'nullable',
                 'image',
                 File::image()
-                    ->min(120)
-                    ->max(5 * 1024)
+                    ->min(20)
+                    ->max(10 * 1024)
                     ->dimensions(Rule::dimensions()->maxWidth(5000)->maxHeight(5000)),
             ],
         ];
@@ -105,7 +105,7 @@ class AccountEdit  extends _Dashboard
             $user->update([
                 'name'  =>  $this->name,
                 'username'  =>  $this->username,
-                'profile_photo_path' => $filename,
+                'profile_photo' => $filename,
                 'gender' => $this->gender,
                 'address' => $this->address,
             ]);

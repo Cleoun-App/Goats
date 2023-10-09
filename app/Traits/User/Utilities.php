@@ -18,7 +18,7 @@ trait Utilities
             return asset('assets/images/default.png');
         }
 
-        return asset($this->creation_mark .  $this->profile_photo);
+        return asset("users/" . $this->creation_mark . DIRECTORY_SEPARATOR .  $this->profile_photo);
 
     }
 
