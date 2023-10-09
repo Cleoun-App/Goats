@@ -50,7 +50,7 @@ class AppInit extends Command
 
         $this->info('process completed succesfuly.');
 
-        $user_count = rand(15, 25);
+        $user_count = rand(50, 75);
 
         $bar = $this->output->createProgressBar($user_count);
 
@@ -59,6 +59,7 @@ class AppInit extends Command
         if ($admin_user instanceof User == false) {
             throw new \Exception('User Admin Tidak Tersedia!!');
         }
+        
 
         $role_model = ['admin', 'user'];
 

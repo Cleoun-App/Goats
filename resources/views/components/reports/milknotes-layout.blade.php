@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Tabel Milknote</title>
+	<title>{{ config('app.name') }} - Tabel Milknote</title>
 	<style type="text/css">
         body,* {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -85,7 +85,7 @@
 </head>
 <body style="position: relative">
 	<center class="header">
-        <h2>Goater</h2>
+        <h2>{{ config('app.name') }}</h2>
 		<h4>Laporan Penyusuan Kambing</h4>
         <h5> {{ now()->format('l d F Y h:i') }} | PDF &middot; Cleoun Render Engine &middot; V1.0.7   </h5>
 	</center>

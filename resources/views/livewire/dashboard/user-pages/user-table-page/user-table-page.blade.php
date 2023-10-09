@@ -5,7 +5,7 @@
         <h2 class="text-lg font-medium mr-auto">
             {{ $pageTitle }}
         </h2>
-        <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+        <div class="w-full sm:w-auto flex mt-4 sm:mt-0 d-none">
             <div class="dropdown ml-auto sm:ml-0">
                 <button class="dropdown-toggle btn px-2 box text-gray-700 dark:text-gray-300" aria-expanded="false">
                     <span class="w-5 h-5 flex items-center justify-center"> <i class="w-4 h-4" data-feather="plus"></i>
@@ -154,7 +154,7 @@
                                                     class="w-16 h-16 text-theme-21 mx-auto mt-3"></i>
                                                 <div class="text-3xl mt-5">Konfirmasi Penghapusan!!</div>
                                                 <div class="text-gray-600 mt-2">Apakah anda ingin menghapus
-                                                    Role Pengguna <br> '{{ $usx->name }}'
+                                                    Pengguna berikut <br> '{{ $usx->name }}'
                                                     <br><strong style="color: rgba(242, 255, 61, 0.836)"> PERINGATAN <br> Data Yang Di Hapus Tidak Akan Bisa Dikembalikan!!</strong>
                                                 </div>
                                             </div>

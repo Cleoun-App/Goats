@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Laporan Kambing</title>
+    <title>{{ config('app.name') }} - Laporan Kambing</title>
     <style type="text/css">
         body,
         * {
@@ -93,7 +93,7 @@
 
 <body style="position: relative">
     <center class="header">
-        <h2>Goater</h2>
+        <h2>{{ config('app.name') }}</h2>
         <h4>Laporan Data Kambing</h4>
         <h5> {{ now()->format('D d-m-Y') }} | PDF &middot; Cleoun Render Engine &middot; V1.0.7 </h5>
     </center>
