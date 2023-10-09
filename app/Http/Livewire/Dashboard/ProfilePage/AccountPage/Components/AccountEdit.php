@@ -10,16 +10,26 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Rules\File;
 use Livewire\WithFileUploads;
 use App\Facades\UserFacade;
+use Illuminate\Support\Facades\DB;
 use Livewire\TemporaryUploadedFile;
+use Spatie\Permission\Models\Role;
 
-class AccountEdit  extends _Dashboard
+class AccountEdit extends _Dashboard
 {
     use WithFileUploads;
 
-    public $username, $name, $photo, $email, $address, $gender;
+    public $username;
+    public $name;
+    public $photo;
+    public $email;
+    public $address;
+    public $gender;
+    public $role;
     public $pp;
 
-    public $ct_fb, $ct_insta, $ct_tweet;
+    public $ct_fb;
+    public $ct_insta;
+    public $ct_tweet;
 
     protected function get_rules(User $user)
     {
@@ -41,6 +51,9 @@ class AccountEdit  extends _Dashboard
             ],
             'email' => [
                 'required', 'email', $ignore
+            ],
+            'role' => [
+                'required', 'in:user,admin'
             ],
             'photo' => [
                 'nullable',
@@ -64,6 +77,7 @@ class AccountEdit  extends _Dashboard
         $this->email = $user->email;
         $this->address = $user->address;
         $this->gender = $user->gender;
+        $this->role = $user->roles()->first()->name;
 
         $this->ct_fb = $user ?->contacts['facebook'] ?? '';
         $this->ct_insta = $user ?->contacts['instagram'] ?? '';
@@ -88,6 +102,7 @@ class AccountEdit  extends _Dashboard
     public function perbahrui()
     {
         try {
+            DB::beginTransaction();
 
             $user = User::where('username', $this->username)->firstOrFail();
 
@@ -97,8 +112,9 @@ class AccountEdit  extends _Dashboard
 
             $filename = $user->profile_photo_path ?? '';
 
-            if ($this->photo instanceof TemporaryUploadedFile)
+            if ($this->photo instanceof TemporaryUploadedFile) {
                 $filename = UserFacade::store_photo($user, $this->photo);
+            }
 
             // upload photo first
 
@@ -110,17 +126,27 @@ class AccountEdit  extends _Dashboard
                 'address' => $this->address,
             ]);
 
+            $role = Role::where('name', $this->role)->firstOrFail();
+
+            if($role instanceof Role) {
+                $user->roles()->sync([$role->id]);
+            }
+
             $this->dispatch(DispatchType::Success, [
                 'title' => 'Sukses',
                 'message' => 'Profil berhasil di update.'
             ]);
 
+
+            DB::commit();
+
             // ...
         } catch (ValidationException $ve) {
+            DB::rollBack();
+
             throw $ve;
         } catch (\Throwable $th) {
-
-            throw $th;
+            DB::rollBack();
 
             $this->dispatch(DispatchType::Error, [
                 'title' => 'Error',

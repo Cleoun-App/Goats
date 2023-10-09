@@ -46,6 +46,18 @@
                                 @enderror
                             </div>
                         </div>
+                        @if ($username !== auth_user()->username)
+                            <div class="col-span-12 xxl:col-span-6">
+                                <div class="mt-3">
+                                    <label for="update-profile-form-role" class="form-label">Role Pengguna</label>
+                                    <select class="form-select sm:mt-2 sm:mr-2 @error('role') border-theme-21 @enderror" aria-label=".form-select-lg example" wire:model.defer="role">
+                                        @foreach (['user', 'admin'] as $g)
+                                            <option value="{{ $g }}" @if(strtolower($g) === strtolower($role)) selected @endif style="text-transform: capitalize">{{ $g }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        @endif
                         <div class="col-span-12 xxl:col-span-6">
                             <div class="mt-2">
                                 <label for="update-profile-form-1" class="form-label">Gender</label>
