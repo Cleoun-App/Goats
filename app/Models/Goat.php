@@ -20,6 +20,7 @@ class Goat extends Model
         'weight' => 'integer',
         'birth_date' => 'datetime',
         'date_in' => 'datetime',
+        'user_id' => 'integer',
     ];
 
     protected static function boot()
