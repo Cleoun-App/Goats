@@ -37,12 +37,12 @@ class AppInit extends Command
         $isDebug = config('app.debug');
 
         if($env !== 'local') {
-            $this->error("Warning: inisiliasi tidak bisa di lakukan di stage " . $env);
+            return $this->error("Warning: inisiliasi tidak bisa di lakukan di stage " . $env);
         }
 
 
         if($isDebug === false) {
-            $this->error("Warning: inisiliasi hanya bisa di lakukan di mode debuging");
+            return $this->error("Warning: inisiliasi hanya bisa di lakukan di mode debuging");
         }
 
 
