@@ -23,6 +23,8 @@ class UserFacade
         $_path = self::create_user_photos_folder($user);
 
         $store_path = $_path . DIRECTORY_SEPARATOR . $filename;
+
+        Storage::delete($store_path);
         
         Storage::put($store_path, $image, 'public');
 
