@@ -18,7 +18,7 @@ class AccountEdit extends _Dashboard
 {
     use WithFileUploads;
 
-    public $username;
+    public $_username, $username;
     public $name;
     public $photo;
     public $email;
@@ -69,6 +69,7 @@ class AccountEdit extends _Dashboard
     public function mount($username)
     {
         $this->username = $username;
+        $this->_username = $username;
 
         $user = User::where('username', $username)->firstOrFail();
 
@@ -104,7 +105,7 @@ class AccountEdit extends _Dashboard
         try {
             DB::beginTransaction();
 
-            $user = User::where('username', $this->username)->firstOrFail();
+            $user = User::where('username', $this->_username)->firstOrFail();
 
             $rules = $this->get_rules($user);
 
