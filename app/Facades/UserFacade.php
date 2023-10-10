@@ -24,7 +24,7 @@ class UserFacade
 
         $store_path = $_path . DIRECTORY_SEPARATOR . $filename;
         
-        Storage::put($store_path, $image);
+        Storage::put($store_path, $image, 'public');
 
         return $filename;
     }
