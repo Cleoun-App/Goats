@@ -32,6 +32,20 @@ class AppInit extends Command
      */
     public function handle()
     {
+        $env = config('app.env');
+
+        $isDebug = config('app.debug');
+
+        if($env !== 'local') {
+            $this->error("Warning: inisiliasi tidak bisa di lakukan di stage " . $env);
+        }
+
+
+        if($isDebug === false) {
+            $this->error("Warning: inisiliasi hanya bisa di lakukan di mode debuging");
+        }
+
+
         $this->warn('Starting Initialization...');
 
         $this->createDB();
