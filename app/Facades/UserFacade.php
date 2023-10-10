@@ -13,7 +13,7 @@ class UserFacade
     {
         $encoder = 'jpeg';
 
-        $filename = 'cover.jpeg';
+        $filename =  uniqid("xa") .'.jpeg';
 
         $_path = self::create_user_photos_folder($user);
 
