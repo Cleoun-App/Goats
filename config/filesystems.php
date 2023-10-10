@@ -41,6 +41,16 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+            'permissions' => [
+                'file' => [
+                    'public' => 0644,
+                    'private' => 0600,
+                ],
+                'dir' => [
+                    'public' => 0755,
+                    'private' => 0700,
+                ],
+            ],
             'throw' => false,
         ],
 
@@ -70,7 +80,6 @@ return [
     */
 
     'links' => [
-        public_path('public') => storage_path('app/public'),
         public_path('livewire-tmp') => storage_path('app/livewire-tmp'),
         public_path('users') => storage_path('app/users'),
     ],
