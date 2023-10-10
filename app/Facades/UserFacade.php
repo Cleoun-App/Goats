@@ -13,7 +13,7 @@ class UserFacade
     {
         $encoder = 'jpeg';
 
-        $filename =  uniqid("xa") .'.jpeg';
+        $filename =  uniqid() . '.jpeg';
 
         $_path = self::create_user_photos_folder($user);
 
@@ -25,7 +25,7 @@ class UserFacade
 
         $image = $image->resize(800, 800)->encode($encoder, 80);
 
-        Storage::put($store_path, $image, 'public');
+        Storage::put($store_path, $image);
 
         return $filename;
     }
