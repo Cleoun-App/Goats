@@ -19,7 +19,7 @@ class UserFacade
 
         $store_path = $_path . DIRECTORY_SEPARATOR . $filename;
 
-        Storage::delete($store_path);
+        Storage::delete($_path . DIRECTORY_SEPARATOR . $user->profile_photo);
 
         $image = Image::make($file);
 
