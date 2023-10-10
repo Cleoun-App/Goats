@@ -13,19 +13,19 @@ class UserFacade
     {
         $encoder = 'jpeg';
 
-        $filename = 'cover.jpeg';
+        $filename = uniqid('A1') . '.jpeg';
 
         $_path = self::create_user_photos_folder($user);
 
         $store_path = $_path . DIRECTORY_SEPARATOR . $filename;
 
-        // Storage::delete($store_path);
+        Storage::delete($_path . DIRECTORY_SEPARATOR . $user->profile_photo);
 
         $image = Image::make($file);
 
         $image = $image->resize(800, 800)->encode($encoder, 80);
 
-        Storage::put($store_path, $image, 'public');
+        Storage::put($store_path, $image);
 
         return $filename;
     }
