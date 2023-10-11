@@ -36,7 +36,7 @@ class UserValidation
                 'nullable',
                 'image',
                 'mimes:jpeg,jpg,png,webp',
-                File::image()->min(24)->max(3 * 1024),
+                File::image()->min(1)->max(3 * 1024),
             ],
         ]);
     }

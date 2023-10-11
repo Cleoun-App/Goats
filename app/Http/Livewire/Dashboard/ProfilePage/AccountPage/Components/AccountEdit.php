@@ -58,10 +58,8 @@ class AccountEdit extends _Dashboard
             'photo' => [
                 'nullable',
                 'image',
-                File::image()
-                    ->min(20)
-                    ->max(10 * 1024)
-                    ->dimensions(Rule::dimensions()->maxWidth(5000)->maxHeight(5000)),
+                'mimes:jpeg,jpg,png,webp',
+                File::image()->min(1)->max(3 * 1024),
             ],
         ];
     }
@@ -113,19 +111,18 @@ class AccountEdit extends _Dashboard
 
             $filename = $user->profile_photo_path ?? '';
 
+            // upload photo first
             if ($this->photo instanceof TemporaryUploadedFile) {
                 $filename = UserFacade::store_photo($user, $this->photo);
+                $user->profile_photo = $filename;
             }
 
-            // upload photo first
+            $user->name  =  $this->name;
+            $user->username  =  $this->username;
+            $user->gender = $this->gender;
+            $user->address = $this->address;
 
-            $user->update([
-                'name'  =>  $this->name,
-                'username'  =>  $this->username,
-                'profile_photo' => $filename,
-                'gender' => $this->gender,
-                'address' => $this->address,
-            ]);
+            $user->save();
 
             $role = Role::where('name', $this->role)->firstOrFail();
 

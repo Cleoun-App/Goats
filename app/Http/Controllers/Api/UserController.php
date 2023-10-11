@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Facades\UserFacade;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Utils\ResponseFormatter;
@@ -63,21 +64,21 @@ class UserController extends Controller
 
                 UserValidation::validateUpdateProfile($request, $user);
 
-                $storage = $user->get_storage();
+                // $storage = $user->get_storage();
 
-                $filename = md5($request->name . "-" . uniqid() . '-' . time()) . ".jpg";
+                // $filename = md5($request->name . "-" . uniqid() . '-' . time()) . ".jpg";
 
-                $user_folder = $storage . DIRECTORY_SEPARATOR ;
+                // $user_folder = $storage . DIRECTORY_SEPARATOR ;
 
-                if(!FacadesFile::exists($user_folder)) {
-                    FacadesFile::makeDirectory($user_folder);
-                }
+                // if(!FacadesFile::exists($user_folder)) {
+                //     FacadesFile::makeDirectory($user_folder);
+                // }
 
                 if($request->image !== null) {
-                    Image::make($request->image)->save("$user_folder$filename", 80, 'jpg');
+                    $filename = UserFacade::store_photo($user, $request->image);
+                    $user->profile_photo = $filename;
                 }
 
-                $user->profile_photo = $filename;
                 $user->name = $request->name;
                 $user->username = $request->username;
                 $user->email = $request->email;

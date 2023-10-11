@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class UserFacade
 {
-    public static function store_photo(User $user, TemporaryUploadedFile $file): string
+    public static function store_photo(User $user, $file): string
     {
         $encoder = 'jpeg';
 
