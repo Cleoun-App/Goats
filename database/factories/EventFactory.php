@@ -35,7 +35,7 @@ class EventFactory extends Factory
 
         $e_data = match($event_type) {
             "Dry Off" => [
-                "tag_no" => rand(100, 900),
+                "goat_count" => rand(100, 900),
             ],
             "Perawatan" => [
                 "diagnosis" => $fake->word,
@@ -56,8 +56,12 @@ class EventFactory extends Factory
             "Pemerahan" => [
                 "result" => rand(100, 900),
             ],
+            "Pemberatan" => [
+                "target_weight" => rand(1000, 9999),
+                "gain_weight" => rand(1000, 9999),
+            ],
             "Penyembelihan" => [
-                "tag_no" => rand(100, 900),
+                "goat_count" => rand(100, 900),
             ],
             "Indentifikasi(Tagging)" => [
                 "tag_no" => rand(100, 900),

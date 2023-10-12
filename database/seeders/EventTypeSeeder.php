@@ -17,13 +17,14 @@ class EventTypeSeeder extends Seeder
     {
 
         $eventTypes = [
-            "Dry Off" => ["tag_no"],
+            "Dry Off" => ["goat_count"],
             "Perawatan" => ["diagnosis", "treated_by"],
             "Vaksinasi" => ["vaccine"],
             "Perkawinan" => ["male_tag", "female_tag"],
+            "Pemberatan" => ["target_weight", "gain_weight"],
             "Pemerahan" => ["result"],
             "Melahirkan" => ["kids_no", "father_tag", "mother_tag"],
-            "Penyembelihan" => ["tag_no"],
+            "Penyembelihan" => ["goat_count"],
             "Indentifikasi(Tagging)" => ["tag_no"],
             "Other" => ["event_name", "event_desc"]
         ];

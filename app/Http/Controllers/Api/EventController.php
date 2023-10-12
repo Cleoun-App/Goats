@@ -197,4 +197,83 @@ class EventController extends Controller
             // ...
         }
     }
+
+    public function getEventsType(Request $request)
+    {
+        try {
+            
+            $e_type = strtolower($request->event_type);
+
+            $data = [];
+
+            $user = auth_user();
+
+            if($e_type === "pemberatan") {
+
+                $query = $user->events()->where('type', '=', 'Pemberatan');
+
+                $weightened_goats = $query->where('goat_id', '!=', null)->count();
+                $total_goats = $query->count();
+
+                $data['records'] = $query->get();
+                $data['reports'] = [
+                    'weightened_goats' => $weightened_goats,
+                    'unweightened_goats' => $weightened_goats - $total_goats,
+                    'total_goats' => $total_goats,
+                ];
+
+            } else if($e_type === "vaksinasi") {
+
+                
+                $query = $user->events()->where('type', '=', 'Vaksinasi');
+
+                $vaccinated_goats = $query->where('goat_id', '!=', null)->count();
+                $total_goats = $query->count();
+
+                $data['records'] = $query->get();
+                $data['reports'] = [
+                    'vaccinated_goats' => $vaccinated_goats,
+                    'unvaccinated_goats' => $vaccinated_goats - $total_goats,
+                    'total_goats' => $total_goats,
+                ];
+
+            } else if ($e_type === "pemerahan") {
+
+                $query = $user->events()->where('type', '=', 'Pemerahan');
+
+                $records = $query->get();
+
+                $milk_result = 0;
+
+                foreach($records as $rec) {
+                    $result = $rec->data['result'];
+                    $milk_result += intval($result);
+                }
+
+                $pemerahan_goats = $query->where('goat_id', '!=', null)->count();
+                $total_goats = $query->count();
+
+                $data['records'] = $records;
+                $data['reports'] = [
+                    'pemerahan_goats' => $pemerahan_goats,
+                    'milk_result' => $milk_result,
+                    'total_goats' => $total_goats,
+                ];
+
+            } else {
+
+                throw new \Exception("Parameter event_type tidak diketahui!!, hanya menerima pemberatan|vaksinasi|pemerahan");
+
+            }
+
+            return ResponseFormatter::success($data, "Data event kambing berhasil di-dapatkan!");
+
+            // ...
+        } catch (\Throwable $th) {
+
+            return ResponseFormatter::error([], $th->getMessage());
+
+            // ...
+        }
+    }
 }

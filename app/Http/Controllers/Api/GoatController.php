@@ -16,10 +16,10 @@ use Intervention\Image\Facades\Image;
 
 class GoatController extends Controller
 {
-
-    public function getBreeds() {
+    public function getBreeds()
+    {
         try {
-            
+
             $breed = Breed::get();
 
             return ResponseFormatter::success($breed, "Data berhasil didapatkan");
@@ -31,7 +31,7 @@ class GoatController extends Controller
 
             // ...
         }
-    } 
+    }
 
     public function getGoat(Request $request)
     {
@@ -85,7 +85,7 @@ class GoatController extends Controller
                 "breed" => $quee->where("breed", "=", $val),
                 "status" => $quee->where("status", "=", $val),
                 "origin" => $quee->where("origin", "=", $val),
-                "weight_less_than" => $quee->where("weight", "<", $val), 
+                "weight_less_than" => $quee->where("weight", "<", $val),
                 "weight_greater_than" => $quee->where("weight", ">=", $val),
             })->paginate(10);
 
@@ -140,8 +140,9 @@ class GoatController extends Controller
 
             $filename = null;
 
-            if($request->picture !== null)
+            if($request->picture !== null) {
                 $filename = $this->saveImage($user, $global_tag, $request);
+            }
 
             $goat->name = $request->name;
             $goat->tag = $request->tag;
@@ -221,11 +222,12 @@ class GoatController extends Controller
                 $prev_image = $user->get_storage("goats_pict" . DIRECTORY_SEPARATOR . $goat->picture);
 
                 File::delete($prev_image);
-                
+
                 $filename = null;
 
-                if($request->picture !== null)
+                if($request->picture !== null) {
                     $filename = $this->saveImage($user, $global_tag, $request);
+                }
 
                 $goat->picture = $filename;
             }
@@ -252,6 +254,25 @@ class GoatController extends Controller
         } catch (\Throwable $th) {
 
             return ResponseFormatter::error([], $th->getMessage());
+        }
+    }
+
+    public function getEvents(Request $request)
+    {
+        try {
+
+            $goat = get_goat($request->goat_tag);
+
+            $events = $goat->event;
+
+            return ResponseFormatter::success($events, "Data event kambing berhasil di-dapatkan!");
+
+            // ...
+        } catch (\Throwable $th) {
+
+            return ResponseFormatter::error([], $th->getMessage());
+
+            // ...
         }
     }
 
