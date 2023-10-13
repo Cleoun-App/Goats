@@ -15,7 +15,7 @@ class EventsTable extends _Dashboard
     public $queryString = ['search_field', 'search_operator', 'search_value', 'key'];
 
     public $searchable_fields = [
-        ['name', 'Nama'], ['note', 'Catatan'], ['date', 'Tanggal Event'],
+        ['name', 'Nama'], ['note', 'Catatan'], ['date', 'Tanggal Event'], ['type', 'Tipe'],
     ];
 
     public function mount(string $username)
