@@ -92,7 +92,7 @@
 	</center>
 
     
-    <h2 class="title-sect">Jumlah Kambing Berasarkan Kelamin</h2>
+    <h2 class="title-sect">Jumlah Kambing Berdasarkan Kelamin</h2>
 
     <table class='table table-bordered mko-table' style="width: 45%; margin: auto;">
 		<thead>
@@ -121,7 +121,7 @@
 		</tbody>
 	</table>
     
-    <h2 class="title-sect">Jumlah Kambing Berasarkan Jenis</h2>
+    <h2 class="title-sect">Jumlah Kambing Berdasarkan Jenis</h2>
 
     <table class='table table-bordered mko-table' style="width: 45%; margin: auto;">
 		<thead>
