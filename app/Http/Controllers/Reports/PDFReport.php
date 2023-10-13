@@ -119,9 +119,13 @@ class PDFReport extends Controller
 
                 $query = $user->events()->where('type', '=', $event_type)->where('scope', '=', 'individual');
 
+                $data['in_total'] = $user->goats()->count();
+
             } catch (\Throwable $th) {
 
                 $query = Event::where('type', '=', $event_type)->where('scope', '=', 'individual');
+                
+                $data['in_total'] = Goat::all()->count();
 
             }
 
@@ -143,7 +147,6 @@ class PDFReport extends Controller
 
             $data['event_type'] = EventType::where('name', '=', $event_type)->first();
 
-            $data['in_total'] = $user->goats()->count();
             $data['followed'] = $query->where('goat_id', '!=', null)->count();
             $data['unfollowed'] = $data['in_total'] - $data['followed'];
 
