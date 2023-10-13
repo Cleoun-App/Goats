@@ -60,7 +60,7 @@ Route::middleware(['auth', 'role:user|admin|supreme'])->group(function () {
     
     Route::get('/tabel/event', EventsTablePage::class)->name('ds.event.table');
     
-    Route::get('/tabel/milknote', MilknoteTablePage::class)->name('ds.event.table');
+    Route::get('/tabel/milknote', MilknoteTablePage::class)->name('ds.milknote.table');
     
     Route::get('/tabel/jenis/event', EventTypesTablePage::class)->name('ds.event.types.table');
 

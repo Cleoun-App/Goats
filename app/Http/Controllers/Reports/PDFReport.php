@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\EventType;
 use App\Models\Goat;
 use App\Models\MilkNote;
+use App\Models\User;
 use App\Utils\ResponseFormatter;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -108,13 +109,22 @@ class PDFReport extends Controller
 
             $event_type = $request->event_type;
 
-            if($request->username == null || $event_type == null) {
-                throw new \Exception("Missing parameter!!, required username & event_type");
+            if($event_type == null) {
+                throw new \Exception("Missing parameter required event_type!!");
             }
 
-            $user = get_user($request->username);
+            $user = get_user($request?->username ?? "");
 
-            $query = $user->events()->where('type', '=', $event_type)->where('scope', '=', 'individual');
+            if($user instanceof User) {
+
+                $query = $user->events()->where('type', '=', $event_type)->where('scope', '=', 'individual');
+
+            } else {
+
+                $query = Event::where('type', '=', $event_type)->where('scope', '=', 'individual');
+
+            }
+
             
             $data['_event_type'] = $event_type;
 
@@ -129,12 +139,9 @@ class PDFReport extends Controller
                 $data['_event_type'] = $event_type . " ($request->vaccine_name)" ;
             }
 
-            $data['user'] = $user;
-
             $data['events'] = $query->orderBy('created_at', 'DESC')->get();
 
             $data['event_type'] = EventType::where('name', '=', $event_type)->first();
-
 
             $data['in_total'] = $user->goats()->count();
             $data['followed'] = $query->where('goat_id', '!=', null)->count();

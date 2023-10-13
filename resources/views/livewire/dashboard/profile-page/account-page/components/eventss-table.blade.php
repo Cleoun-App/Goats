@@ -87,6 +87,7 @@
                             <th class="whitespace-nowrap">Catatan</th>
                             <th class="whitespace-nowrap">Tipe</th>
                             <th class="whitespace-nowrap">Aksi</th>
+                            <th class="whitespace-nowrap">Report</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -101,6 +102,16 @@
                                     <a class="btn btn-sm btn-primary" href="javacript:void(0)" data-toggle="modal"
                                         data-target="#show-modal-{{ $xevent->id }}">Show
                                     </a>
+                                </td>
+                                <td>
+                                    @component('components.export-options', [
+                                            'report_model' => 'event', 
+                                            'username' => $username,
+                                            'event_type' => $xevent->type,
+                                            'vaccine_name' => strtolower($xevent->type) == "vaksinasi" ? $xevent->data['vaccine'] : null,
+                                            'preview_only' => true,
+                                        ])
+                                    @endcomponent
                                 </td>
                             </tr>
 

@@ -57,7 +57,7 @@ class SideMenu extends Component
                 'icon'  =>  'globe',
             ],
             [
-                'route' =>  route('ds.event.table'),
+                'route' =>  route('ds.milknote.table'),
                 'name'  =>  'Tabel Milknote',
                 'icon'  =>  'book',
             ],

@@ -8,6 +8,8 @@
         "username" => isset($username) ? $username : null, 
         "report_model" => $report_model,
         "goat_id" => isset($goat_id) ? $goat_id : null,
+        "event_type" => isset($event_type) ? $event_type : null,
+        "vaccine_name" => isset($vaccine_name) ? $vaccine_name : null,
     ];
 
 @endphp
