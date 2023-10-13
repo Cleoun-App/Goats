@@ -91,56 +91,81 @@
         <h5> {{ now()->format('l d F Y h:i') }} | PDF &middot; Cleoun Render Engine &middot; V1.0.7   </h5>
 	</center>
  
-	@foreach ($events as $etype)
+    
+    <h2 class="title-sect">Statistik Individual Event</h2>
 
-		@php
-            $event_types = $etype->events()->where("user_id", "=", $user_id)->get();
-		@endphp
-	
-		<h2 class="title-sect">Tabel Event {{ $etype->name }}</h2>
+    <table class='table table-bordered mko-table' style="width: 60%; margin: auto;">
 
-		<table class='table table-bordered'>
-			<thead>
-				<tr>
-					<th>No</th>
-					<th>Nama</th>
-					<th>Jenis</th>
-					<th>Cakupan</th>
-					<th>Tanggal</th>
-					<th>Goat Id</th>
-					<th>Goat Tag</th>
-					@foreach ($etype->field as $cloumn)
-						<th>{{ $cloumn }}</th>
-					@endforeach
-					<th>Pemilik</th>
-				</tr>
-			</thead>
-			<tbody style="position: relative; width: 100%">
-				@foreach ($event_types as $event)
-				
-					<tr>
-						<td>{{ $loop->index + 1 }}</td>
-						<td>{{ $event?->name ?? "-" }}</td>
-						<td>{{ $event?->type ?? "-" }}</td>
-						<td>{{ $event?->scope ?? "-" }}</td>
-						<td>{{ $event?->date ?? "-" }}</td>
-						<td>{{ $event?->goat?->id ?? "-" }}</td>
-						<td>{{ $event?->goat?->tag ?? "-" }}</td>
-                        @foreach ($etype->field as $cloumn)
-                            @foreach ($event?->data ?? [] as $k => $data)
-                                @if ($k == $cloumn)
-                                    <td>{{ $data ?? "-" }}</td>
-                                @endif
-                            @endforeach
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Summary</th>
+			</tr>
+		</thead>
+		<tbody style="position: relative; width: 100%">
+            
+            <tr>
+                <td>Kambing Yang Mengikuti</td>
+                <td>{{ $followed }} ekor</td>
+            </tr>
+             
+            <tr>
+                <td>Kambing Yang Tidak Mengikuti</td>
+                <td>{{ $unfollowed }} ekor</td>
+            </tr>
+            
+            <tr>
+                <td>Jumlah Kambing</td>
+                <td>{{ $in_total }} ekor</td>
+            </tr>
+
+		</tbody>
+
+	</table>
+
+    <h2 class="title-sect">Tabel Event {{ $_event_type }} Individual</h2>
+
+    <table class='table table-bordered'>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Jenis</th>
+                <th>Cakupan</th>
+                <th>Tanggal</th>
+                <th>goat id</th>
+                <th>goat tag</th>
+                @foreach ($event_type?->field ?? [] as $cloumn)
+                    <th>{{ $cloumn }}</th>
+                @endforeach
+                <th>Pemilik</th>
+            </tr>
+        </thead>
+        <tbody style="position: relative; width: 100%">
+            @foreach ($events as $event)
+            
+                <tr>
+                    <td>{{ $loop->index + 1 }}</td>
+                    <td>{{ $event?->name ?? "-" }}</td>
+                    <td>{{ $event?->type ?? "-" }}</td>
+                    <td>{{ $event?->scope ?? "-" }}</td>
+                    <td>{{ $event?->date ?? "-" }}</td>
+                    <td>{{ $event?->goat?->id ?? "-" }}</td>
+                    <td>{{ $event?->goat?->tag ?? "-" }}</td>
+                    @foreach ($event_type?->field ?? [] as $cloumn)
+                        @foreach ($event?->data ?? [] as $k => $data)
+                            @if ($k == $cloumn)
+                                <td>{{ $data ?? "-" }}</td>
+                            @endif
                         @endforeach
-						<td>{{ $event?->user->name ?? '-' }}</td>
-					</tr>
-					
-				@endforeach
-			</tbody>
-		</table>
+                    @endforeach
+                    <td>{{ $event?->user->name ?? '-' }}</td>
+                </tr>
+                
+            @endforeach
+        </tbody>
+    </table>
 
-	@endforeach
  
 </body>
 </html>

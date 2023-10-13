@@ -22,6 +22,7 @@ class PDFReport extends Controller
         return match($report_model) {
             "goat" => $this->export_goat($request, true),
             "goats" => $this->export_goats($request, true),
+            "event" => $this->export_event($request, true),
             "events" => $this->export_events($request, true),
             "milk_notes" => $this->export_milk_notes($request, true),
         };
@@ -35,6 +36,7 @@ class PDFReport extends Controller
             "goat" => $this->export_goat($request),
             "goats" => $this->export_goats($request),
             "events" => $this->export_events($request),
+            "event" => $this->export_event($request),
             "milk_notes" => $this->export_milk_notes($request),
         };
     }
@@ -47,7 +49,7 @@ class PDFReport extends Controller
 
         if($goat instanceof Goat === false) {
             return ResponseFormatter::error([], "Kambing tidak ditemukan!");
-        } 
+        }
 
         $data['goat'] = $goat;
         $data['events'] = EventType::all();
@@ -100,11 +102,66 @@ class PDFReport extends Controller
         return $pdf->download("goats_report.pdf");
     }
 
+    public function export_event(Request $request, bool $is_preview = false)
+    {
+        try {
+
+            $event_type = $request->event_type;
+
+            if($request->username == null || $event_type == null) {
+                throw new \Exception("Missing parameter!!, required username & event_type");
+            }
+
+            $user = get_user($request->username);
+
+            $query = $user->events()->where('type', '=', $event_type)->where('scope', '=', 'individual');
+            
+            $data['_event_type'] = $event_type;
+
+            if(strtolower($event_type) === "vaksinasi") {
+
+                if($request->vaccine_name === null) {
+                    throw new \Exception("Missing parameter vaccine required vaccine_name!");
+                } 
+
+                $query = $query->where('data', 'LIKE', "{\"vaccine\": \"{$request->vaccine_name}\"}");
+
+                $data['_event_type'] = $event_type . " ($request->vaccine_name)" ;
+            }
+
+            $data['user'] = $user;
+
+            $data['events'] = $query->orderBy('created_at', 'DESC')->get();
+
+            $data['event_type'] = EventType::where('name', '=', $event_type)->first();
+
+
+            $data['in_total'] = $user->goats()->count();
+            $data['followed'] = $query->where('goat_id', '!=', null)->count();
+            $data['unfollowed'] = $data['in_total'] - $data['followed'];
+
+            $pdf = Pdf::loadView("components.reports.event-layout", $data);
+
+            $pdf->setPaper('F4', 'landscape');
+
+            if($is_preview) {
+                return $pdf->stream("event_report.pdf");
+            }
+
+            return $pdf->download("event_report.pdf");
+
+            // ...
+        } catch (\Throwable $th) {
+
+            return ResponseFormatter::error([], $th->getMessage());
+        }
+    }
+
     public function export_events(Request $request, bool $is_preview = false)
     {
 
         try {
-            
+
             $user = get_user($request->username);
 
             $data['user_id'] = $user->id;

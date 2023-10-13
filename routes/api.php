@@ -79,6 +79,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/goat/{goat_tag}/events', [GoatController::class, 'getEvents']);
 
     Route::get('/user/{username}/report/{report_model}/export/pdf', [PDFReport::class, 'export']);
+    
+    Route::get('/user/{username}/report/{report_model}/preview/pdf', [PDFReport::class, 'preview']);
 
     /**
      *  End Goat APIs

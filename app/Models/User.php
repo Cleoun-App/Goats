@@ -89,7 +89,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return "username";
     }
 
-
     public function goats() {
         return $this->hasMany(Goat::class, 'user_id');
     }

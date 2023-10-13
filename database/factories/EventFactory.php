@@ -19,6 +19,61 @@ class EventFactory extends Factory
     {
         $fake = fake();
 
+        $vaksinasiKambing = [
+            [
+                "jenis" => "Clostridium perfringens",
+                "deskripsi" => "Melindungi dari infeksi bakteri Clostridium perfringens yang dapat menyebabkan gangguan pencernaan."
+            ],
+            [
+                "jenis" => "Pasteurella",
+                "deskripsi" => "Melindungi dari infeksi Pasteurella, penyebab penyakit pernapasan."
+            ],
+            [
+                "jenis" => "Campylobacter",
+                "deskripsi" => "Mengendalikan infeksi bakteri Campylobacter yang memengaruhi sistem reproduksi."
+            ],
+            [
+                "jenis" => "Brucellosis",
+                "deskripsi" => "Melindungi dari infeksi Brucellosis yang memengaruhi reproduksi dan bisa ditularkan kepada manusia."
+            ],
+            [
+                "jenis" => "Chlamydia",
+                "deskripsi" => "Melindungi dari infeksi Chlamydia yang memengaruhi sistem reproduksi."
+            ],
+            [
+                "jenis" => "Toxoplasmosis",
+                "deskripsi" => "Melindungi dari infeksi Toxoplasmosis yang mengganggu kesehatan reproduksi dan bisa ditularkan kepada manusia."
+            ],
+            [
+                "jenis" => "Salmonella",
+                "deskripsi" => "Mengendalikan infeksi Salmonella yang menyebabkan masalah pencernaan."
+            ],
+            [
+                "jenis" => "Leptospirosis",
+                "deskripsi" => "Melindungi dari infeksi bakteri Leptospirosis yang memengaruhi ginjal dan menyebabkan gejala seperti demam."
+            ],
+            [
+                "jenis" => "Penyakit Campak Kambing (PPR)",
+                "deskripsi" => "Melindungi dari penyakit PPR yang mirip dengan penyakit campak pada manusia."
+            ],
+            [
+                "jenis" => "Anthrax",
+                "deskripsi" => "Melindungi dari infeksi bakteri Anthrax yang bisa menjadi penyakit serius."
+            ],
+            [
+                "jenis" => "Rift Valley Fever (RVF)",
+                "deskripsi" => "Melindungi dari penyakit Rift Valley Fever yang memengaruhi sistem pernapasan dan reproduksi."
+            ],
+            [
+                "jenis" => "Orf (Contagious Ecthyma)",
+                "deskripsi" => "Melindungi dari penyakit Orf, yang merupakan penyakit virus kulit."
+            ],
+            [
+                "jenis" => "Caseous Lymphadenitis",
+                "deskripsi" => "Melindungi dari penyakit yang disebabkan oleh bakteri Corynebacterium pseudotuberculosis yang menyebabkan abses."
+            ]
+        ];
+
         $eventTypes = [
             "Dry Off",
             "Perawatan",
@@ -26,6 +81,7 @@ class EventFactory extends Factory
             "Perkawinan",
             "Pemerahan",
             "Melahirkan",
+            "Pemberatan",
             "Penyembelihan",
             "Indentifikasi(Tagging)",
             "Other"
@@ -47,7 +103,7 @@ class EventFactory extends Factory
                 "mother_tag" => rand(1000, 9000),
             ],
             "Vaksinasi" => [
-                "vaccine" => $fake->word,
+                "vaccine" => $vaksinasiKambing[rand(0, count($vaksinasiKambing) - 1)]['jenis'],
             ],
             "Perkawinan" => [
                 "male_tag" => $fake->word,

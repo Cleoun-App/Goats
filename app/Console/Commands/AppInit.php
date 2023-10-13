@@ -64,7 +64,7 @@ class AppInit extends Command
 
         $this->info('process completed succesfuly.');
 
-        $user_count = rand(50, 75);
+        $user_count = rand(20, 30);
 
         $bar = $this->output->createProgressBar($user_count);
 
@@ -118,11 +118,12 @@ class AppInit extends Command
 
                     MilkNote::factory(rand(4, 8))->create($milk_param);
 
-                    Event::factory(rand(5,10))->create([
+                    Event::factory(rand(5, 20))->create([
                         'user_id' => $user->id,
                         'scope' => 'individual',
                         'goat_id' => $goat->id,
                     ]);
+
                 }
 
 
@@ -132,7 +133,11 @@ class AppInit extends Command
             
             MilkNote::factory(rand(1, 5))->create(['user_id' => $user->id]);
 
-            Event::factory(rand(1, 5))->create(['user_id' => $user->id]);
+            
+            for($xi = 0; $xi <= rand(5, 10); $xi++) {
+                Event::factory()->create(['user_id' => $user->id]);
+            }
+
 
             $bar->advance();
 
