@@ -113,26 +113,26 @@ class PDFReport extends Controller
                 throw new \Exception("Missing parameter required event_type!!");
             }
 
-            $user = get_user($request?->username ?? "");
+            try {
 
-            if($user instanceof User) {
+                $user = get_user($request?->username ?? "");
 
                 $query = $user->events()->where('type', '=', $event_type)->where('scope', '=', 'individual');
 
-            } else {
+            } catch (\Throwable $th) {
 
                 $query = Event::where('type', '=', $event_type)->where('scope', '=', 'individual');
 
             }
 
-            
+
             $data['_event_type'] = $event_type;
 
             if(strtolower($event_type) === "vaksinasi") {
 
                 if($request->vaccine_name === null) {
                     throw new \Exception("Missing parameter vaccine required vaccine_name!");
-                } 
+                }
 
                 $query = $query->where('data', 'LIKE', "{\"vaccine\": \"{$request->vaccine_name}\"}");
 
