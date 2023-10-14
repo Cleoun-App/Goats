@@ -17,12 +17,12 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
-            
+
             $request->validate([
                 'username' => 'required',
                 'password' => 'required',
             ]);
-            
+
             $credentials = $request->only('username', 'password');
 
             if (Auth::attempt($credentials)) {
@@ -50,7 +50,7 @@ class AuthController extends Controller
                 $e->getMessage()
             );
 
-        }  catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             return ResponseFormatter::error([
                 'phone_number' =>  $request->phone_number,
                 'password' => $request->password,
@@ -58,19 +58,19 @@ class AuthController extends Controller
         }
     }
 
-    public function change_password(Request $request) {
+    public function change_password(Request $request)
+    {
         try {
-            
+
             $request->validate([
-                'username' => ['required'],
                 'new_password' => ['required', 'min:5', 'max:120'],
                 'password_confirm' => ['required', 'same:new_password'],
                 'old_password' => ['required'],
             ]);
 
-            $user = get_user($request->username);
+            $user = auth_user();
 
-            if(Hash::make($request->old_password) != $user->password) {
+            if(password_verify($request->old_password, $user->password) === false) {
                 throw new \Exception("Password lama anda tidak sesuai!!");
             }
 
@@ -79,20 +79,22 @@ class AuthController extends Controller
             ]);
 
             return ResponseFormatter::success("Password berhasil di-ubah!");
-            
+
         } catch (\Throwable $th) {
+
             return ResponseFormatter::error([
                 'phone_number' =>  $request->phone_number,
                 'password' => $request->password,
             ], $th->getMessage(), 200);
-        }
-    } 
 
-    
+        }
+    }
+
+
     public function register(Request $request)
     {
         try {
-            
+
             UserValidation::validateUserRegistration($request);
 
             $user = User::create([
@@ -103,9 +105,9 @@ class AuthController extends Controller
                 'creation_mark' => md5($request->username . now()),
              ]);
 
-             if($user instanceof User) {
+            if($user instanceof User) {
                 $user->assignRole('user');
-             }
+            }
 
             return ResponseFormatter::success($user, "Registrasi berhasil");
 
@@ -121,10 +123,11 @@ class AuthController extends Controller
         }
     }
 
-    public function forgotPassword(Request $request) {
-        
+    public function forgotPassword(Request $request)
+    {
+
         try {
-            
+
             $request->validate([
                 'email' => ['required', 'email']
             ]);
@@ -134,14 +137,14 @@ class AuthController extends Controller
             if($user instanceof User === false) {
                 throw new \Exception('Email yang anda masukan tidak ditemukan!');
             }
-    
+
             $status = Password::sendResetLink(['email' => $request->email]);
-    
+
             if($status === Password::RESET_LINK_SENT) {
                 return ResponseFormatter::success($user, "Link reset password berhasil terkirim");
             }
-    
-           
+
+
             throw new \Exception("Gagal mengirim email, silahkan coba beberapa saat lagi!");
 
             // ...

@@ -5,7 +5,6 @@ use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\GoatController;
 use App\Http\Controllers\Api\MilkNoteController;
 use App\Http\Controllers\Api\NotificationController;
-use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\Reports\PDFReport;
@@ -43,6 +42,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/user/event/{event_type}/report', [EventController::class, 'getEventsType']);
 
+    Route::get('/user/event-type/report', [EventController::class, 'getEventTypeReport']);
+
     /**
      *  End Event APIs
      */
@@ -77,6 +78,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/goat/breeds', [GoatController::class, 'getBreeds']);
 
     Route::get('/user/goat/{goat_tag}/events', [GoatController::class, 'getEvents']);
+
+    Route::get('/user/goat/breeds/reports', [GoatController::class, 'geGoatBreedsReport']);
 
     Route::get('/user/{username}/report/{report_model}/export/pdf', [PDFReport::class, 'export']);
     

@@ -37,7 +37,7 @@ class GoatController extends Controller
     {
         try {
 
-            $user = get_user($request->username);
+            $user = auth_user();
 
             $goat = $user->goats()->where('tag', $request->tag)->first();
 
@@ -63,7 +63,7 @@ class GoatController extends Controller
 
             $column = $request->column;
 
-            $user = get_user($request->username);
+            $user = auth_user();
 
             if($request->group_id == null) {
                 $quee = $user->goats();
@@ -120,7 +120,7 @@ class GoatController extends Controller
                 'weight' => ['required', 'integer', 'max:999999'],
             ]);
 
-            $user = get_user($request->username);
+            $user = auth_user();
 
             $father = get_goat($request->father_tag, false);
 
@@ -145,6 +145,7 @@ class GoatController extends Controller
             }
 
             $goat->name = $request->name;
+            $goat->gender = $request->gender;
             $goat->tag = $request->tag;
             $goat->global_tag = $global_tag;
             $goat->picture = $filename;
@@ -195,7 +196,7 @@ class GoatController extends Controller
                 'weight' => ['required', 'integer', 'max:999999'],
             ]);
 
-            $user = get_user($request->username);
+            $user = auth_user();
 
             $father = get_goat($request->father_tag, false);
 
@@ -239,6 +240,7 @@ class GoatController extends Controller
             $goat->origin = $request->origin;
             $goat->breed = $request->breed;
             $goat->status = $request->status;
+            $goat->gender = $request->gender;
             $goat->birth_date = $request->birth_date;
             $goat->note = $request->note;
 
@@ -293,6 +295,28 @@ class GoatController extends Controller
             return ResponseFormatter::error([], $th->getMessage());
 
             // ...
+        }
+    }
+
+    public function geGoatBreedsReport() {
+        try {
+            
+            $user = auth_user();
+
+            $breeds = Breed::all();
+
+            $data = [];
+
+            foreach($breeds as $breed) {
+                $data[$breed->name] = $user->goats()->where('breed', $breed->name)->count();
+            }
+
+            return ResponseFormatter::success($data, "Laporan Kambing Breed berhasil di-dapatkan!");
+            
+            // ...
+        } catch (\Throwable $th) {
+            
+            return ResponseFormatter::error([], $th->getMessage());
         }
     }
 

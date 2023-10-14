@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\EventType as ModelsEventType;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class EventTypeSeeder extends Seeder

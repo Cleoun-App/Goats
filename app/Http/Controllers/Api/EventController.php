@@ -110,7 +110,6 @@ class EventController extends Controller
 
             $user = auth_user();
 
-
             $event = new Event();
 
             $event->user()->associate($user);
@@ -118,6 +117,17 @@ class EventController extends Controller
             if($request->scope == "individual") {
                 $goat = get_goat($request->goat_tag);
                 $event->goat()->associate($goat);
+            }
+
+            // validasi event field
+            if($ev = EventType::where('name', $request->type)->first()) {
+                $ev_data = json_decode($request->data);
+
+                foreach($ev_data as $e_data => $v) {
+                    if(array_search($e_data, $ev->field) === false) {
+                        throw new \Exception("Field $e_data tidak terdaftar di tipe event $ev->name");
+                    }
+                }
             }
 
             $event->name = $request->name;
@@ -208,12 +218,13 @@ class EventController extends Controller
 
             $user = auth_user();
 
+            $total_goats = $user->goats()->count();
+
             if($e_type === "pemberatan") {
 
                 $query = $user->events()->where('type', '=', 'Pemberatan');
 
                 $weightened_goats = $query->where('goat_id', '!=', null)->count();
-                $total_goats = $query->count();
 
                 $data['records'] = $query->get();
                 $data['reports'] = [
@@ -228,7 +239,6 @@ class EventController extends Controller
                 $query = $user->events()->where('type', '=', 'Vaksinasi');
 
                 $vaccinated_goats = $query->where('goat_id', '!=', null)->count();
-                $total_goats = $query->count();
 
                 $data['records'] = $query->get();
                 $data['reports'] = [
@@ -251,7 +261,6 @@ class EventController extends Controller
                 }
 
                 $pemerahan_goats = $query->where('goat_id', '!=', null)->count();
-                $total_goats = $query->count();
 
                 $data['records'] = $records;
                 $data['reports'] = [
@@ -266,7 +275,7 @@ class EventController extends Controller
 
             }
 
-            return ResponseFormatter::success($data, "Data event kambing berhasil di-dapatkan!");
+            return ResponseFormatter::success($data, "Records event $e_type berhasil di-dapatkan!");
 
             // ...
         } catch (\Throwable $th) {
@@ -274,6 +283,28 @@ class EventController extends Controller
             return ResponseFormatter::error([], $th->getMessage());
 
             // ...
+        }
+    }
+
+    public function getEventTypeReport(Request $req) {
+        try {
+
+            $user = auth_user();
+            
+            $event_type = EventType::all();
+
+            $data = [];
+            
+            foreach($event_type as $et) {
+                $data[$et->name] = $user->events()->where('type', '=', $et->name)->count();
+            }
+
+            return ResponseFormatter::success($data, "Laporan event kambing berhasil di-dapatkan");
+
+            // ...
+        } catch (\Throwable $th) {
+
+            return ResponseFormatter::error([], $th->getMessage());
         }
     }
 }

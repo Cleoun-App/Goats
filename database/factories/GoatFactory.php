@@ -21,15 +21,21 @@ class GoatFactory extends Factory
 
         $goat_breeds = Breed::all();
 
-        $cos_point = cos(round(time()/pi()));
+        $origins = [
+            'Melahirkan Di Kandang', 
+            'Kambing Hutan', 
+            'Dibeli Di Pasar', 
+            'Kambing Eropa',
+            'Kambing A5 Jepang',
+        ];
 
         return [
             'name' => $fake->name,
-            'tag' => md5(rand(100, 999) * .14 + time() / $cos_point),
+            'tag' => uniqid(rand(100, 999)),
             'global_tag' => md5(uniqid() . time()),
             'picture' => $fake->url(),
             'gender' => ['male', 'female'][rand(0, 1)],
-            'origin' => ['Di curi', 'Di ambil di peternakan orang', 'Dibeli tampa bayar', 'Melahirkan di kandang orang'][rand(0, 3)],
+            'origin' => $origins[rand(0, count($origins) - 1)],
             'breed' => $goat_breeds[rand(0, count($goat_breeds) - 1)]->name,
             'status' => ['alive', 'death', 'sold'][rand(0, 2)],
             'birth_date' => now()->addMonths(rand(-10, -99)),
