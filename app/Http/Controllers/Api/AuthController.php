@@ -75,7 +75,7 @@ class AuthController extends Controller
             }
 
             $user->update([
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($request->new_password),
             ]);
 
             return ResponseFormatter::success("Password berhasil di-ubah!");
