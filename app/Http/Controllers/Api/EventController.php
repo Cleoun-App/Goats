@@ -260,7 +260,7 @@ class EventController extends Controller
                     $milk_result += intval($result);
                 }
 
-                $pemerahan_goats = $query->where('goat_id', '!=', null)->count()->where('scope', '=', 'individual');;
+                $pemerahan_goats = $query->where('goat_id', '!=', null)->count();
 
                 $data['records'] = $records;
                 $data['reports'] = [

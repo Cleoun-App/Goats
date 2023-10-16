@@ -138,9 +138,13 @@ class PDFReport extends Controller
                     throw new \Exception("Missing parameter vaccine required vaccine_name!");
                 }
 
-                $query = $query->where('data', 'LIKE', "{\"vaccine\": \"{$request->vaccine_name}\"}");
+                if(count($request?->vaccine_name ?? null) >= 3) {
 
-                $data['_event_type'] = $event_type . " ($request->vaccine_name)" ;
+                    $query = $query->where('data', 'LIKE', "{\"vaccine\": \"{$request->vaccine_name}\"}");
+
+                }
+
+                $data['_event_type'] = $event_type . " (" . $request?->vaccine_name ?? "All" .")" ;
             }
 
             $data['events'] = $query->orderBy('created_at', 'DESC')->get();
