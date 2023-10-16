@@ -222,7 +222,7 @@ class EventController extends Controller
 
             if($e_type === "pemberatan") {
 
-                $query = $user->events()->where('type', '=', 'Pemberatan');
+                $query = $user->events()->where('type', '=', 'Pemberatan')->where('scope', '=', 'individual');;
 
                 $weightened_goats = $query->where('goat_id', '!=', null)->count();
 
@@ -236,7 +236,7 @@ class EventController extends Controller
             } else if($e_type === "vaksinasi") {
 
                 
-                $query = $user->events()->where('type', '=', 'Vaksinasi');
+                $query = $user->events()->where('type', '=', 'Vaksinasi')->where('scope', '=', 'individual');
 
                 $vaccinated_goats = $query->where('goat_id', '!=', null)->count();
 
@@ -249,7 +249,7 @@ class EventController extends Controller
 
             } else if ($e_type === "pemerahan") {
 
-                $query = $user->events()->where('type', '=', 'Pemerahan');
+                $query = $user->events()->where('type', '=', 'Pemerahan')->where('scope', '=', 'individual');
 
                 $records = $query->get();
 
@@ -260,7 +260,7 @@ class EventController extends Controller
                     $milk_result += intval($result);
                 }
 
-                $pemerahan_goats = $query->where('goat_id', '!=', null)->count();
+                $pemerahan_goats = $query->where('goat_id', '!=', null)->count()->where('scope', '=', 'individual');;
 
                 $data['records'] = $records;
                 $data['reports'] = [
