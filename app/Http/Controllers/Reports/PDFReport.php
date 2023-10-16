@@ -134,11 +134,7 @@ class PDFReport extends Controller
 
             if(strtolower($event_type) === "vaksinasi") {
 
-                if($request->vaccine_name === null) {
-                    throw new \Exception("Missing parameter vaccine required vaccine_name!");
-                }
-
-                if(count($request?->vaccine_name ?? null) >= 3) {
+                if(strlen($request?->vaccine_name ?? "") >= 3) {
 
                     $query = $query->where('data', 'LIKE', "{\"vaccine\": \"{$request->vaccine_name}\"}");
 
