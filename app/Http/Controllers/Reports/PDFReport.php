@@ -138,9 +138,9 @@ class PDFReport extends Controller
 
                     $query = $query->where('data', 'LIKE', "{\"vaccine\": \"{$request->vaccine_name}\"}");
 
+                    $data['_event_type'] = $event_type . " (" . ($request?->vaccine_name ?? "All") .")" ;
                 }
 
-                $data['_event_type'] = $event_type . " (" . $request?->vaccine_name ?? "All" .")" ;
             }
 
             $data['events'] = $query->orderBy('created_at', 'DESC')->get();
