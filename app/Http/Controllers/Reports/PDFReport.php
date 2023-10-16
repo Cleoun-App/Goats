@@ -117,13 +117,13 @@ class PDFReport extends Controller
 
                 $user = get_user($request?->username ?? "");
 
-                $query = $user->events()->where('type', '=', $event_type)->where('scope', '=', 'individual');
+                $query = $user->events()->distinct(["goat_id"])->where('type', '=', $event_type)->where('scope', '=', 'individual');
 
                 $data['in_total'] = $user->goats()->count();
 
             } catch (\Throwable $th) {
 
-                $query = Event::where('type', '=', $event_type)->where('scope', '=', 'individual');
+                $query = Event::distinct(["goat_id"])->where('type', '=', $event_type)->where('scope', '=', 'individual');
                 
                 $data['in_total'] = Goat::all()->count();
 

@@ -92,7 +92,7 @@
 	</center>
  
     
-    <h2 class="title-sect">Statistik Individual Event</h2>
+    <h2 class="title-sect">Statistik Event</h2>
 
     <table class='table table-bordered mko-table' style="width: 60%; margin: auto;">
 
@@ -123,7 +123,7 @@
 
 	</table>
 
-    <h2 class="title-sect">Tabel Event {{ $_event_type }} Individual</h2>
+    <h2 class="title-sect">Tabel Event {{ $_event_type }}</h2>
 
     <table class='table table-bordered'>
         <thead>
