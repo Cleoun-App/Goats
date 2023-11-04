@@ -101,7 +101,7 @@
                                 <td class="border-b dark:border-dark-5">{{ \Str::limit($event->note, 25, '...') ?? '-' }}</td>
                                 <td class="border-b dark:border-dark-5">{{ $event->type }}</td>
                                 <td class="border-b dark:border-dark-5">
-                                    @if($event->user instance \App\Models\User)
+                                    @if($event->user instanceof \App\Models\User)
                                         <a style="color: #6262e4; text-decoration: underline;"
                                         href="{{ route('ds.user.show', [$event->user->username]) }}">{{ '@' . $event->user->username }}</a>
                                     @endif
