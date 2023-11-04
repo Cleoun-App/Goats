@@ -5,6 +5,41 @@
             <h2 class="font-medium text-base mr-auto">
                 {{ $page_title }}
             </h2>
+            <!-- BEGIN: Modal Toggle -->
+            <div class="text-center"> 
+                <a href="javascript:;" data-toggle="modal" data-target="#form-add-breed"
+                    class="btn btn-primary">Tambahkan Peranakan Kambing
+                </a>
+                <div>
+                    <div id="form-add-breed" class="modal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- BEGIN: Modal Header -->
+                                <div class="modal-header">
+                                    <h2 class="font-medium text-base mr-auto">Form Tambah Peranakan</h2>
+                                </div> <!-- END: Modal Header -->
+                                <!-- BEGIN: Modal Body -->
+                                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
+                                    <div class="col-span-12"> 
+                                        <label for="role-name" class="form-label">Nama</label> 
+                                        <input id="role-name" type="text" class="form-control" placeholder="..." wire:model.defer="breed_name">
+                                        @error('breed_name')
+                                            <div class="text-theme-21 mt-2">{{ $message }}</div>
+                                        @enderror
+                                     </div>
+                                </div> <!-- END: Modal Body -->
+                                <!-- BEGIN: Modal Footer -->
+                                <div class="modal-footer text-right"> 
+                                    <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">Batal</button> 
+                                    <button type="button" data-dismiss="modal" class="btn btn-primary w-25" wire:click="addBreed">Simpan</button> 
+                                </div> <!-- END: Modal Footer -->
+                            </div>
+                        </div>
+                    </div> 
+                    
+                </div>
+            </div> 
+            <!-- END: Modal Toggle -->
         </div>
         <div class="flex flex-col sm:flex-row sm:items-end xl:items-start p-5">
             <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
@@ -72,7 +107,7 @@
                 </div>
             </form>
             <div class="flex mt-5 sm:mt-0 d-none">                
-                {{-- @component('components.export-options', ['report_model' => 'events'])
+                {{-- @component('components.export-options', ['report_model' => 'breeds'])
                 @endcomponent --}}
             </div>
         </div>
@@ -83,79 +118,81 @@
                         <tr class="bg-gray-700 dark:bg-dark-1 text-white">
                             <th class="whitespace-nowrap">#</th>
                             <th class="whitespace-nowrap">Nama</th>
-                            <th class="whitespace-nowrap">Tanggal Event</th>
-                            <th class="whitespace-nowrap">Catatan</th>
-                            <th class="whitespace-nowrap">Tipe</th>
-                            <th class="whitespace-nowrap">Pemilik</th>
+                            <th class="whitespace-nowrap">Slug</th>
+                            <th class="whitespace-nowrap">Dibuat Pada</th>
                             <th class="whitespace-nowrap">Aksi</th>
-                            <th class="whitespace-nowrap">Report</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($events as $event)
+                        @forelse ($breeds as $breed)
                         
                             <tr>
                                 <td class="border-b dark:border-dark-5">{{ $loop->index + 1 }}</td>
-                                <td class="border-b dark:border-dark-5">{{ \Str::limit($event->name, 15, '...') }}</td>
-                                <td class="border-b dark:border-dark-5">{{ $event->date->format('d-m-Y') }}</td>
-                                <td class="border-b dark:border-dark-5">{{ \Str::limit($event->note, 25, '...') ?? '-' }}</td>
-                                <td class="border-b dark:border-dark-5">{{ $event->type }}</td>
-                                <td class="border-b dark:border-dark-5">
-                                    <a style="color: #6262e4; text-decoration: underline;"
-                                        href="{{ route('ds.user.show', [$event->user->username]) }}">{{ '@' . $event->user->username }}</a>
-                                </td>
+                                <td class="border-b dark:border-dark-5">{{ \Str::limit($breed->name, 15, '...') }}</td>
+                                <td class="border-b dark:border-dark-5">{{ \Str::limit($breed->slug, 25, '...') ?? '-' }}</td>
+                                <td class="border-b dark:border-dark-5">{{ $breed->created_at->format('d-m-Y') }}</td>
                                 <td class="border-b dark:border-dark-5">
                                     <a class="btn btn-sm btn-primary" href="javacript:void(0)" data-toggle="modal"
-                                        data-target="#show-modal-{{ $event->id }}">Show
+                                        data-target="#show-modal-{{ $breed->id }}">SHow
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" href="javacript:void(0)" data-toggle="modal"
+                                        data-target="#delete-modal-{{ $breed->id }}">Hapus
                                     </a>
                                 </td>
-                                <td>
-                                    @component('components.export-options', [
-                                            'report_model' => 'event', 
-                                            'event_type' => $event->type,
-                                            // 'vaccine_name' => strtolower($event->type) == "vaksinasi" ? $event->data['vaccine'] : null,
-                                            'vaccine_name' => strtolower($event->type) == "vaksinasi" ? "-" : null,
-                                            'preview_only' => true,
-                                        ])
-                                    @endcomponent
-                                </td>
                             </tr>
+                            
+                            <!-- BEGIN: Modal Content -->
+
+                            <div id="delete-modal-{{ $breed->id }}" class="modal" tabindex="-1"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-0">
+                                            <div class="p-5 text-center">
+                                                <i data-feather="x-circle"
+                                                    class="w-16 h-16 text-theme-21 mx-auto mt-3"></i>
+                                                <div class="text-3xl mt-5">Konfirmasi Penghapusan!!</div>
+                                                <div class="text-gray-600 mt-2">Apakah anda ingin menghapus
+                                                    Peranakan Kambing <br> '{{ $breed->name }}'
+                                                    <br><strong style="color: rgba(242, 255, 61, 0.836)"> PERINGATAN <br> Data Yang Di Hapus Tidak Akan Bisa Dikembalikan!!</strong>
+                                                </div>
+                                            </div>
+                                            <div class="px-5 pb-8 text-center">
+                                                <button type="button" data-dismiss="modal"
+                                                    class="btn btn-outline-secondary w-24 dark:border-dark-5 dark:text-gray-300 mr-1">Batalkan
+                                                </button>
+                                                <button type="button" data-dismiss="modal" class="btn btn-danger w-24"
+                                                    wire:click="deleteBreed({{ $breed->id }})">Hapus
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- END: Modal Content -->
 
 
                             <!-- BEGIN: Modal Content -->
 
-                            <div id="show-modal-{{ $event->id }}" class="modal" tabindex="-1"
+                            <div id="show-modal-{{ $breed->id }}" class="modal" tabindex="-1"
                                 aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <!-- BEGIN: Modal Header -->
                                         <div class="modal-header">
-                                            <h2 class="font-medium text-base mr-auto">Data event peternakan</h2>
+                                            <h2 class="font-medium text-base mr-auto">Jenis Kambing</h2>
                                         </div> <!-- END: Modal Header -->
                                         <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                                            <div class="col-span-12 sm:col-span-6">
-                                                <label for="modal-form-1" class="form-label">Tanggal</label>
-                                                <input id="modal-form-1" type="text" class="form-control"
-                                                    value="{{ $event->date }}" disabled>
-                                            </div>
-                                            <div class="col-span-12 sm:col-span-6">
-                                                <label class="form-label">Jenis Event</label>
+                                            <div class="col-span-12 ">
+                                                <label class="form-label">Nama</label>
                                                 <input type="text" class="form-control"
-                                                    value="{{ $event->type }}" disabled>
-                                            </div>
-                                            <div class="col-span-12 sm:col-span-6">
-                                                <label class="form-label">Cakupan</label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ $event->scope ?? '-' }}" disabled>
-                                            </div>
-                                            <div class="col-span-12 sm:col-span-6">
-                                                <label class="form-label">~Kambing</label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ $event->goat?->name ?? '-' }}" disabled>
+                                                    value="{{ $breed->name }}" disabled>
                                             </div>
                                             <div class="col-span-12">
-                                                <label class="form-label">Catatan Farmer</label>
-                                                <textarea class="form-control" width="100%" rows="5">{{ $event->note }}</textarea>
+                                                <label class="form-label">Slug</label>
+                                                <input type="text" class="form-control"
+                                                    value="{{ $breed->slug ?? '-' }}" disabled>
                                             </div>
                                         </div>
                                         <!-- END: Modal Body -->
@@ -173,14 +210,14 @@
                             <!-- END: Modal Content -->
                         @empty
                             <div class="alert alert-warning-soft show flex items-center mb-2" role="alert"> <i
-                                    data-feather="alert-circle" class="w-6 h-6 mr-2"></i> Event peternakan tidak ditemukan!
+                                    data-feather="alert-circle" class="w-6 h-6 mr-2"></i> Jenis kambing tidak tersedia!
                             </div>
                         @endforelse
                     </tbody>
                 </table>
             </div>
 
-            @component('components.pagination-table-navigator', ['nav' => $events])
+            @component('components.pagination-table-navigator', ['nav' => $breeds])
             @endcomponent
 
         </div>

@@ -37,6 +37,11 @@ class SideMenu extends Component
                 'icon'  =>  'list',
             ],
             [
+                'route' =>  route('ds.goat.breeds.table'),
+                'name'  =>  'Peranakan Kambing',
+                'icon'  =>  'list',
+            ],
+            [
                 'route' =>  route('ds.user.mgt.roles'),
                 'name'  =>  'Role Pengguna',
                 'icon'  =>  'user-check',

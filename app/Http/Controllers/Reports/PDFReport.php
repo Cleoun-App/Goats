@@ -124,7 +124,7 @@ class PDFReport extends Controller
             } catch (\Throwable $th) {
 
                 $query = Event::distinct(["goat_id"])->where('type', '=', $event_type)->where('scope', '=', 'individual');
-                
+
                 $data['in_total'] = Goat::all()->count();
 
             }
@@ -138,7 +138,7 @@ class PDFReport extends Controller
 
                     $query = $query->where('data', 'LIKE', "{\"vaccine\": \"{$request->vaccine_name}\"}");
 
-                    $data['_event_type'] = $event_type . " (" . ($request?->vaccine_name ?? "All") .")" ;
+                    $data['_event_type'] = $event_type . " (" . ($request?->vaccine_name ?? "All") . ")" ;
                 }
 
             }
@@ -201,11 +201,36 @@ class PDFReport extends Controller
     {
 
         try {
+
             $user = get_user($request->username);
 
-            $milknotes = $user->milknote()->orderBy('date', 'DESC');
+            $goat_tag = $request->goat_tag;
 
-            $averageProductionByDate = $user->milknote()->selectRaw('DATE(date) as date')
+            $goat = get_goat($goat_tag, false);
+
+            if($goat instanceof Goat) {
+
+                $query = $goat->milknote();
+
+                $milknotes = $goat->milknote()->orderBy('date', 'DESC');
+
+                if($query->count() <= 0) {
+
+                    $query = $user->milknote();
+
+                    $milknotes = $user->milknote()->orderBy('date', 'DESC');
+
+                }
+
+            } else {
+
+                $query = $user->milknote();
+
+                $milknotes = $user->milknote()->orderBy('date', 'DESC');
+            }
+
+
+            $averageProductionByDate = $query->selectRaw('DATE(date) as date')
             ->selectRaw('SUM(produced) as summary_production')
             ->selectRaw('SUM(consumption) as summary_consumption')
             ->selectRaw('FLOOR(AVG(produced)) as average_production')

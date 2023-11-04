@@ -11,6 +11,7 @@ use App\Http\Livewire\Dashboard\AuthPage\RegistrationPage\RegistrationPage;
 use App\Http\Livewire\Dashboard\AuthPage\ResetPasswordPage\ResetPasswordPage;
 use App\Http\Livewire\Dashboard\EventPages\EventsTablePage\EventsTablePage;
 use App\Http\Livewire\Dashboard\EventPages\EventTypesTablePage\EventTypesTablePage;
+use App\Http\Livewire\Dashboard\GoatBreedPages\GoatBreedPages;
 use App\Http\Livewire\Dashboard\GoatPages\GoatsTablePage\GoatsTablePage;
 use App\Http\Livewire\Dashboard\MilknotePages\MilknoteTablePage\MilknoteTablePage;
 use App\Http\Livewire\Dashboard\UserPages\UserAccountPage\UserAccountPage;
@@ -63,6 +64,8 @@ Route::middleware(['auth', 'role:user|admin|supreme'])->group(function () {
     Route::get('/tabel/milknote', MilknoteTablePage::class)->name('ds.milknote.table');
     
     Route::get('/tabel/jenis/event', EventTypesTablePage::class)->name('ds.event.types.table');
+    
+    Route::get('/tabel/jenis/kaming', GoatBreedPages::class)->name('ds.goat.breeds.table');
 
     Route::get('/user/{username}/show', UserAccountPage::class)->name('ds.user.show');
 

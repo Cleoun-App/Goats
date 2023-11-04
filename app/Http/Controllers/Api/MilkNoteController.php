@@ -18,9 +18,9 @@ class MilkNoteController extends Controller
                 'date' => ['required', 'date'],
                 'type' => ['required', 'in:individual,bulk'],
                 'note' => ['min:3', 'max:250'],
-                'produced' => ['required', 'integer', 'between:1,999999'],
-                'consumption' => ['required', 'integer', 'between:1,999999'] ,
-                'goats_milked' => ['required', 'integer', 'between:1,99999'],
+                'produced' => ['required', 'integer', 'between:0,999999'],
+                'consumption' => ['required', 'integer', 'between:0,999999'] ,
+                'goats_milked' => ['required', 'integer', 'between:0,99999'],
                 'goat_tag' => ['string'],
             ]);
 
@@ -70,9 +70,9 @@ class MilkNoteController extends Controller
                 'date' => ['required', 'date'],
                 'type' => ['required', 'in:individual,bulk'],
                 'note' => ['min:3', 'max:250'],
-                'produced' => ['required', 'integer', 'between:1,999999'],
-                'consumption' => ['required', 'integer', 'between:1,999999'],
-                'goats_milked' => ['required', 'integer', 'between:1,99999'],
+                'produced' => ['required', 'integer', 'between:0,999999'],
+                'consumption' => ['required', 'integer', 'between:0,999999'],
+                'goats_milked' => ['required', 'integer', 'between:0,99999'],
                 'goat_tag' => ['string'],
             ]);
 

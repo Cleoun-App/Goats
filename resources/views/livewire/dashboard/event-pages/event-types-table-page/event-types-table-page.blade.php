@@ -9,7 +9,7 @@
             <!-- BEGIN: Modal Toggle -->
             <div class="text-center"> 
                 <a href="javascript:;" data-toggle="modal" data-target="#form-add-event"
-                    class="btn btn-primary">Tambahkan Jenis Event
+                    class="btn btn-primary">Tambah Peranakan
                 </a>
                 @livewire('dashboard.event-pages.event.components.event-form-dialog', [
                     'id_modal' => 'form-add-event', 
