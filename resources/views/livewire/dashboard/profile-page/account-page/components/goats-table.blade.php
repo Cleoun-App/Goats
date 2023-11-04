@@ -207,6 +207,9 @@
                                         <!-- END: Modal Body -->
                                         <!-- BEGIN: Modal Footer -->
                                         <div class="modal-footer text-right">
+                                            <a class="btn btn-outline-success mr-1" target="_blank_" href="{{ route('ds.report.preview.pdf', ['username' => $goat->user->username, 'report_model' => 'milk_notes', 'goat_tag' => $goat->tag]) }}">
+                                                <i data-feather="file-text" class="w-4 h-4 mr-2"></i> Laporan Susu
+                                            </a>
                                             <button type="button" data-dismiss="modal"
                                                 class="btn btn-outline-secondary w-20 mr-1">Tutup</button>
                                         </div>

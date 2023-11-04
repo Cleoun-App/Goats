@@ -255,6 +255,10 @@ class PDFReport extends Controller
             // ...
         }
 
+        if(count($milknotes) <= 0) {
+            return ResponseFormatter::error([], 'Data susu tidak ditemukan!');
+        }
+
 
         $pdf = Pdf::loadView("components.reports.milknotes-layout", [
             'milknotes' => $milknotes,
