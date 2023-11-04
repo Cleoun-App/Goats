@@ -17,6 +17,7 @@ class Goat extends Model
      * @var array
      */
     protected $casts = [
+        'tag' => 'string',
         'weight' => 'integer',
         'birth_date' => 'datetime',
         'date_in' => 'datetime',

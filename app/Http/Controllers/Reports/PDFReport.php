@@ -214,13 +214,6 @@ class PDFReport extends Controller
 
                 $milknotes = $goat->milknote()->orderBy('date', 'DESC');
 
-                if($query->count() <= 0) {
-
-                    $query = $user->milknote();
-
-                    $milknotes = $user->milknote()->orderBy('date', 'DESC');
-
-                }
 
             } else {
 
@@ -229,6 +222,9 @@ class PDFReport extends Controller
                 $milknotes = $user->milknote()->orderBy('date', 'DESC');
             }
 
+            if($milknotes->count() <= 0) {
+                return ResponseFormatter::error([], 'Data susu tidak ditemukan!');
+            }
 
             $averageProductionByDate = $query->selectRaw('DATE(date) as date')
             ->selectRaw('SUM(produced) as summary_production')
@@ -255,9 +251,6 @@ class PDFReport extends Controller
             // ...
         }
 
-        if($milknotes->count() <= 0) {
-            return ResponseFormatter::error([], 'Data susu tidak ditemukan!');
-        }
 
 
         $pdf = Pdf::loadView("components.reports.milknotes-layout", [
