@@ -255,7 +255,7 @@ class PDFReport extends Controller
             // ...
         }
 
-        if(count($milknotes) <= 0) {
+        if($milknotes->count() <= 0) {
             return ResponseFormatter::error([], 'Data susu tidak ditemukan!');
         }
 
