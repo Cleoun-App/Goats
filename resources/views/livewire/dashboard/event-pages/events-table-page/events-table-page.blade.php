@@ -151,11 +151,15 @@
                                                 <input type="text" class="form-control"
                                                     value="{{ $event->scope ?? '-' }}" disabled>
                                             </div>
-                                            <div class="col-span-12 sm:col-span-6">
-                                                <label class="form-label">~Kambing</label>
-                                                <input type="text" class="form-control"
-                                                    value="{{ $event->goat?->name ?? '-' }}" disabled>
-                                            </div>
+
+                                            @if($event->goat instanceof \App\Models\Goat)
+                                                <div class="col-span-12 sm:col-span-6">
+                                                    <label class="form-label">~Kambing</label>
+                                                    <input type="text" class="form-control"
+                                                        value="{{ $event->goat?->name ?? '-' }}" disabled>
+                                                </div>
+                                            @endif
+
                                             <div class="col-span-12">
                                                 <label class="form-label">Catatan Farmer</label>
                                                 <textarea class="form-control" width="100%" rows="5">{{ $event->note }}</textarea>
