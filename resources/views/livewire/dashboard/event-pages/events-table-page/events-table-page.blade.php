@@ -105,7 +105,6 @@
                                         <a style="color: #6262e4; text-decoration: underline;"
                                         href="{{ route('ds.user.show', [$event->user->username]) }}">{{ '@' . $event->user->username }}</a>
                                     @endif
-                                    <a href="#">Unknown</a>
                                 </td>
                                 <td class="border-b dark:border-dark-5">
                                     <a class="btn btn-sm btn-primary" href="javacript:void(0)" data-toggle="modal"

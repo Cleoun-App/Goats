@@ -94,7 +94,7 @@
                             <tr>
                                 <td class="border-b dark:border-dark-5">{{ $loop->index + 1 }}</td>
                                 <td class="border-b dark:border-dark-5">{{ $milk->type }}</td>
-                                <td class="border-b dark:border-dark-5">{{ \Str::limit($milk->note, 20, '...') }}</td>
+                                <td class="border-b dark:border-dark-5">{{ \Str::limit($milk->note ?? "-", 20, '...') }}</td>
                                 <td class="border-b dark:border-dark-5">{{ $milk->produced ?? '-' }}</td>
                                 <td class="border-b dark:border-dark-5">{{ $milk->consumption ?? '-' }}</td>
                                 <td class="border-b dark:border-dark-5">
