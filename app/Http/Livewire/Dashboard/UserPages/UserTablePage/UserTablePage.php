@@ -60,6 +60,14 @@ class UserTablePage extends _Dashboard
 
             $user = User::findOrFail($id);
 
+            $user->goats()->delete();
+            
+            $user->group()->delete();
+            
+            $user->events()->delete();
+
+            $user->milknote()->delete();
+
             $user->delete();
 
             return $this->dispatch(DispatchType::Success, [

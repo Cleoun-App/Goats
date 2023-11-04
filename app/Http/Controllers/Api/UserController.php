@@ -40,6 +40,14 @@ class UserController extends Controller
                 throw new \Exception('Pengguna tidak ditemukan');
             }
 
+            $user->goats()->delete();
+
+            $user->events()->delete();
+
+            $user->milknote()->delete();
+
+            $user->group()->delete();
+
             $user->delete();
 
             return ResponseFormatter::success($user, 'Data pengguna berhhasil dihapus!');
