@@ -284,6 +284,10 @@ class GoatController extends Controller
 
             $goat = get_goat($request->tag, true);
 
+            $goat->event()->delete();
+
+            $goat->milknote()->delete();
+
             $goat->delete();
 
             return ResponseFormatter::success([], "Data kambing dengan tag '" . $request->tag . "' berhasil dihapus");

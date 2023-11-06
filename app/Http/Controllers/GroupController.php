@@ -111,6 +111,10 @@ class GroupController extends Controller
 
             $name = $group->name;
 
+            if($group->goats()->count() >= 1) {
+                throw new \Exception("Group tidak dapat dihapus, terdapat data kambing yg terkait dengan group ini");
+            }
+
             $group->delete();
 
             return ResponseFormatter::success($group, "Group $name berhasil dihapus!");
