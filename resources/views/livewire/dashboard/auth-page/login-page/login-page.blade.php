@@ -13,6 +13,7 @@
                     Selamat Datang!
                     <br>
                     <span class="text-3xl">Diaplikasi Goat Management Untuk Tubes System Terintegrasi.</span>
+                    <br>
                     <span class="text-3xl">Kelompok 6</span>
                 </div>
             </div>
